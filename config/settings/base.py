@@ -70,11 +70,12 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "django_celery_beat",
+    "admin_ordering",
 ]
 
 LOCAL_APPS = [
     "zoom_trivia.users.apps.UsersConfig",
-    # Your stuff: custom apps go here
+    "zoom_trivia.games.apps.GamesConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
