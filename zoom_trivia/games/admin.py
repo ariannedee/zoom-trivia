@@ -11,9 +11,8 @@ class RoundInline(OrderableAdmin, admin.TabularInline):
     model = Round
     extra = 0
     show_change_link = True
-    ordering_field = "ordering"
     readonly_fields = ["num_questions", "current", "complete"]
-    fields = ["ordering", "name", "num_questions", "state", "current", "complete"]
+    fields = ["number", "name", "num_questions", "state", "current", "complete"]
 
 
 @admin.register(Game)
@@ -37,21 +36,19 @@ class QuestionInline(OrderableAdmin, admin.StackedInline):
     model = Question
     extra = 0
     show_change_link = True
-    ordering_field = "ordering"
 
 
 @admin.register(Round)
 class RoundAdmin(admin.ModelAdmin):
     list_display = [
         "game",
-        "ordering",
+        "number",
         "name",
         "num_questions",
         "num_points",
         "complete",
     ]
     inlines = (QuestionInline,)
-    readonly_fields = ["ordering"]
 
     def num_questions(self, obj):
         return obj.questions.count()
