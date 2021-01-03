@@ -8,56 +8,152 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Game',
+            name="Game",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, editable=False, verbose_name='created')),
-                ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, editable=False, verbose_name='modified')),
-                ('name', models.CharField(max_length=50)),
-                ('start_time', models.DateTimeField(blank=True, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created",
+                    model_utils.fields.AutoCreatedField(
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="created",
+                    ),
+                ),
+                (
+                    "modified",
+                    model_utils.fields.AutoLastModifiedField(
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="modified",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50)),
+                ("start_time", models.DateTimeField(blank=True, null=True)),
             ],
             options={
-                'ordering': ('start_time',),
+                "ordering": ("start_time",),
             },
         ),
         migrations.CreateModel(
-            name='Round',
+            name="Round",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('ordering', models.PositiveIntegerField(default=0, verbose_name='ordering')),
-                ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, editable=False, verbose_name='created')),
-                ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, editable=False, verbose_name='modified')),
-                ('current', models.BooleanField(default=False)),
-                ('state', models.IntegerField(choices=[(0, 'Not started'), (1, 'View questions'), (2, 'Answer'), (3, 'Marked')], default=0)),
-                ('name', models.CharField(max_length=60)),
-                ('complete', models.BooleanField(default=False)),
-                ('game', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='rounds', to='games.Game')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "ordering",
+                    models.PositiveIntegerField(default=0, verbose_name="ordering"),
+                ),
+                (
+                    "created",
+                    model_utils.fields.AutoCreatedField(
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="created",
+                    ),
+                ),
+                (
+                    "modified",
+                    model_utils.fields.AutoLastModifiedField(
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="modified",
+                    ),
+                ),
+                ("current", models.BooleanField(default=False)),
+                (
+                    "state",
+                    models.IntegerField(
+                        choices=[
+                            (0, "Not started"),
+                            (1, "View questions"),
+                            (2, "Answer"),
+                            (3, "Marked"),
+                        ],
+                        default=0,
+                    ),
+                ),
+                ("name", models.CharField(max_length=60)),
+                ("complete", models.BooleanField(default=False)),
+                (
+                    "game",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="rounds",
+                        to="games.Game",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['ordering'],
-                'abstract': False,
+                "ordering": ["ordering"],
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Question',
+            name="Question",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('ordering', models.PositiveIntegerField(default=0, verbose_name='ordering')),
-                ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, editable=False, verbose_name='created')),
-                ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, editable=False, verbose_name='modified')),
-                ('text', models.CharField(max_length=150)),
-                ('out_of', models.IntegerField(default=1)),
-                ('answer', models.CharField(max_length=300)),
-                ('round', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='questions', to='games.Round')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "ordering",
+                    models.PositiveIntegerField(default=0, verbose_name="ordering"),
+                ),
+                (
+                    "created",
+                    model_utils.fields.AutoCreatedField(
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="created",
+                    ),
+                ),
+                (
+                    "modified",
+                    model_utils.fields.AutoLastModifiedField(
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="modified",
+                    ),
+                ),
+                ("text", models.CharField(max_length=150)),
+                ("out_of", models.IntegerField(default=1)),
+                ("answer", models.CharField(max_length=300)),
+                (
+                    "round",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="questions",
+                        to="games.Round",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['ordering'],
-                'abstract': False,
+                "ordering": ["ordering"],
+                "abstract": False,
             },
         ),
     ]

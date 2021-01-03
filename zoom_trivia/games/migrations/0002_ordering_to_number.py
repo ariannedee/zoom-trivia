@@ -5,36 +5,36 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('games', '0001_initial'),
+        ("games", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='question',
-            options={'ordering': ['number']},
+            name="question",
+            options={"ordering": ["number"]},
         ),
         migrations.AlterModelOptions(
-            name='round',
-            options={'ordering': ['number']},
+            name="round",
+            options={"ordering": ["number"]},
         ),
         migrations.RenameField(
-            model_name='question',
-            old_name='ordering',
-            new_name='number',
+            model_name="question",
+            old_name="ordering",
+            new_name="number",
         ),
         migrations.RenameField(
-            model_name='round',
-            old_name='ordering',
-            new_name='number',
+            model_name="round",
+            old_name="ordering",
+            new_name="number",
         ),
         migrations.AlterField(
-            model_name='question',
-            name='number',
-            field=models.PositiveIntegerField(default=0, verbose_name='number'),
+            model_name="question",
+            name="number",
+            field=models.PositiveIntegerField(default=0, verbose_name="number"),
         ),
         migrations.AlterField(
-            model_name='round',
-            name='number',
-            field=models.PositiveIntegerField(default=0, verbose_name='number'),
+            model_name="round",
+            name="number",
+            field=models.PositiveIntegerField(default=0, verbose_name="number"),
         ),
     ]

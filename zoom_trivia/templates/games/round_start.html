@@ -1,0 +1,7 @@
+{% extends 'games/round_base.html' %}
+
+{% block content %}
+  <h1>{{ round.name }}</h1>
+
+  <a href="{% url 'games:round' round.id %}"> > </a>
+{% endblock content %}

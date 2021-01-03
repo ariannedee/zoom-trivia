@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ game.name }}</h1>
+
+  <ol>
+    {% for round in game.rounds.all %}
+      <li>{{ round.name }} - <a href="{% url 'games:start_round' round.id %}">Play round</a></li>
+    {% endfor %}
+  </ol>
+{% endblock content %}
