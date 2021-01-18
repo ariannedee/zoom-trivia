@@ -5,7 +5,7 @@
 
   <ol>
     {% for round in game.rounds.all %}
-      <li>{{ round.name }} - <a href="{% url 'games:start_round' round.id %}">Play round</a></li>
+      <li>{{ round.name }} - <a href="{% url 'games:start_round' game.id round.number %}">Play round</a></li>
     {% endfor %}
   </ol>
 {% endblock content %}

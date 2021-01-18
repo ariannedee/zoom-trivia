@@ -1,7 +1,10 @@
 {% extends 'games/round_base.html' %}
 
+{% block class %}round-start{% endblock %}
+
 {% block content %}
+  <h2>Round {{ round.number }}</h2>
   <h1>{{ round.name }}</h1>
 
-  <a href="{% url 'games:round' round.id %}"> > </a>
+  <a class="button align-self-end" href="{% url 'games:question' round.game.id round.number 1 %}">Start</a>
 {% endblock content %}
