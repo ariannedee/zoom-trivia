@@ -46,6 +46,7 @@ class Round(OrderableModel, TimeStampedModel):
 class Question(OrderableModel, TimeStampedModel):
     round = models.ForeignKey(Round, related_name="questions", on_delete=models.CASCADE)
     text = models.CharField(max_length=150)
+    details = models.TextField(null=True, blank=True)
     out_of = models.IntegerField(default=1)
     answer = models.CharField(max_length=300)
 
