@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from zoom_trivia.games.models import Game, Question
 
 
-def game_index(request, game_id):
+def game_index(request, game_id=1):
     game = get_object_or_404(Game, pk=game_id)
     context = {"game": game}
     return render(request, "games/index.html", context=context)
