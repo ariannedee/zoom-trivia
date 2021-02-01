@@ -76,6 +76,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "zoom_trivia.users.apps.UsersConfig",
     "zoom_trivia.games.apps.GamesConfig",
+    "zoom_trivia.teams.apps.TeamsConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

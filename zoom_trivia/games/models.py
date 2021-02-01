@@ -8,10 +8,10 @@ class Game(TimeStampedModel):
     start_time = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return f"Game: {self.name} ({self.id})"
+        return f"Game {self.pk}: {self.name}"
 
     def __repr__(self):
-        return f"Game {self.pk}: {self.name} ({self.id})"
+        return f"Game {self.pk}: {self.name}"
 
     class Meta:
         ordering = ("start_time",)
