@@ -1,6 +1,11 @@
+import json
+
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_POST
 
 from zoom_trivia.games.models import Game, Question
+from zoom_trivia.teams.models import TeamAnswer
 
 
 def game_index(request, game_id=1):
@@ -43,3 +48,14 @@ def end_round(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
     _round = game.rounds.get(number=round_num)
     return redirect("games:answer", game_id, round_num, 1)
+
+
+@require_POST
+def score(request):
+    body = json.loads(request.body)
+    answer_id = body['answer']
+    points = body['points']
+    answer = get_object_or_404(TeamAnswer, pk=answer_id)
+    answer.points = points
+    answer.save()
+    return HttpResponse('ok')

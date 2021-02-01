@@ -16,6 +16,35 @@
         <p>{{ question.details|linebreaks }}</p>
       {% endif %}
       <p>Out of {{ question.out_of }}</p>
+      <table>
+        <tr>
+          <th>Team</th>
+          <th>Answer</th>
+          <th>Points</th>
+        </tr>
+        {% for answer in question.answers.all %}
+          <tr>
+            <td>
+              {{ answer.team }}
+            </td>
+            <td>
+              {{ answer.answer }}
+            </td>
+            <td>
+              <button
+                      class="points{% if answer.points == 0 %} active{% endif %}"
+                      onclick="score(this, {{ answer.id }}, 0)">
+                0
+              </button>
+              <button
+                      class="points{% if answer.points == 1 %} active{% endif %}"
+                      onclick="score(this, {{ answer.id }}, 1)">
+                1
+              </button>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
     </div>
   {% endfor %}
   <a class="button"

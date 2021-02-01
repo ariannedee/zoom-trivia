@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, editable=False, verbose_name='modified')),
                 ('answer', models.CharField(max_length=255)),
                 ('submitted', models.BooleanField(default=False)),
-                ('points', models.FloatField(null=True)),
+                ('points', models.FloatField(null=True, blank=True)),
                 ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='answers', to='games.Question')),
                 ('team', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='answers', to='teams.Team')),
             ],

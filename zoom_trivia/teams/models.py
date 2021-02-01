@@ -19,7 +19,7 @@ class TeamAnswer(TimeStampedModel):
     question = models.ForeignKey('games.Question', on_delete=models.CASCADE, related_name='answers')
     answer = models.CharField(max_length=255)
     submitted = models.BooleanField(default=False)
-    points = models.FloatField(null=True)
+    points = models.FloatField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.team}: {self.answer}"

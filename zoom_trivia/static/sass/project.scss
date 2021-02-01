@@ -13,6 +13,7 @@
 $white: #fff;
 $mint-green: #d6e9c6;
 $black: #000;
+$blue: #007bff;
 $pink: #f2dede;
 $dark-pink: #eed3d7;
 $red: #b94a48;
@@ -64,7 +65,7 @@ div.card {
   min-height: 80vh;
 }
 
-a.button {
+a.button, button {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   border-radius: 2px;
   font-size: 14px;
@@ -77,11 +78,16 @@ a.button {
   background-color: white;
   text-shadow: none;
   position: relative;
+  color: $blue;
   &[disabled] {
     background-color: rgba(0, 0, 0, 0.12) !important;
     color: rgba(0, 0, 0, 0.25) !important;
     box-shadow: none !important;
     cursor: default;
+  }
+  &.active {
+    background-color: $blue;
+    color: white;
   }
 }
 

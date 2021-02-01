@@ -1,6 +1,14 @@
 from django.urls import path
 
-from .views import answer_view, end_round, game_index, mark, question_view, start_round
+from .views import (
+    answer_view,
+    end_round,
+    game_index,
+    mark,
+    question_view,
+    score,
+    start_round,
+)
 
 app_name = "games"
 urlpatterns = [
@@ -21,4 +29,5 @@ urlpatterns = [
         view=answer_view,
         name="answer",
     ),
+    path('score', view=score, name='score')
 ]
