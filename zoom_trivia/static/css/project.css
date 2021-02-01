@@ -28,11 +28,13 @@ div.card {
   border-radius: 2px;
   background-color: white;
   -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  min-height: 80vh; }
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
   div.card > * {
     margin-top: 10px;
     margin-bottom: 10px; }
+
+.full-size {
+  min-height: 80vh; }
 
 a.button {
   -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
@@ -91,3 +93,12 @@ a.button:hover {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between; }
+
+.mark-round h1 {
+  font-size: 24px;
+  font-size: 1.5rem; }
+
+.mark-round h2 {
+  font-size: 24px;
+  font-size: 1.5rem;
+  font-family: "Comfortaa", sans-serif; }

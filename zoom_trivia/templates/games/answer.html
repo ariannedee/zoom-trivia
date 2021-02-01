@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="card">
+<div class="card full-size">
   <h2>Round {{ round.number }} - {{ round.name }}</h2>
 
   <div>
@@ -15,17 +15,19 @@
     <p>{{ question.details|linebreaks }}</p>
   {% endif %}
   <p>Out of {{ question.out_of }}</p>
+  <h3>Answer</h3>
+  {{ question.answer }}
   <div class="buttons">
 
     <a class="button"
-       href="{% url 'games:question' round.game.id round.number question.number|add:"-1" %}"
+       href="{% url 'games:answer' round.game.id round.number question.number|add:"-1" %}"
        {% if question.number <= 1 %}disabled{% endif %}
     >Previous</a>
     {% if round.questions.count == question.number %}
-      <a class="button" href="">Mark</a>
+      <a class="button" href="{% url 'games:home' %}">Lobby</a>
     {% endif %}
     <a class="button"
-       href="{% url 'games:question' round.game.id round.number question.number|add:"1" %}"
+       href="{% url 'games:answer' round.game.id round.number question.number|add:"1" %}"
        {% if question.number >= round.questions.count %}disabled{% endif %}
     >Next</a>
   </div>
