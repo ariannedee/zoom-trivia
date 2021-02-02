@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+  {% csrf_token %}
   <h2>Round {{ round.number }} - {{ round.name }}</h2>
 
   {% for question in round.questions.all %}
