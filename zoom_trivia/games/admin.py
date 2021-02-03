@@ -12,7 +12,7 @@ class RoundInline(OrderableAdmin, admin.TabularInline):
     extra = 0
     show_change_link = True
     readonly_fields = ["num_questions", "current", "complete"]
-    fields = ["number", "name", "num_questions", "state", "current", "complete"]
+    fields = ["number", "name", "num_questions", "current", "complete"]
 
 
 @admin.register(Game)

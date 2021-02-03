@@ -18,8 +18,8 @@ $pink: #f2dede;
 $dark-pink: #eed3d7;
 $red: #b94a48;
 
-$primary-color: #e94573;
-$secondary-color: #58dd98;
+$primary: #e94573;
+$secondary: #2580ef;
 
 ////////////////////////////////
 		//Alerts//
@@ -40,6 +40,41 @@ $secondary-color: #58dd98;
   color: $red;
 }
 
+////////////////////////////////
+//Extend bootstrap//
+////////////////////////////////
+
+.navbar {
+  min-height: 60px;
+  line-height: 40px;
+  padding: 0 36px 0 72px;
+  font-size: 20px;
+  font-weight: 500;
+  color: white;
+  background-color: $primary;
+  z-index: 1;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.20);
+}
+
+.navbar-brand {
+  font-family: "Comfortaa", sans-serif;
+}
+
+.nav-link {
+  font-size: 1rem;
+}
+
+a {
+  color: $secondary;
+  &:hover {
+    color: darken($secondary, 15);
+  }
+}
+
+////////////////////////////////
+//Layouts//
+////////////////////////////////
+
 .bg-base {
   background-color: #fafafa;
 }
@@ -58,6 +93,7 @@ div.card {
   border-radius: 2px;
   background-color: white;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+
   > * {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -65,38 +101,15 @@ div.card {
 }
 
 ////////////////////////////////
-//Extend bootstrap//
-////////////////////////////////
-
-.navbar {
-  min-height: 60px;
-  line-height: 40px;
-  padding: 0 36px 0 72px;
-  font-size: 20px;
-  font-weight: 500;
-  color: white;
-  background-color: $primary-color;
-  z-index: 1;
-  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.20);
-}
-
-.navbar-brand {
-  font-family: "Comfortaa", sans-serif;
-}
-
-.nav-link {
-  font-size: 1rem;
-}
-
-////////////////////////////////
 //Buttons//
 ////////////////////////////////
 
-a.button, button {
+a.button, button.points {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   border-radius: 2px;
   font-size: 14px;
   font-weight: 500;
+  margin-right: 5px;
   padding: 8px 16px;
   min-height: calc(16px + 1.42857143em);
   text-transform: uppercase;
@@ -105,7 +118,7 @@ a.button, button {
   background-color: white;
   text-shadow: none;
   position: relative;
-  color: $primary-color;
+  color: $primary;
   &[disabled] {
     background-color: rgba(0, 0, 0, 0.12) !important;
     color: rgba(0, 0, 0, 0.25) !important;
@@ -113,13 +126,13 @@ a.button, button {
     cursor: default;
   }
   &.secondary {
-    color: $secondary-color;
+    color: $secondary;
   }
   &.active {
-    background-color: $primary-color;
+    background-color: $primary;
     color: white;
     &.secondary {
-      background-color: $secondary-color;
+      background-color: $secondary;
     }
   }
 }
@@ -131,6 +144,27 @@ a.button:hover {
 ////////////////////////////////
 //Sections//
 ////////////////////////////////
+.index {
+  h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-family: "Comfortaa", sans-serif;
+  }
+  h2 {
+    font-size: 1.5rem;
+    font-weight: normal;
+  }
+  table {
+    border: 1px solid #EEE;
+    border-radius: 10px;
+    td {
+      padding: 12px 10px;
+    }
+    tr:nth-child(even) {
+      background-color: #f8f8f8;
+    }
+  }
+}
 
 .round-start {
   min-height: 450px;

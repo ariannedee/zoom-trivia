@@ -21,8 +21,8 @@
        href="{% url 'games:question' round.game.id round.number question.number|add:"-1" %}"
        {% if question.number <= 1 %}disabled{% endif %}
     >Previous</a>
-    {% if round.questions.count == question.number %}
-      <a class="button" href="{% url 'games:mark' round.game.id round.number %}">Mark</a>
+    {% if round.game.current_round == round and round.questions.count == question.number %}
+      <a class="button" href="{% url 'games:start_marking' round.game.id round.number %}">Mark</a>
     {% endif %}
     <a class="button"
        href="{% url 'games:question' round.game.id round.number question.number|add:"1" %}"

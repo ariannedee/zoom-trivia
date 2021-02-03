@@ -1,11 +1,40 @@
 {% extends 'base.html' %}
 
-{% block content %}
-  <h1>{{ game.name }}</h1>
+{% block class %}
+  index
+{% endblock %}
 
-  <ol>
-    {% for round in game.rounds.all %}
-      <li>{{ round.name }} - <a href="{% url 'games:start_round' game.id round.number %}">Play round</a></li>
-    {% endfor %}
-  </ol>
+{% block content %}
+  <div class="card">
+    <h1>{{ game.name }}</h1>
+    <p>{{ game.start_time }}</p>
+  </div>
+  <div class="card">
+    <h2>Rounds</h2>
+    <table>
+      {% for round in game.rounds.all %}
+        <tr>
+        <td><strong>Round {{ round.number }}</strong></td>
+        <td>{{ round.name }}</td>
+        <td style="width: 200px" class="text-center">
+          {% if game.current_round == round %}
+            {% if game.round_state == 0 %}
+              <a class="button" href="{% url 'games:start_round' game.id round.number %}">Start round</a>
+            {% elif game.round_state == 1 %}
+              <a class="button" href="{% url 'games:start_round' game.id round.number %}">View questions</a>
+            {% elif game.round_state == 2 %}
+              <a class="button" href="{% url 'games:mark' game.id round.number %}">Go to marking</a>
+            {% elif game.round_state == 3 %}
+              <a class="button" href="{% url 'games:answer' game.id round.number 1 %}">Show answers</a>
+            {% endif %}
+          {% elif game.current_round and game.current_round.number > round.number %}
+            <a class="button" href="{% url 'games:answer' game.id round.number 1 %}">View answers</a>
+          {% elif not games.current_round and round.number == 1 %}
+            <a class="button" href="{% url 'games:start_round' game.id round.number %}">Start round</a>
+          {% endif %}
+        </td>
+      {% endfor %}
+    </table>
+  </div>
+
 {% endblock content %}
