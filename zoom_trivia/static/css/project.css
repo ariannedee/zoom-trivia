@@ -57,7 +57,7 @@ div.card {
     margin-top: 10px;
     margin-bottom: 10px; }
 
-a.button, button.points {
+a.button, button.points, input[type="submit"] {
   -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
           box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   border-radius: 2px;
@@ -73,18 +73,18 @@ a.button, button.points {
   text-shadow: none;
   position: relative;
   color: #e94573; }
-  a.button[disabled], button.points[disabled] {
+  a.button[disabled], button.points[disabled], input[type="submit"][disabled] {
     background-color: rgba(0, 0, 0, 0.12) !important;
     color: rgba(0, 0, 0, 0.25) !important;
     -webkit-box-shadow: none !important;
             box-shadow: none !important;
     cursor: default; }
-  a.button.secondary, button.points.secondary {
+  a.button.secondary, button.points.secondary, input[type="submit"].secondary {
     color: #2580ef; }
-  a.button.active, button.points.active {
+  a.button.active, button.points.active, input[type="submit"].active {
     background-color: #e94573;
     color: white; }
-    a.button.active.secondary, button.points.active.secondary {
+    a.button.active.secondary, button.points.active.secondary, input[type="submit"].active.secondary {
       background-color: #2580ef; }
 
 a.button:hover {
@@ -159,5 +159,25 @@ a.lobby-link {
   font-size: 1.5rem;
   font-family: "Comfortaa", sans-serif; }
 
+.player-answer h1 {
+  font-size: 24px;
+  font-size: 1.5rem; }
+
+.player-answer label {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 80px;
+          flex: 0 0 80px; }
+
+.player-answer input[type="text"], .player-answer textarea {
+  width: 100%; }
+
 .full-size {
   min-height: 80vh; }
+
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+.margin-left {
+  margin-left: 28px; }

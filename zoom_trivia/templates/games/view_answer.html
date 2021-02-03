@@ -24,7 +24,11 @@
        {% if question.number <= 1 %}disabled{% endif %}
     >Previous</a>
     {% if round.questions.count == question.number %}
-      <a class="button" href="{% url 'games:home' %}">Lobby</a>
+      {% if request.user.is_authenticated and round == round.game.current_round %}
+        <a class="button" href="{% url 'games:end_round' round.game.id round.number %}">Lobby</a>
+      {% else %}
+        <a class="button" href="{% url 'games:home' %}">Lobby</a>
+      {% endif %}
     {% endif %}
     <a class="button"
        href="{% url 'games:answer' round.game.id round.number question.number|add:"1" %}"

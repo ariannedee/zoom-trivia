@@ -3,6 +3,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from model_utils.models import TimeStampedModel
 
+from zoom_trivia.teams.models import TeamAnswer
+
 ROUND_STATE = (
     (0, "Not started"),
     (1, "View questions"),
@@ -101,6 +103,9 @@ class Round(OrderableModel, TimeStampedModel):
     @property
     def current(self):
         return self.game.current_round == self
+
+    def get_team_answers(self, team_id):
+        return TeamAnswer.objects.filter(question__round=self, team_id=team_id).order_by('question__number')
 
     def __str__(self):
         return f"Round: {self.name}"

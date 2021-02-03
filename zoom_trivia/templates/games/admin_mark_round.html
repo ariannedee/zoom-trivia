@@ -49,6 +49,6 @@
     </div>
   {% endfor %}
   <a class="button"
-     href="{% url 'games:end_round' round.game.id round.number %}"
+     href="{% url 'games:end_marking' round.game.id round.number %}"
   >Done marking</a>
 {% endblock content %}

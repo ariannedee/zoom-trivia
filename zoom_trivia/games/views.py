@@ -48,6 +48,13 @@ def marking_view(request, game_id, round_num):
     return render(request, "games/admin_mark_round.html", context=context)
 
 
+def player_answers(request, game_id, round_num):
+    game = get_object_or_404(Game, pk=game_id)
+    _round = game.rounds.get(number=round_num)
+    context = {"round": _round}
+    return render(request, "games/player_answer_round.html", context=context)
+
+
 # ===================
 # CHANGE STATE VIEWS
 # ===================
@@ -93,6 +100,24 @@ def end_round(request, game_id, round_num):
 # ===================
 # API VIEWS
 # ===================
+@require_POST
+def submit_answers(request, game_id, round_num):
+    game = get_object_or_404(Game, pk=game_id)
+    _round = game.rounds.get(number=round_num)
+    team_id = request.POST.get('team')
+    for question in _round.questions.all():
+        team_answer, created = TeamAnswer.objects.get_or_create(team_id=team_id, question=question)
+        answer = request.POST.get(str(question.pk))
+        if not answer:
+            messages.add_message(request, messages.WARNING, f'No answer submitted for question {question.number}')
+        else:
+            team_answer.answer = answer
+            team_answer.submitted = True
+            team_answer.save()
+    context = {"round": _round, "answers": {answer.question.pk: answer.answer for answer in _round.get_team_answers(team_id)}}
+    print(context)
+    return render(request, "games/player_answer_round.html", context=context)
+
 
 @require_POST
 def score(request):
