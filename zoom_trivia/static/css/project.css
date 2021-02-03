@@ -90,6 +90,13 @@ a.button, button.points {
 a.button:hover {
   text-decoration: none; }
 
+a.lobby-link {
+  float: left;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  color: #e94573; }
+
 .index h1 {
   margin: 0;
   font-size: 32px;

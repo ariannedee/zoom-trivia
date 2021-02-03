@@ -144,6 +144,14 @@ a.button:hover {
 ////////////////////////////////
 //Sections//
 ////////////////////////////////
+a.lobby-link {
+  float: left;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  color: $primary;
+}
+
 .index {
   h1 {
     margin: 0;
