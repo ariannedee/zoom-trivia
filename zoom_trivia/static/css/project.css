@@ -79,6 +79,9 @@ a.button, button.points, input[type="submit"] {
     -webkit-box-shadow: none !important;
             box-shadow: none !important;
     cursor: default; }
+  a.button.primary, button.points.primary, input[type="submit"].primary {
+    background-color: #e94573;
+    color: white; }
   a.button.secondary, button.points.secondary, input[type="submit"].secondary {
     color: #2580ef; }
   a.button.active, button.points.active, input[type="submit"].active {

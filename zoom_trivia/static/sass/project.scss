@@ -125,6 +125,10 @@ a.button, button.points, input[type="submit"] {
     box-shadow: none !important;
     cursor: default;
   }
+  &.primary {
+    background-color: $primary;
+    color: white;
+  }
   &.secondary {
     color: $secondary;
   }
