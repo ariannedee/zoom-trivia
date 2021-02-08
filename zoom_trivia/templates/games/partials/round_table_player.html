@@ -3,6 +3,7 @@
     <tr>
     <td><strong>Round {{ round.number }}</strong></td>
     <td>{{ round.name }}</td>
+    <td>{{ round.questions.count }} questions</td>
     <td style="width: 200px" class="text-center">
       {% if game.current_round == round %}
         {% if game.round_state == 0 %}
