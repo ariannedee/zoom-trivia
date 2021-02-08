@@ -6,10 +6,6 @@
 
 {% block content %}
   <div class="card">
-    <h1>{{ game.name }}</h1>
-    <p>{{ game.start_time }}</p>
-  </div>
-  <div class="card">
     <h2>Rounds</h2>
     {% if request.user.is_authenticated %}
       {% include "games/partials/round_table_admin.html" %}
@@ -26,10 +22,10 @@
           <th>Team name</th>
           <th>Score</th>
         </tr>
-        {% for team in game.teams.all %}
+        {% for team_ in game.teams.all %}
           <tr>
-            <td>{{ team.name }}</td>
-            <td>{{ team.score }}</td>
+            <td {% if team %}class="player-team"{% endif %}>{{ team_.name }}</td>
+            <td>{{ team_.score }}</td>
           </tr>
         {% endfor %}
       </table>

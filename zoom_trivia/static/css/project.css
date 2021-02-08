@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .alert-debug {
   background-color: #fff;
   border-color: #d6e9c6;
@@ -20,9 +21,21 @@
   -webkit-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
           box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2); }
 
+.navbar {
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  padding-top: 5px; }
+
 .navbar-brand {
-  font-size: 24px;
-  font-size: 1.5rem; }
+  font-size: 32px;
+  font-size: 2rem;
+  font-family: "Dancing Script", cursive; }
+
+.navbar-description {
+  margin-left: 20px;
+  font-size: 17.6px;
+  font-size: 1.1rem; }
 
 .nav-link {
   font-size: 16px;
@@ -48,7 +61,8 @@ div.card {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 40px 50px;
+  padding: 16px 32px;
+  padding: 1rem 2rem;
   overflow: hidden;
   border-radius: 2px;
   background-color: white;
@@ -102,12 +116,6 @@ a.lobby-link {
   left: 20px;
   color: #e94573; }
 
-.index h1 {
-  margin: 0;
-  font-size: 32px;
-  font-size: 2rem;
-  font-family: "Dancing Script", cursive; }
-
 .index h2 {
   font-size: 24px;
   font-size: 1.5rem;
@@ -122,6 +130,16 @@ a.lobby-link {
   border-radius: 10px; }
   .index table td, .index table th {
     padding: 12px 10px; }
+  .index table td.player-team {
+    font-weight: 600; }
+    .index table td.player-team::before {
+      content: "⭑";
+      display: inline-block;
+      padding-right: 8px;
+      vertical-align: baseline;
+      font-size: 24px;
+      font-size: 1.5rem;
+      color: #e94573; }
   .index table tr:nth-child(even) {
     background-color: #f8f8f8; }
 

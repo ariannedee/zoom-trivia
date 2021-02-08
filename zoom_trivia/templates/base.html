@@ -42,7 +42,8 @@
               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="{% url 'games:home' %}">Zoom Trivia</a>
+      <a class="navbar-brand" href="{% url 'games:home' %}">{{ game.name }}</a>
+      <div class="navbar-description">{{ game.start_time }}</div>
 
       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="navbar-nav">

@@ -53,8 +53,19 @@ $fancy-font: "Dancing Script", cursive;
   box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.20);
 }
 
+.navbar {
+  align-items: baseline;
+  padding-top: 5px;
+}
+
 .navbar-brand {
-  font-size: 1.5rem;
+  font-size: 2rem;
+  font-family: $fancy-font;
+}
+
+.navbar-description {
+  margin-left: 20px;
+  font-size: 1.1rem;
 }
 
 .nav-link {
@@ -86,7 +97,7 @@ div.card {
   margin: 6vh auto;
   display: flex;
   justify-content: space-between;
-  padding: 40px 50px;
+  padding: 1rem 2rem;
   overflow: hidden;
   border-radius: 2px;
   background-color: white;
@@ -160,12 +171,6 @@ a.lobby-link {
 }
 
 .index {
-  h1 {
-    margin: 0;
-    font-size: 2rem;
-    font-family: $fancy-font;
-  }
-
   h2 {
     font-size: 1.5rem;
     font-weight: normal;
@@ -174,12 +179,25 @@ a.lobby-link {
   h3 {
     font-size: 1.4rem;
   }
+
   table {
     border: 1px solid #EEE;
     border-radius: 10px;
 
     td, th {
       padding: 12px 10px;
+    }
+
+    td.player-team {
+      font-weight: 600;
+      &::before {
+        content: "⭑";
+        display: inline-block;
+        padding-right: 8px;
+        vertical-align: baseline;
+        font-size: 1.5rem;
+        color: $primary;
+      }
     }
 
     tr:nth-child(even) {
