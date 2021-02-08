@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
 from zoom_trivia.games.models import Game, Question
-from zoom_trivia.teams.models import TeamAnswer
+from zoom_trivia.teams.models import Team, TeamAnswer
 
 
 # ===================
@@ -15,6 +15,10 @@ from zoom_trivia.teams.models import TeamAnswer
 def game_index(request, game_id=1):
     game = get_object_or_404(Game, pk=game_id)
     context = {"game": game}
+    if request.user.is_anonymous:
+        team_id = request.session.get('team_id')
+        if team_id:
+            context['team'] = Team.objects.get(id=team_id)
     return render(request, "games/game_lobby.html", context=context)
 
 

@@ -61,7 +61,8 @@ a.button, button.points, input[type="submit"] {
   -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
           box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   border-radius: 2px;
-  font-size: 14px;
+  font-size: 14.4px;
+  font-size: 0.9rem;
   font-weight: 500;
   margin-right: 5px;
   padding: 8px 16px;
@@ -166,12 +167,12 @@ a.lobby-link {
   font-size: 24px;
   font-size: 1.5rem; }
 
-.player-answer label {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 80px;
-          flex: 0 0 80px; }
+form div.flex label {
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content; }
 
-.player-answer input[type="text"], .player-answer textarea {
+form div.flex input[type="text"], form div.flex textarea {
   width: 100%; }
 
 .full-size {
@@ -181,6 +182,25 @@ a.lobby-link {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex; }
+  .flex > * {
+    margin-left: 10px;
+    margin-right: 10px; }
+    .flex > *:first-child {
+      margin-left: 0; }
+    .flex > *:last-child {
+      margin-right: 0; }
 
 .margin-left {
   margin-left: 28px; }
+
+@media (max-width: 767px) {
+  html {
+    font-size: 12px; }
+  div.container {
+    margin: 2vh auto;
+    max-width: 98%; }
+  div.card {
+    margin: 2vh auto;
+    padding: 10px; }
+  .index table td {
+    padding: 3px; } }

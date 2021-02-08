@@ -18,4 +18,25 @@
     {% endif %}
   </div>
 
+  {% if not request.user.is_authenticated %}
+    <div class="card">
+      <h2>Team</h2>
+      {% if team %}
+        <div class="flex">
+          <h4>{{ team.name }}</h4>
+          <a class="button" href="{% url 'teams:leave_team' game.id %}">Leave team</a>
+        </div>
+      {% else %}
+        <form method="post" action="{% url 'teams:create_team' game.id %}">
+          {% csrf_token %}
+          <div class="flex">
+            <label for="team_name">Team name:</label>
+            <input type="text" id="id-team-name" name="team_name"/>
+            <input type="submit" value="Create team"/>
+          </div>
+        </form>
+      {% endif %}
+    </div>
+  {% endif %}
+
 {% endblock content %}

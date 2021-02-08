@@ -1,11 +1,7 @@
-
-
-
-
 // project specific CSS goes here
 
 ////////////////////////////////
-		//Variables//
+//Variables//
 ////////////////////////////////
 
 // Alert colors
@@ -22,7 +18,7 @@ $primary: #e94573;
 $secondary: #2580ef;
 
 ////////////////////////////////
-		//Alerts//
+//Alerts//
 ////////////////////////////////
 
 // bootstrap alert CSS, translated to the django-standard levels of
@@ -66,6 +62,7 @@ $secondary: #2580ef;
 
 a {
   color: $secondary;
+
   &:hover {
     color: darken($secondary, 15);
   }
@@ -107,7 +104,7 @@ div.card {
 a.button, button.points, input[type="submit"] {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   border-radius: 2px;
-  font-size: 14px;
+  font-size: 0.9rem;
   font-weight: 500;
   margin-right: 5px;
   padding: 8px 16px;
@@ -119,22 +116,27 @@ a.button, button.points, input[type="submit"] {
   text-shadow: none;
   position: relative;
   color: $primary;
+
   &[disabled] {
     background-color: rgba(0, 0, 0, 0.12) !important;
     color: rgba(0, 0, 0, 0.25) !important;
     box-shadow: none !important;
     cursor: default;
   }
+
   &.primary {
     background-color: $primary;
     color: white;
   }
+
   &.secondary {
     color: $secondary;
   }
+
   &.active {
     background-color: $primary;
     color: white;
+
     &.secondary {
       background-color: $secondary;
     }
@@ -162,16 +164,20 @@ a.lobby-link {
     font-size: 2rem;
     font-family: "Comfortaa", sans-serif;
   }
+
   h2 {
     font-size: 1.5rem;
     font-weight: normal;
   }
+
   table {
     border: 1px solid #EEE;
     border-radius: 10px;
+
     td {
       padding: 12px 10px;
     }
+
     tr:nth-child(even) {
       background-color: #f8f8f8;
     }
@@ -181,10 +187,12 @@ a.lobby-link {
 .round-start {
   min-height: 450px;
   text-align: center;
+
   h2 {
     font-size: 2rem;
     font-family: "Comfortaa", sans-serif;
   }
+
   h1 {
     margin-top: 50px;
     margin-bottom: 50px;
@@ -228,11 +236,21 @@ a.lobby-link {
   h1 {
     font-size: 1.5rem;
   }
-  label {
-    flex: 0 0 80px;
-  }
-  input[type="text"], textarea {
-    width: 100%;
+}
+
+
+////////////////////////////////
+//Forms//
+////////////////////////////////
+form {
+  div.flex {
+    label {
+      min-width: max-content;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+    }
   }
 }
 
@@ -246,8 +264,43 @@ a.lobby-link {
 
 .flex {
   display: flex;
+
+  > * {
+    margin-left: 10px;
+    margin-right: 10px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }
 
 .margin-left {
   margin-left: 28px;
+}
+
+@media (max-width: 767px) {
+  html {
+    font-size: 12px;
+  }
+  div.container {
+    margin: 2vh auto;
+    max-width: 98%;
+  }
+  div.card {
+    margin: 2vh auto;
+    padding: 10px;
+  }
+
+  .index {
+    table {
+      td {
+        padding: 3px;
+      }
+    }
+  }
 }

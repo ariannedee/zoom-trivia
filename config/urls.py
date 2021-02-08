@@ -14,6 +14,7 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path("users/", include("zoom_trivia.users.urls", namespace="users")),
+    path("teams/", include("zoom_trivia.teams.urls", namespace="teams")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
     path("", include("zoom_trivia.games.urls", namespace="games")),
