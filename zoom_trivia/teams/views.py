@@ -16,3 +16,8 @@ def create_team(request, game_id):
 def leave_team(request, game_id):
     del request.session['team_id']
     return redirect("games:game", game_id)
+
+
+def join_team(request, game_id, team_id):
+    request.session['team_id'] = team_id
+    return redirect("games:game", game_id)

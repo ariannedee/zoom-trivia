@@ -193,6 +193,9 @@ form div.flex input[type="text"], form div.flex textarea {
 .margin-left {
   margin-left: 28px; }
 
+.align-right {
+  text-align: right; }
+
 @media (max-width: 767px) {
   html {
     font-size: 12px; }

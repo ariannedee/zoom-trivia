@@ -20,18 +20,43 @@
 
   {% if not request.user.is_authenticated %}
     <div class="card">
-      <h2>Team</h2>
+      <h2>Teams</h2>
+      <table>
+        <tr>
+          <th>Team name</th>
+          <th>Score</th>
+        </tr>
+        {% for team in game.teams.all %}
+          <tr>
+            <td>{{ team.name }}</td>
+            <td>{{ team.score }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <div class="card">
+      <h2>Your Team</h2>
       {% if team %}
         <div class="flex">
           <h4>{{ team.name }}</h4>
           <a class="button" href="{% url 'teams:leave_team' game.id %}">Leave team</a>
         </div>
       {% else %}
+        <table>
+          {% for team in game.teams.all %}
+            <tr>
+              <td>{{ team.name }}</td>
+              <td class="align-right">
+                <a class="button" href="{% url 'teams:join_team' game.id team.id %}">Join team</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
         <form method="post" action="{% url 'teams:create_team' game.id %}">
           {% csrf_token %}
           <div class="flex">
-            <label for="team_name">Team name:</label>
-            <input type="text" id="id-team-name" name="team_name"/>
+            <label for="team_name">Create new team:</label>
+            <input type="text" id="id-team-name" name="team_name" placeholder="Team name"/>
             <input type="submit" value="Create team"/>
           </div>
         </form>
