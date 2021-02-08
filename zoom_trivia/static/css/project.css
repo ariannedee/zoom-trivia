@@ -21,7 +21,8 @@
           box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2); }
 
 .navbar-brand {
-  font-family: "Comfortaa", sans-serif; }
+  font-size: 24px;
+  font-size: 1.5rem; }
 
 .nav-link {
   font-size: 16px;
@@ -40,7 +41,7 @@ div.container {
   margin: 8vh auto; }
 
 div.card {
-  margin: 8vh auto;
+  margin: 6vh auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -105,17 +106,21 @@ a.lobby-link {
   margin: 0;
   font-size: 32px;
   font-size: 2rem;
-  font-family: "Comfortaa", sans-serif; }
+  font-family: "Dancing Script", cursive; }
 
 .index h2 {
   font-size: 24px;
   font-size: 1.5rem;
   font-weight: normal; }
 
+.index h3 {
+  font-size: 22.4px;
+  font-size: 1.4rem; }
+
 .index table {
   border: 1px solid #EEE;
   border-radius: 10px; }
-  .index table td {
+  .index table td, .index table th {
     padding: 12px 10px; }
   .index table tr:nth-child(even) {
     background-color: #f8f8f8; }
@@ -125,14 +130,13 @@ a.lobby-link {
   text-align: center; }
   .round-start h2 {
     font-size: 32px;
-    font-size: 2rem;
-    font-family: "Comfortaa", sans-serif; }
+    font-size: 2rem; }
   .round-start h1 {
     margin-top: 50px;
     margin-bottom: 50px;
     font-size: 112px;
     font-size: 7rem;
-    font-family: "Comfortaa", sans-serif; }
+    font-family: "Dancing Script", cursive; }
 
 .question {
   min-height: 450px;
@@ -143,7 +147,7 @@ a.lobby-link {
   .question h2 {
     font-size: 24px;
     font-size: 1.5rem;
-    font-family: "Comfortaa", sans-serif; }
+    font-family: "Dancing Script", cursive; }
 
 .buttons {
   display: -webkit-box;
@@ -161,9 +165,14 @@ a.lobby-link {
 .mark-round h2 {
   font-size: 24px;
   font-size: 1.5rem;
-  font-family: "Comfortaa", sans-serif; }
+  font-family: "Dancing Script", cursive; }
 
 .player-answer h1 {
+  font-size: 24px;
+  font-size: 1.5rem;
+  font-family: "Dancing Script", cursive; }
+
+.player-answer h2 {
   font-size: 24px;
   font-size: 1.5rem; }
 

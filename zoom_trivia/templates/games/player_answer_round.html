@@ -6,13 +6,13 @@
 
 {% block content %}
   {% load questions %}
-  <h2>Round {{ round.number }} - {{ round.name }}</h2>
+  <h1>Round {{ round.number }} - {{ round.name }}</h1>
   <form method="post" action="{% url 'games:submit_answers' round.game.id round.number %}">
     {% csrf_token %}
     <input hidden type="number" value="1" name="team">
     {% for question in round.questions.all %}
       <div class="card">
-        <h1>{{ question.number }}. {{ question.text }}</h1>
+        <h2>{{ question.number }}. {{ question.text }}</h2>
         <div class="margin-left">
           {% if question.details %}
             {{ question.details|linebreaks }}

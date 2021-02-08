@@ -38,7 +38,7 @@
       <h2>Your Team</h2>
       {% if team %}
         <div class="flex">
-          <h4>{{ team.name }}</h4>
+          <h3>{{ team.name }}</h3>
           <a class="button" href="{% url 'teams:leave_team' game.id %}">Leave team</a>
         </div>
       {% else %}
