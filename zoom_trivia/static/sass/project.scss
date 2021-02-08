@@ -78,11 +78,11 @@ a {
 
 div.container {
   max-width: 90%;
-  margin: 10vh auto;
+  margin: 8vh auto;
 }
 
 div.card {
-  margin: 10vh auto;
+  margin: 8vh auto;
   display: flex;
   justify-content: space-between;
   padding: 40px 50px;
@@ -300,6 +300,9 @@ form {
     padding: 10px;
   }
 
+  a.button, button.points, input[type="submit"] {
+    padding: 4px 8px;
+  }
   .index {
     table {
       td {

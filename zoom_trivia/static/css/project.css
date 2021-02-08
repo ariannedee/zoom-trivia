@@ -37,10 +37,10 @@ a {
 
 div.container {
   max-width: 90%;
-  margin: 10vh auto; }
+  margin: 8vh auto; }
 
 div.card {
-  margin: 10vh auto;
+  margin: 8vh auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -205,5 +205,7 @@ form div.flex input[type="text"], form div.flex textarea {
   div.card {
     margin: 2vh auto;
     padding: 10px; }
+  a.button, button.points, input[type="submit"] {
+    padding: 4px 8px; }
   .index table td {
     padding: 3px; } }
