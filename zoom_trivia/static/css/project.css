@@ -30,7 +30,7 @@
 .navbar-brand {
   font-size: 32px;
   font-size: 2rem;
-  font-family: "Dancing Script", cursive; }
+  font-family: "Cedarville Cursive", sans-serif; }
 
 .navbar-description {
   margin-left: 20px;
@@ -154,7 +154,7 @@ a.lobby-link {
     margin-bottom: 50px;
     font-size: 112px;
     font-size: 7rem;
-    font-family: "Dancing Script", cursive; }
+    font-family: "Cedarville Cursive", sans-serif; }
 
 .question {
   min-height: 450px;
@@ -165,7 +165,7 @@ a.lobby-link {
   .question h2 {
     font-size: 24px;
     font-size: 1.5rem;
-    font-family: "Dancing Script", cursive; }
+    font-family: "Cedarville Cursive", sans-serif; }
 
 .buttons {
   display: -webkit-box;
@@ -183,12 +183,12 @@ a.lobby-link {
 .mark-round h2 {
   font-size: 24px;
   font-size: 1.5rem;
-  font-family: "Dancing Script", cursive; }
+  font-family: "Cedarville Cursive", sans-serif; }
 
 .player-answer h1 {
   font-size: 24px;
   font-size: 1.5rem;
-  font-family: "Dancing Script", cursive; }
+  font-family: "Cedarville Cursive", sans-serif; }
 
 .player-answer h2 {
   font-size: 24px;
