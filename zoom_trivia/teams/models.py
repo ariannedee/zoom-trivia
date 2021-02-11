@@ -19,6 +19,7 @@ class TeamAnswer(TimeStampedModel):
     question = models.ForeignKey('games.Question', on_delete=models.CASCADE, related_name='answers')
     answer = models.CharField(max_length=255)
     submitted = models.BooleanField(default=False)
+    submitted_at = models.DateTimeField(blank=True, null=True)
     points = models.FloatField(null=True, blank=True)
 
     def __str__(self):
@@ -29,4 +30,4 @@ class TeamAnswer(TimeStampedModel):
 
     class Meta:
         unique_together = ('team', 'question')
-
+        ordering = ('question_id', 'submitted_at',)

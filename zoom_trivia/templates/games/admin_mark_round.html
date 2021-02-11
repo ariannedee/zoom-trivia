@@ -1,4 +1,5 @@
 {% extends 'games/round_base.html' %}
+{% load static %}
 
 {% block class %}
   mark-round
@@ -11,38 +12,14 @@
   {% for question in round.questions.all %}
     <div class="card">
       {% include "games/partials/question.html" %}
-      <table>
-        <tr>
-          <th>Team</th>
-          <th>Answer</th>
-          <th>Points</th>
-        </tr>
-        {% for answer in question.answers.all %}
-          <tr>
-            <td>
-              {{ answer.team }}
-            </td>
-            <td>
-              {{ answer.answer }}
-            </td>
-            <td>
-              <button
-                      class="points{% if answer.points == 0 %} active{% endif %}"
-                      onclick="score(this, {{ answer.id }}, 0)">
-                0
-              </button>
-              <button
-                      class="points{% if answer.points == 1 %} active{% endif %}"
-                      onclick="score(this, {{ answer.id }}, 1)">
-                1
-              </button>
-            </td>
-          </tr>
-        {% endfor %}
-      </table>
+      {% include "games/partials/mark_answer_table.html" %}
     </div>
   {% endfor %}
   <a class="button"
      href="{% url 'games:end_marking' round.game.id round.number %}"
   >Done marking</a>
 {% endblock content %}
+
+{% block page_js %}
+  <script src="{% static 'js/refresh_mark_tables.js' %}"></script>
+{% endblock %}

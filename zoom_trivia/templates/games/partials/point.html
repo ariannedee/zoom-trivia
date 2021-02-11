@@ -1,0 +1,5 @@
+<button
+        class="points{% if answer.points == num_points %} active{% endif %}"
+        onclick="score(this, {{ answer.id }}, {{ num_points }})">
+  {{ num_points }}
+</button>

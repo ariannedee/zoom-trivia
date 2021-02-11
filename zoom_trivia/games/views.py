@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
@@ -68,6 +69,9 @@ def player_answers(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
     _round = game.rounds.get(number=round_num)
     context = {"round": _round}
+    team_id = request.session.get('team_id')
+    if team_id:
+        context["answers"] = {answer.question.pk: answer.answer for answer in _round.get_team_answers(team_id)}
     return render(request, "games/player_answer_round.html", context=context)
 
 
@@ -139,9 +143,11 @@ def submit_answers(request, game_id, round_num):
         else:
             team_answer.answer = answer
             team_answer.submitted = True
+            team_answer.submitted_at = datetime.now()
+            if not created:
+                team_answer.points = None
             team_answer.save()
-    context = {"round": _round, "answers": {answer.question.pk: answer.answer for answer in _round.get_team_answers(team_id)}}
-    return render(request, "games/player_answer_round.html", context=context)
+    return redirect("games:player_answers", game_id, round_num)
 
 
 @require_POST
@@ -153,3 +159,11 @@ def score(request):
     answer.points = points
     answer.save()
     return HttpResponse('ok')
+
+
+def mark_table(request, game_id, round_num, question_num):
+    game = get_object_or_404(Game, pk=game_id)
+    _round = game.rounds.get(number=round_num)
+    question = get_object_or_404(Question, round=_round, number=question_num)
+    context = {"round": _round, "question": question}
+    return render(request, "games/partials/mark_answer_table.html", context=context)

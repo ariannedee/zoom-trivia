@@ -6,6 +6,7 @@ from .views import (
     end_round,
     game_index,
     marking_view,
+    mark_table,
     player_answers,
     question_view,
     round_start_view,
@@ -33,5 +34,6 @@ urlpatterns = [
     path("<int:game_id>/round/<int:round_num>/answer/<int:question_num>/", view=answer_view, name="answer"),
     path("<int:game_id>/round/<int:round_num>/answer/", view=player_answers, name="player_answers"),
     path("<int:game_id>/round/<int:round_num>/submit/", view=submit_answers, name="submit_answers"),
-    path('score', view=score, name='score')
+    path('score', view=score, name='score'),
+    path("<int:game_id>/round/<int:round_num>/question/<int:question_num>/mark_table", view=mark_table, name="mark_table"),
 ]

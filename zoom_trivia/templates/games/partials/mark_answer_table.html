@@ -1,0 +1,10 @@
+<table id="{% url 'games:mark_table' round.game.id round.number question.number %}">
+  <tr>
+    <th>Team</th>
+    <th>Answer</th>
+    <th>Points</th>
+  </tr>
+  {% for answer in question.answers.all %}
+    {% include "games/partials/mark_answer_row.html" %}
+  {% endfor %}
+</table>

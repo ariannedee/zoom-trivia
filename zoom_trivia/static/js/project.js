@@ -16,7 +16,6 @@ function score(_this, answer_id, points) {
         }),
         success: (response) => {
             if (response === 'ok') {
-                console.log(_this);
                 $(_this).siblings('button.points').removeClass('active');
                 $(_this).addClass('active');
             }

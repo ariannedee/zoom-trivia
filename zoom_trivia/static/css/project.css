@@ -115,6 +115,27 @@ div.img {
     max-height: 100%;
     max-width: 100%; }
 
+table {
+  border: 1px solid #DDD;
+  border-radius: 10px; }
+  table td, table th {
+    padding: 12px 10px; }
+  table td.player-team {
+    font-weight: 600; }
+    table td.player-team::before {
+      content: "⭑";
+      display: inline-block;
+      padding-right: 8px;
+      vertical-align: baseline;
+      font-size: 24px;
+      font-size: 1.5rem;
+      color: #e94573; }
+  table tr:first-child {
+    background-color: #EEE !important;
+    border-bottom: 1px solid #DDD; }
+  table tr:nth-child(odd) {
+    background-color: #F2F2F2; }
+
 a.lobby-link {
   float: left;
   position: absolute;
@@ -134,24 +155,6 @@ a.lobby-link {
 .index h4 {
   font-size: 17.6px;
   font-size: 1.1rem; }
-
-.index table {
-  border: 1px solid #EEE;
-  border-radius: 10px; }
-  .index table td, .index table th {
-    padding: 12px 10px; }
-  .index table td.player-team {
-    font-weight: 600; }
-    .index table td.player-team::before {
-      content: "⭑";
-      display: inline-block;
-      padding-right: 8px;
-      vertical-align: baseline;
-      font-size: 24px;
-      font-size: 1.5rem;
-      color: #e94573; }
-  .index table tr:nth-child(even) {
-    background-color: #f8f8f8; }
 
 .round-start {
   min-height: 450px;

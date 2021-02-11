@@ -1,0 +1,21 @@
+<tr>
+  <td>
+    {{ answer.team }}
+  </td>
+  <td>
+    {{ answer.answer }}
+  </td>
+  <td>
+    {% include "games/partials/point.html" with num_points=0 %}
+    {% if question.out_of == 1 %}
+      {% include "games/partials/point.html" with num_points=0.5 %}
+    {% endif %}
+    {% include "games/partials/point.html" with num_points=1 %}
+    {% if question.out_of == 2 %}
+      {% include "games/partials/point.html" with num_points=2 %}
+    {% endif %}
+    {% if question.out_of == 3 %}
+      {% include "games/partials/point.html" with num_points=3 %}
+    {% endif %}
+  </td>
+</tr>

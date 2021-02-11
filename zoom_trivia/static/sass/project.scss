@@ -161,7 +161,7 @@ a.button:hover {
 }
 
 ////////////////////////////////
-//Images//
+//Components//
 ////////////////////////////////
 
 div.img {
@@ -169,6 +169,37 @@ div.img {
   img {
     max-height: 100%;
     max-width: 100%;
+  }
+}
+
+table {
+  border: 1px solid #DDD;
+  border-radius: 10px;
+
+  td, th {
+    padding: 12px 10px;
+  }
+
+  td.player-team {
+    font-weight: 600;
+
+    &::before {
+      content: "⭑";
+      display: inline-block;
+      padding-right: 8px;
+      vertical-align: baseline;
+      font-size: 1.5rem;
+      color: $primary;
+    }
+  }
+
+  tr:first-child {
+    background-color: #EEE !important;
+    border-bottom: 1px solid #DDD;
+  }
+
+  tr:nth-child(odd) {
+    background-color: #F2F2F2;
   }
 }
 ////////////////////////////////
@@ -194,31 +225,6 @@ a.lobby-link {
 
   h4 {
     font-size: 1.1rem;
-  }
-
-  table {
-    border: 1px solid #EEE;
-    border-radius: 10px;
-
-    td, th {
-      padding: 12px 10px;
-    }
-
-    td.player-team {
-      font-weight: 600;
-      &::before {
-        content: "⭑";
-        display: inline-block;
-        padding-right: 8px;
-        vertical-align: baseline;
-        font-size: 1.5rem;
-        color: $primary;
-      }
-    }
-
-    tr:nth-child(even) {
-      background-color: #f8f8f8;
-    }
   }
 }
 
