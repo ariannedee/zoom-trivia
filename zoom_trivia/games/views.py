@@ -1,6 +1,7 @@
 import json
 
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -30,6 +31,7 @@ def rules(request):
     return render(request, "games/rules.html", context=context)
 
 
+@staff_member_required(redirect_field_name="games:index")
 def round_start_view(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
     _round = game.rounds.get(number=round_num)
@@ -37,6 +39,7 @@ def round_start_view(request, game_id, round_num):
     return render(request, "games/view_round.html", context=context)
 
 
+@staff_member_required(redirect_field_name="games:index")
 def question_view(request, game_id, round_num, question_num):
     game = get_object_or_404(Game, pk=game_id)
     _round = game.rounds.get(number=round_num)
@@ -53,6 +56,7 @@ def answer_view(request, game_id, round_num, question_num):
     return render(request, "games/view_answer.html", context=context)
 
 
+@staff_member_required
 def marking_view(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
     _round = game.rounds.get(number=round_num)
@@ -70,6 +74,7 @@ def player_answers(request, game_id, round_num):
 # ===================
 # CHANGE STATE VIEWS
 # ===================
+@staff_member_required
 def start_round(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
     if (not game.current_round and round_num == 1) or (game.current_round and game.current_round.number != round_num):
@@ -80,6 +85,7 @@ def start_round(request, game_id, round_num):
     return redirect("games:round_start", game_id, round_num)
 
 
+@staff_member_required
 def start_marking(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
     if not game.current_round or game.current_round.number != round_num:
@@ -89,6 +95,7 @@ def start_marking(request, game_id, round_num):
     return redirect("games:mark", game_id, round_num)
 
 
+@staff_member_required
 def end_marking(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
     if not game.current_round or game.current_round.number != round_num:
@@ -99,6 +106,7 @@ def end_marking(request, game_id, round_num):
     return redirect("games:answer", game_id, round_num, 1)
 
 
+@staff_member_required
 def end_round(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
     if not game.current_round or game.current_round.number != round_num:
@@ -116,7 +124,7 @@ def end_round(request, game_id, round_num):
 def submit_answers(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
     _round = game.rounds.get(number=round_num)
-    team_id = request.POST.get('team')
+    team_id = request.session.get('team_id')
     if not team_id or not Team.objects.filter(id=team_id).count():
         messages.add_message(request, messages.WARNING,
             mark_safe(f"You don't have a team set. Go to the <a target=\"_blank\" href=\"{reverse('games:home')}\">lobby</a> to select a team first."))

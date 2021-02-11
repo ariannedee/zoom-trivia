@@ -9,7 +9,6 @@
   <h1>Round {{ round.number }} - {{ round.name }}</h1>
   <form method="post" action="{% url 'games:submit_answers' round.game.id round.number %}">
     {% csrf_token %}
-    <input hidden type="number" value="1" name="team">
     {% for question in round.questions.all %}
       <div class="card">
         {% include "games/partials/question.html" %}
