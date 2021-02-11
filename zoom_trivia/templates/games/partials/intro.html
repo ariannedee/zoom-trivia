@@ -1,0 +1,19 @@
+<h2>Welcome to the new, faster, Zoom Trivia!</h2>
+<p><strong>{{ game.name }}</strong> will start on {{ game.start_time.date }} at <strong>{{ game.start_time.time }}</strong></p>
+<p><a href="{{ game.link }}">Zoom link</a></p>
+<h3>How it works</h3>
+<h4>Before the game starts</h4>
+<ul>
+  <li>Create your team or join an existing team below (refresh the page if you don't see your team)</li>
+  <li>Join the <a href="{{ game.link }}">Zoom event</a> and change your display name to your team name</li>
+</ul>
+<h4>How the game will work</h4>
+<ul>
+  <li>There will be {{ game.rounds.count }} rounds. Each round (except lightning rounds), you will be put into breakout rooms while you answer the questions.
+  We will use your display name to help sort you into rooms.</li>
+  <li>In this app, click the <strong>Start →</strong> button for the current round to go to the question page</li>
+  <li>Only one team member should fill in and submit the questions. They may want to share their screen so that others can see what has been answered.</li>
+  <li>The presenter will send a message to your breakout room when there is 1 minute left to submit answers and when time is up</li>
+  <li>After submitting, you can stay in your breakout room while the round gets marked</li>
+  <li>After marking, you will be brought back into the main group, go over the answers, then start the next round</li>
+</ul>

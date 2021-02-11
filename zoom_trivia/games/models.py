@@ -31,6 +31,7 @@ class Game(TimeStampedModel):
     start_time = models.DateTimeField(null=True, blank=True)
     current_round = models.ForeignKey('Round', related_name='current_game', on_delete=models.SET_NULL, null=True, blank=True)
     round_state = models.IntegerField(choices=ROUND_STATE, default=0)
+    link = models.CharField(null=True, blank=True, max_length=255)
 
     def start_round(self):
         if self.round_state == 1:

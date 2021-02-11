@@ -3,6 +3,8 @@ import json
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
+from django.utils.safestring import mark_safe
 from django.views.decorators.http import require_POST
 
 from zoom_trivia.games.models import Game, Question
@@ -20,6 +22,12 @@ def game_index(request, game_id=1):
         if team_id:
             context['team'] = Team.objects.get(id=team_id)
     return render(request, "games/game_lobby.html", context=context)
+
+
+def rules(request):
+    game = get_object_or_404(Game, pk=1)
+    context = {"game": game}
+    return render(request, "games/rules.html", context=context)
 
 
 def round_start_view(request, game_id, round_num):
@@ -109,6 +117,12 @@ def submit_answers(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
     _round = game.rounds.get(number=round_num)
     team_id = request.POST.get('team')
+    if not team_id or not Team.objects.filter(id=team_id).count():
+        messages.add_message(request, messages.WARNING,
+            mark_safe(f"You don't have a team set. Go to the <a target=\"_blank\" href=\"{reverse('games:home')}\">lobby</a> to select a team first."))
+        context = {"round": _round}
+        return render(request, "games/player_answer_round.html", context=context)
+
     for question in _round.questions.all():
         team_answer, created = TeamAnswer.objects.get_or_create(team_id=team_id, question=question)
         answer = request.POST.get(str(question.pk))
@@ -119,7 +133,6 @@ def submit_answers(request, game_id, round_num):
             team_answer.submitted = True
             team_answer.save()
     context = {"round": _round, "answers": {answer.question.pk: answer.answer for answer in _round.get_team_answers(team_id)}}
-    print(context)
     return render(request, "games/player_answer_round.html", context=context)
 
 

@@ -9,6 +9,7 @@ from .views import (
     player_answers,
     question_view,
     round_start_view,
+    rules,
     score,
     start_marking,
     start_round,
@@ -19,6 +20,7 @@ app_name = "games"
 urlpatterns = [
     path("<int:game_id>/", view=game_index, name="game"),
     path("", view=game_index, name="home"),
+    path("rules/", view=rules, name="rules"),
     path(
         "<int:game_id>/round/<int:round_num>/", view=round_start_view, name="round_start"
     ),

@@ -9,7 +9,7 @@
         {% if game.round_state == 0 %}
           Waiting to start
         {% elif game.round_state == 1 or game.round_state == 2 %}
-          <a class="button primary" href="{% url 'games:player_answers' game.id round.number %}">Start</a>
+          <a class="button primary" href="{% url 'games:player_answers' game.id round.number %}">Start →</a>
         {% elif game.round_state == 3 %}
           <a class="button primary" href="{% url 'games:answer' game.id round.number 1 %}">Show answers</a>
         {% endif %}
