@@ -5,35 +5,28 @@
 {% endblock %}
 
 {% block content %}
-<div class="card full-size">
-  <h2>Round {{ round.number }} - {{ round.name }}</h2>
+  <div class="card full-size">
+    <h1>Round {{ round.number }} - {{ round.name }}</h1>
+    {% include "games/partials/question.html" %}
+    <h3>Answer</h3>
+    {{ question.answer }}
+    <div class="buttons">
 
-  <div>
-    <h1>{{ question.number }}. {{ question.text }}</h1>
-  </div>
-  {% if question.details %}
-    <p>{{ question.details|linebreaks }}</p>
-  {% endif %}
-  <p>Out of {{ question.out_of }}</p>
-  <h3>Answer</h3>
-  {{ question.answer }}
-  <div class="buttons">
-
-    <a class="button"
-       href="{% url 'games:answer' round.game.id round.number question.number|add:"-1" %}"
-       {% if question.number <= 1 %}disabled{% endif %}
-    >Previous</a>
-    {% if round.questions.count == question.number %}
-      {% if request.user.is_authenticated and round == round.game.current_round %}
-        <a class="button" href="{% url 'games:end_round' round.game.id round.number %}">Lobby</a>
-      {% else %}
-        <a class="button" href="{% url 'games:home' %}">Lobby</a>
+      <a class="button"
+         href="{% url 'games:answer' round.game.id round.number question.number|add:"-1" %}"
+         {% if question.number <= 1 %}disabled{% endif %}
+      >Previous</a>
+      {% if round.questions.count == question.number %}
+        {% if request.user.is_authenticated and round == round.game.current_round %}
+          <a class="button" href="{% url 'games:end_round' round.game.id round.number %}">Lobby</a>
+        {% else %}
+          <a class="button" href="{% url 'games:home' %}">Lobby</a>
+        {% endif %}
       {% endif %}
-    {% endif %}
-    <a class="button"
-       href="{% url 'games:answer' round.game.id round.number question.number|add:"1" %}"
-       {% if question.number >= round.questions.count %}disabled{% endif %}
-    >Next</a>
+      <a class="button"
+         href="{% url 'games:answer' round.game.id round.number question.number|add:"1" %}"
+         {% if question.number >= round.questions.count %}disabled{% endif %}
+      >Next</a>
+    </div>
   </div>
-</div>
 {% endblock content %}

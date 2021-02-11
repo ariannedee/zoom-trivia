@@ -1,10 +1,23 @@
+import admin_thumbnails
 from admin_ordering.admin import OrderableAdmin
 from django.contrib import admin
+from django.db import models
 from django.db.models.aggregates import Sum
+from django.forms import TextInput, Textarea
 from django.urls import reverse
 from django.utils.html import format_html
 
 from zoom_trivia.games.models import Game, Question, Round
+
+
+class WidgetStyleMixin:
+    formfield_overrides = {
+        models.CharField: {'widget': TextInput(attrs={'size': '130'})},
+        models.TextField: {'widget': Textarea(
+            attrs={'rows': 3,
+                'cols': 130,
+                'style': 'height: 3em;'})},
+    }
 
 
 class RoundInline(OrderableAdmin, admin.TabularInline):
@@ -32,7 +45,8 @@ class GameAdmin(admin.ModelAdmin):
     rounds.allow_tags = True
 
 
-class QuestionInline(OrderableAdmin, admin.StackedInline):
+@admin_thumbnails.thumbnail('image')
+class QuestionInline(WidgetStyleMixin, OrderableAdmin, admin.StackedInline):
     model = Question
     extra = 0
     show_change_link = True

@@ -6,17 +6,11 @@
 
 {% block content %}
   {% csrf_token %}
-  <h2>Round {{ round.number }} - {{ round.name }}</h2>
+  <h1>Round {{ round.number }} - {{ round.name }}</h1>
 
   {% for question in round.questions.all %}
     <div class="card">
-      <div>
-        <h1>{{ question.number }}. {{ question.text }}</h1>
-      </div>
-      {% if question.details %}
-        <p>{{ question.details|linebreaks }}</p>
-      {% endif %}
-      <p>Out of {{ question.out_of }}</p>
+      {% include "games/partials/question.html" %}
       <table>
         <tr>
           <th>Team</th>

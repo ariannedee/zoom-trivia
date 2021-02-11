@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from model_utils.models import TimeStampedModel
 
+from zoom_trivia.games.helpers import rename
 from zoom_trivia.teams.models import TeamAnswer
 
 ROUND_STATE = (
@@ -118,6 +119,7 @@ class Round(OrderableModel, TimeStampedModel):
 class Question(OrderableModel, TimeStampedModel):
     round = models.ForeignKey(Round, related_name="questions", on_delete=models.CASCADE)
     text = models.CharField(max_length=150)
+    image = models.ImageField(upload_to=rename, null=True, blank=True)
     details = models.TextField(null=True, blank=True)
     out_of = models.IntegerField(default=1)
     answer = models.CharField(max_length=300)

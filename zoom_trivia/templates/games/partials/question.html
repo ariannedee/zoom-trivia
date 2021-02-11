@@ -1,0 +1,10 @@
+<div>
+  <h2>{{ question.number }}. {{ question.text }}</h2>
+</div>
+{% if question.image %}
+  {% include "games/partials/question_image.html" %}
+{% endif %}
+{% if question.details %}
+  <p>{{ question.details|linebreaks }}</p>
+{% endif %}
+<p>Out of {{ question.out_of }}</p>

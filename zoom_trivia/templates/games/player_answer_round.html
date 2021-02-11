@@ -12,13 +12,7 @@
     <input hidden type="number" value="1" name="team">
     {% for question in round.questions.all %}
       <div class="card">
-        <h2>{{ question.number }}. {{ question.text }}</h2>
-        <div class="margin-left">
-          {% if question.details %}
-            {{ question.details|linebreaks }}
-          {% endif %}
-          <p>{{ question.out_of }} point{% if question.out_of > 1 %}s{% endif %}</p>
-        </div>
+        {% include "games/partials/question.html" %}
         <div class="flex">
           <label for="{{ question.pk }}">Answer:</label>
           <textarea type="text" id="id-{{ question.pk }}" name="{{ question.pk }}">{% if answers %}{{ answers|get_answer:question.pk }}{% endif %}</textarea>

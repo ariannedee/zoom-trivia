@@ -5,29 +5,22 @@
 {% endblock %}
 
 {% block content %}
-<div class="card full-size">
-  <h2>Round {{ round.number }} - {{ round.name }}</h2>
+  <div class="card full-size">
+    <h1>Round {{ round.number }} - {{ round.name }}</h1>
+    {% include "games/partials/question.html" %}
+    <div class="buttons">
 
-  <div>
-    <h1>{{ question.number }}. {{ question.text }}</h1>
+      <a class="button"
+         href="{% url 'games:question' round.game.id round.number question.number|add:"-1" %}"
+         {% if question.number <= 1 %}disabled{% endif %}
+      >Previous</a>
+      {% if round.game.current_round == round and round.questions.count == question.number %}
+        <a class="button" href="{% url 'games:start_marking' round.game.id round.number %}">Mark</a>
+      {% endif %}
+      <a class="button"
+         href="{% url 'games:question' round.game.id round.number question.number|add:"1" %}"
+         {% if question.number >= round.questions.count %}disabled{% endif %}
+      >Next</a>
+    </div>
   </div>
-  {% if question.details %}
-    <p>{{ question.details|linebreaks }}</p>
-  {% endif %}
-  <p>Out of {{ question.out_of }}</p>
-  <div class="buttons">
-
-    <a class="button"
-       href="{% url 'games:question' round.game.id round.number question.number|add:"-1" %}"
-       {% if question.number <= 1 %}disabled{% endif %}
-    >Previous</a>
-    {% if round.game.current_round == round and round.questions.count == question.number %}
-      <a class="button" href="{% url 'games:start_marking' round.game.id round.number %}">Mark</a>
-    {% endif %}
-    <a class="button"
-       href="{% url 'games:question' round.game.id round.number question.number|add:"1" %}"
-       {% if question.number >= round.questions.count %}disabled{% endif %}
-    >Next</a>
-  </div>
-</div>
 {% endblock content %}
