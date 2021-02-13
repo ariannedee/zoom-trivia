@@ -1,14 +1,5 @@
 <h3>Join a team:</h3>
-<table>
-  {% for team in game.teams.all %}
-    <tr>
-      <td>{{ team.name }}</td>
-      <td class="align-right">
-        <a class="button" href="{% url 'teams:join_team' game.id team.id %}">Join team</a>
-      </td>
-    </tr>
-  {% endfor %}
-</table>
+{% include "games/partials/team_table.html" %}
 <h3>OR</h3>
 <form method="post" action="{% url 'teams:create_team' game.id %}">
   {% csrf_token %}

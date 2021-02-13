@@ -10,7 +10,10 @@ class Team(TimeStampedModel):
 
     @property
     def points(self):
-        return self.answers.aggregate(Sum('points'))['points__sum']
+        points_ = self.answers.aggregate(Sum('points'))['points__sum'] or 0
+        if points_ % 1:
+            return points_
+        return round(points_)
 
     def __str__(self):
         return self.name

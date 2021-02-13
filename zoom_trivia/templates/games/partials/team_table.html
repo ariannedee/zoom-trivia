@@ -1,0 +1,16 @@
+<table class="teams">
+  {% if game.teams.count == 0 %}
+    <tr>
+      <td>No teams yet</td>
+    </tr>
+  {% else %}
+    {% for team in game.teams.all %}
+      <tr>
+        <td>{{ team.name }}</td>
+        <td class="align-right">
+          <a class="button" href="{% url 'teams:join_team' game.id team.id %}">Join team</a>
+        </td>
+      </tr>
+    {% endfor %}
+  {% endif %}
+</table>

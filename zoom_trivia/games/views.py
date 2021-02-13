@@ -19,10 +19,11 @@ from zoom_trivia.teams.models import Team, TeamAnswer
 def game_index(request, game_id=1):
     game = get_object_or_404(Game, pk=game_id)
     context = {"game": game}
-    if request.user.is_anonymous:
-        team_id = request.session.get('team_id')
-        if team_id:
-            context['team'] = Team.objects.get(id=team_id)
+    team_id = request.session.get('team_id')
+    if team_id:
+        context['team'] = Team.objects.get(id=team_id)
+    if request.user.is_anonymous and not team_id:
+        return render(request, "games/game_intro.html", context=context)
     return render(request, "games/game_lobby.html", context=context)
 
 
@@ -175,6 +176,9 @@ def score(request):
     return HttpResponse('ok')
 
 
+# ===================
+# Dynamic views
+# ===================
 def mark_table(request, game_id, round_num, question_num):
     game = get_object_or_404(Game, pk=game_id)
     _round = game.rounds.get(number=round_num)
@@ -187,6 +191,12 @@ def game_table(request, game_id):
     game = get_object_or_404(Game, pk=game_id)
     context = {"game": game}
     return render(request, "games/partials/round_table_player.html", context=context)
+
+
+def team_table(request, game_id):
+    game = get_object_or_404(Game, pk=game_id)
+    context = {"game": game}
+    return render(request, "games/partials/team_table.html", context=context)
 
 
 def round_state(request, game_id, round_num):

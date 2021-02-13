@@ -6,8 +6,8 @@ from .views import (
     end_round,
     game_index,
     game_table,
-    marking_view,
     mark_table,
+    marking_view,
     player_answers,
     question_view,
     round_start_view,
@@ -17,6 +17,7 @@ from .views import (
     start_marking,
     start_round,
     submit_answers,
+    team_table,
 )
 
 app_name = "games"
@@ -35,9 +36,12 @@ urlpatterns = [
     path("<int:game_id>/round/<int:round_num>/question/<int:question_num>/", view=question_view, name="question"),
     path("<int:game_id>/round/<int:round_num>/answer/<int:question_num>/", view=answer_view, name="answer"),
     path("<int:game_id>/round/<int:round_num>/answer/", view=player_answers, name="player_answers"),
+    # API
     path("<int:game_id>/round/<int:round_num>/submit/", view=submit_answers, name="submit_answers"),
     path('score', view=score, name='score'),
+    # Dynamic views
     path("<int:game_id>/round/<int:round_num>/question/<int:question_num>/mark_table", view=mark_table, name="mark_table"),
     path("<int:game_id>/game_table/", view=game_table, name="game_table"),
     path("<int:game_id>/round/<int:round_num>/state/", view=round_state, name="round_state"),
+    path("<int:game_id>/team_table/", view=team_table, name="team_table"),
 ]

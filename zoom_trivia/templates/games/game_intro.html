@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block class %}
+  index
+{% endblock %}
+
+{% block content %}
+  <div class="card">
+    {% include "games/partials/intro.html" %}
+  </div>
+  <div class="card">
+    {% include "games/partials/create_team.html" %}
+  </div>
+
+{% endblock content %}
+
+{% block page_js %}
+  <script>
+    $(document).ready(function () {
+      function reload_team_table() {
+        $.get({
+          url: '{% url "games:team_table" game.id %}',
+          success: (response) => {
+            $('table.teams').html(response);
+          }
+        });
+      }
+
+      if ($('table.teams')) {
+        window.setInterval(reload_team_table, 3000);
+      }
+    });
+  </script>
+{% endblock %}
