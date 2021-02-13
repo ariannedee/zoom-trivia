@@ -385,6 +385,14 @@ form {
   margin: 10px auto;
 }
 
+.primary {
+  color: $primary;
+}
+
+.secondary {
+  color: $secondary;
+}
+
 @media (max-width: 767px) {
   html {
     font-size: 12px;

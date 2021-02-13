@@ -7,8 +7,9 @@
 
 {% block content %}
 
-  <div class="timer" hidden></div>
-
+  {% if not round.lightning %}
+    <div class="timer" hidden></div>
+  {% endif %}
   {% csrf_token %}
   <h1>Round {{ round.number }} - {{ round.name }}</h1>
 
@@ -20,20 +21,30 @@
       {% include "games/partials/mark_answer_table.html" %}
     </div>
   {% endfor %}
+
   <div class="bottom-buttons">
-    <button
-       onclick="getRequest('{% url 'games:set_timer' round.game.id round.number %}')"
-    >Set 60s timer</button>
-    <a class="button primary"
-       href="{% url 'games:end_marking' round.game.id round.number %}"
-    >Done marking</a>
+    {% if not round.lightning %}
+      <button
+              onclick="getRequest('{% url 'games:set_timer' round.game.id round.number %}')"
+      >Set 60s timer
+      </button>
+      <a class="button primary"
+         href="{% url 'games:end_marking' round.game.id round.number %}"
+      >Done marking</a>
+    {% else %}
+      <a class="button primary"
+         href="{% url 'games:end_round' round.game.id round.number %}"
+      >End round</a>
+    {% endif %}
   </div>
 {% endblock content %}
 
 {% block page_js %}
-  <script src="{% static 'js/refresh_mark_tables.js' %}"></script>
-  <script>
-    const url = '{% url "games:time_left" round.game.id round.number %}';
-  </script>
-  <script src="{% static 'js/countdown_timer.js' %}"></script>
+  {% if not round.lightning %}
+    <script src="{% static 'js/refresh_mark_tables.js' %}"></script>
+    <script>
+      const url = '{% url "games:time_left" round.game.id round.number %}';
+    </script>
+    <script src="{% static 'js/countdown_timer.js' %}"></script>
+  {% endif %}
 {% endblock %}

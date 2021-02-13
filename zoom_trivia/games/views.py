@@ -78,6 +78,9 @@ def player_answers(request, game_id, round_num):
     if game.round_state == 3:
         messages.add_message(request, messages.ERROR, 'The round has already been marked')
         return redirect("games:game", game_id)
+    if _round.lightning:
+        messages.add_message(request, messages.ERROR, 'You cannot submit answers for lightning rounds')
+        return redirect("games:game", game_id)
     team_id = request.session.get('team_id')
     context = {"round": _round, "team": team_id}
     if team_id:
@@ -100,6 +103,8 @@ def start_round(request, game_id, round_num):
         return render(request, "games/game_lobby.html", context={"game": game})
     game.start_round()
     _round = game.current_round
+    if _round.lightning:
+        return redirect("games:start_marking", game_id, round_num)
     return redirect("games:round_start", game_id, round_num)
 
 

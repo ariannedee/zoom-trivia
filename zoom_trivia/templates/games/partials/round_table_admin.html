@@ -1,7 +1,12 @@
 <table>
   {% for round in game.rounds.all %}
     <tr>
-    <td><strong>Round {{ round.number }}</strong></td>
+    <td>
+      <strong>Round {{ round.number }}</strong>
+      {% if round.lightning %}
+        <span class="secondary">⚡︎</span>
+      {% endif %}
+    </td>
     <td>{{ round.name }}</td>
     <td>{{ round.questions.count }} questions</td>
     <td style="width: 200px" class="text-center">

@@ -281,6 +281,12 @@ form div.flex input[type="text"], form div.flex textarea {
 .center {
   margin: 10px auto; }
 
+.primary {
+  color: #e94573; }
+
+.secondary {
+  color: #2580ef; }
+
 @media (max-width: 767px) {
   html {
     font-size: 12px; }

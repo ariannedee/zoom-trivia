@@ -51,6 +51,9 @@ class Game(TimeStampedModel):
     def start_marking(self):
         if not self.current_round:
             raise StateError(0, 2)
+        self.current_round.end_time = None
+        if self.current_round.lightning:
+            self.current_round.create_team_answers()
         self.round_state = 2
         self.save()
 
@@ -101,6 +104,7 @@ class Round(OrderableModel, TimeStampedModel):
     name = models.CharField(max_length=60)
     complete = models.BooleanField(default=False)
     end_time = models.DateTimeField(null=True, blank=True)
+    lightning = models.BooleanField(default=False)
 
     @property
     def num_questions(self):
@@ -120,6 +124,11 @@ class Round(OrderableModel, TimeStampedModel):
 
     def get_team_answers(self, team_id):
         return TeamAnswer.objects.filter(question__round=self, team_id=team_id).order_by('question__number')
+
+    def create_team_answers(self):
+        for team in self.game.teams.all():
+            for question in self.questions.all():
+                answer, created = TeamAnswer.objects.get_or_create(question=question, team=team)
 
     @property
     def time_left(self):
@@ -155,3 +164,6 @@ class Question(OrderableModel, TimeStampedModel):
 
     def __repr__(self):
         return f"{self.text}"
+
+    class Meta:
+        ordering = ("round__number", "number")

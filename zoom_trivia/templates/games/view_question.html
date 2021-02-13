@@ -9,7 +9,6 @@
     <h1>Round {{ round.number }} - {{ round.name }}</h1>
     {% include "games/partials/question.html" %}
     <div class="buttons">
-
       <a class="button"
          href="{% url 'games:question' round.game.id round.number question.number|add:"-1" %}"
          {% if question.number <= 1 %}disabled{% endif %}
@@ -22,7 +21,10 @@
   </div>
   <div class="bottom-buttons">
     {% if round.game.current_round == round and round.questions.count == question.number %}
+      <span>
+      Stop screen-sharing →
       <a class="button primary" href="{% url 'games:start_marking' round.game.id round.number %}">Mark</a>
+      </span>
     {% endif %}
   </div>
 {% endblock content %}

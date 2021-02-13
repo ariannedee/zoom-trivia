@@ -2,9 +2,11 @@
   <td class="team">
     {{ answer.team }}
   </td>
-  <td>
-    {{ answer.answer|linebreaks }}
-  </td>
+  {% if not round.lightning %}
+    <td>
+      {{ answer.answer|linebreaks }}
+    </td>
+  {% endif %}
   <td class="points">
     {% include "games/partials/point.html" with num_points=0 %}
     {% if question.out_of == 1 %}

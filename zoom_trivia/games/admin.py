@@ -26,7 +26,7 @@ class RoundInline(OrderableAdmin, admin.TabularInline):
     extra = 0
     show_change_link = True
     readonly_fields = ["num_questions", "current", "complete"]
-    fields = ["number", "name", "num_questions", "current", "complete"]
+    fields = ["number", "name", "lightning", "num_questions", "current", "complete"]
 
 
 @admin.register(Game)
@@ -59,6 +59,7 @@ class RoundAdmin(admin.ModelAdmin):
         "game",
         "number",
         "name",
+        "lightning",
         "num_questions",
         "num_points",
         "complete",
@@ -89,3 +90,4 @@ class AnswerInline(admin.TabularInline):
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     inlines = (AnswerInline,)
+    list_display = ["text", "round", "number"]
