@@ -4,6 +4,15 @@
 {% if question.image %}
   {% include "games/partials/question_image.html" %}
 {% endif %}
+{% if question.link %}
+  <a href="{{ question.link }}" target="_blank">
+    {% if question.link_display %}
+      {{ question.link_display }}
+    {% else %}
+      Link
+    {% endif %}
+  </a>
+{% endif %}
 {% if question.details %}
   <p>{{ question.details|linebreaks }}</p>
 {% endif %}

@@ -124,6 +124,8 @@ class Question(OrderableModel, TimeStampedModel):
     round = models.ForeignKey(Round, related_name="questions", on_delete=models.CASCADE)
     text = models.CharField(max_length=150)
     image = models.ImageField(upload_to=rename, null=True, blank=True)
+    link = models.CharField(max_length=500, null=True, blank=True)
+    link_display = models.CharField(max_length=150, null=True, blank=True)
     details = models.TextField(null=True, blank=True)
     out_of = models.IntegerField(default=1)
     answer = models.CharField(max_length=300)
