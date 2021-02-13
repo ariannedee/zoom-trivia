@@ -105,3 +105,6 @@ Using PythonAnywhere
 3. $ source venv/bin/postactivate
 4. $ pip install -r requirements/production.txt
 5. $ ./manage.py migrate
+6. $ ./manage.py collectstatic
+7. $ ./manage.py compress
+8. Reload server
