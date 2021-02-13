@@ -14,13 +14,15 @@
          href="{% url 'games:question' round.game.id round.number question.number|add:"-1" %}"
          {% if question.number <= 1 %}disabled{% endif %}
       >Previous</a>
-      {% if round.game.current_round == round and round.questions.count == question.number %}
-        <a class="button" href="{% url 'games:start_marking' round.game.id round.number %}">Mark</a>
-      {% endif %}
       <a class="button"
          href="{% url 'games:question' round.game.id round.number question.number|add:"1" %}"
          {% if question.number >= round.questions.count %}disabled{% endif %}
       >Next</a>
     </div>
+  </div>
+  <div class="bottom-buttons">
+    {% if round.game.current_round == round and round.questions.count == question.number %}
+      <a class="button primary" href="{% url 'games:start_marking' round.game.id round.number %}">Mark</a>
+    {% endif %}
   </div>
 {% endblock content %}
