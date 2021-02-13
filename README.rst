@@ -98,4 +98,10 @@ Now you have your own mail server running locally, ready to receive whatever you
 Deployment
 ----------
 
-The following details how to deploy this application.
+Using PythonAnywhere
+
+1. Go to Web view and launch a console using the virtual env
+2. $ git pull
+3. $ source venv/bin/postactivate
+4. $ pip install -r requirements/production.txt
+5. $ ./manage.py migrate
