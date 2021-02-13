@@ -170,3 +170,9 @@ def mark_table(request, game_id, round_num, question_num):
     question = get_object_or_404(Question, round=_round, number=question_num)
     context = {"round": _round, "question": question}
     return render(request, "games/partials/mark_answer_table.html", context=context)
+
+
+def game_table(request, game_id):
+    game = get_object_or_404(Game, pk=game_id)
+    context = {"game": game}
+    return render(request, "games/partials/round_table_player.html", context=context)
