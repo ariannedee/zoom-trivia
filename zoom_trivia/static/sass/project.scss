@@ -114,7 +114,7 @@ div.card {
 //Buttons//
 ////////////////////////////////
 
-a.button, button.points, input[type="submit"] {
+a.button, button, input[type="submit"] {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   border-radius: 2px;
   font-size: 0.9rem;
@@ -209,6 +209,21 @@ table {
       width: 250px;
     }
   }
+}
+
+.timer {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  padding: 5px 20px;
+  vertical-align: center;
+  text-align: center;
+  background-color: white;
+  color: $secondary;
+  font-size: 2rem;
+  font-weight: bold;
+  z-index: 1000;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 ////////////////////////////////
 //Sections//
@@ -366,12 +381,16 @@ form {
   text-align: right;
 }
 
+.center {
+  margin: 10px auto;
+}
+
 @media (max-width: 767px) {
   html {
     font-size: 12px;
   }
   div.container {
-    margin: 2vh auto;
+    margin: 5vh auto;
     max-width: 98%;
   }
   div.card {
@@ -379,7 +398,7 @@ form {
     padding: 10px;
   }
 
-  a.button, button.points, input[type="submit"] {
+  a.button, button, input[type="submit"] {
     padding: 4px 8px;
   }
   .index {

@@ -72,7 +72,7 @@ div.card {
     margin-top: 10px;
     margin-bottom: 10px; }
 
-a.button, button.points, input[type="submit"] {
+a.button, button, input[type="submit"] {
   -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
           box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   border-radius: 2px;
@@ -88,21 +88,21 @@ a.button, button.points, input[type="submit"] {
   text-shadow: none;
   position: relative;
   color: #e94573; }
-  a.button[disabled], button.points[disabled], input[type="submit"][disabled] {
+  a.button[disabled], button[disabled], input[type="submit"][disabled] {
     background-color: rgba(0, 0, 0, 0.12) !important;
     color: rgba(0, 0, 0, 0.25) !important;
     -webkit-box-shadow: none !important;
             box-shadow: none !important;
     cursor: default; }
-  a.button.primary, button.points.primary, input[type="submit"].primary {
+  a.button.primary, button.primary, input[type="submit"].primary {
     background-color: #e94573;
     color: white; }
-  a.button.secondary, button.points.secondary, input[type="submit"].secondary {
+  a.button.secondary, button.secondary, input[type="submit"].secondary {
     color: #2580ef; }
-  a.button.active, button.points.active, input[type="submit"].active {
+  a.button.active, button.active, input[type="submit"].active {
     background-color: #e94573;
     color: white; }
-    a.button.active.secondary, button.points.active.secondary, input[type="submit"].active.secondary {
+    a.button.active.secondary, button.active.secondary, input[type="submit"].active.secondary {
       background-color: #2580ef; }
 
 a.button:hover {
@@ -138,6 +138,22 @@ table {
     min-width: 250px; }
   table.marking-table td.points {
     width: 250px; }
+
+.timer {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  padding: 5px 20px;
+  vertical-align: center;
+  text-align: center;
+  background-color: white;
+  color: #2580ef;
+  font-size: 32px;
+  font-size: 2rem;
+  font-weight: bold;
+  z-index: 1000;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
 
 a.lobby-link {
   float: left;
@@ -262,16 +278,19 @@ form div.flex input[type="text"], form div.flex textarea {
 .align-right {
   text-align: right; }
 
+.center {
+  margin: 10px auto; }
+
 @media (max-width: 767px) {
   html {
     font-size: 12px; }
   div.container {
-    margin: 2vh auto;
+    margin: 5vh auto;
     max-width: 98%; }
   div.card {
     margin: 2vh auto;
     padding: 10px; }
-  a.button, button.points, input[type="submit"] {
+  a.button, button, input[type="submit"] {
     padding: 4px 8px; }
   .index table td {
     padding: 3px; } }

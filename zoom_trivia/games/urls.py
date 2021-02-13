@@ -14,10 +14,12 @@ from .views import (
     round_state,
     rules,
     score,
+    set_timer,
     start_marking,
     start_round,
     submit_answers,
     team_table,
+    time_left,
 )
 
 app_name = "games"
@@ -44,4 +46,6 @@ urlpatterns = [
     path("<int:game_id>/game_table/", view=game_table, name="game_table"),
     path("<int:game_id>/round/<int:round_num>/state/", view=round_state, name="round_state"),
     path("<int:game_id>/team_table/", view=team_table, name="team_table"),
+    path("<int:game_id>/round/<int:round_num>/time_left", view=time_left, name="time_left"),
+    path("<int:game_id>/round/<int:round_num>/set_timer", view=set_timer, name="set_timer"),
 ]

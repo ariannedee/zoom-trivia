@@ -6,6 +6,10 @@
 
 {% block content %}
   {% load questions %}
+  {% load static %}
+
+  <div class="timer" hidden></div>
+
   <h1>Round {{ round.number }} - {{ round.name }}</h1>
   {% if team %}
     <form method="post" action="{% url 'games:submit_answers' round.game.id round.number %}">
@@ -29,3 +33,10 @@
     {% endfor %}
   {% endif %}
 {% endblock content %}
+
+{% block page_js %}
+  <script>
+    const url = '{% url "games:time_left" round.game.id round.number %}';
+  </script>
+  <script src="{% static 'js/countdown_timer.js' %}"></script>
+{% endblock %}

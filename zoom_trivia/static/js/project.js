@@ -25,3 +25,12 @@ function score(_this, answer_id, points) {
         }
     });
 }
+
+function getRequest(url) {
+    $.get({
+        url: url,
+        success: (response) => {
+            console.log(`GET ${url}: ${response}`);
+        }
+    });
+}

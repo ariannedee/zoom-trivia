@@ -1,6 +1,9 @@
+from datetime import timedelta
+
 from admin_ordering.models import OrderableModel
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django.utils.timezone import now
 from model_utils.models import TimeStampedModel
 
 from zoom_trivia.games.helpers import rename
@@ -97,6 +100,7 @@ class Round(OrderableModel, TimeStampedModel):
     game = models.ForeignKey(Game, related_name="rounds", on_delete=models.CASCADE)
     name = models.CharField(max_length=60)
     complete = models.BooleanField(default=False)
+    end_time = models.DateTimeField(null=True, blank=True)
 
     @property
     def num_questions(self):
@@ -110,8 +114,24 @@ class Round(OrderableModel, TimeStampedModel):
     def can_see_answers(self):
         return self.complete or (self.current and self.game.round_state == 3)
 
+    @property
+    def can_submit_answers(self):
+        return self.current and self.game.round_state < 3
+
     def get_team_answers(self, team_id):
         return TeamAnswer.objects.filter(question__round=self, team_id=team_id).order_by('question__number')
+
+    @property
+    def time_left(self):
+        if self.end_time:
+            if self.end_time > now():
+                return (self.end_time - now()).seconds
+            return 0
+        return None
+
+    def set_countdown(self, seconds=60):
+        self.end_time = now() + timedelta(seconds=seconds)
+        self.save()
 
     def __str__(self):
         return f"Round: {self.name}"

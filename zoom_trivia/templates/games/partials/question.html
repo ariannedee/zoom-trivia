@@ -5,7 +5,7 @@
   {% include "games/partials/question_image.html" %}
 {% endif %}
 {% if question.link %}
-  <a href="{{ question.link }}" target="_blank">
+  <a class="center" href="{{ question.link }}" target="_blank">
     {% if question.link_display %}
       {{ question.link_display }}
     {% else %}
@@ -14,6 +14,6 @@
   </a>
 {% endif %}
 {% if question.details %}
-  <p>{{ question.details|linebreaks }}</p>
+  <p class="center">{{ question.details|linebreaksbr }}</p>
 {% endif %}
 <p>Out of {{ question.out_of }}</p>

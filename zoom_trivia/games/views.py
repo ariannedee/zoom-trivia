@@ -142,6 +142,9 @@ def submit_answers(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
     _round = game.rounds.get(number=round_num)
     team_id = request.session.get('team_id')
+    if not _round.can_submit_answers:
+        messages.add_message(request, messages.ERROR, "This round has already been marked")
+        return redirect("games:answer", game_id, round_num, 1)
     if request.method == 'POST':
         if not team_id or not Team.objects.filter(id=team_id).count():
             messages.add_message(request, messages.WARNING,
@@ -203,3 +206,16 @@ def round_state(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
     _round = game.rounds.get(number=round_num)
     return HttpResponse(_round.can_see_answers)
+
+
+def time_left(request, game_id, round_num):
+    game = get_object_or_404(Game, pk=game_id)
+    _round = game.rounds.get(number=round_num)
+    return HttpResponse(_round.time_left)
+
+
+def set_timer(request, game_id, round_num):
+    game = get_object_or_404(Game, pk=game_id)
+    _round = game.rounds.get(number=round_num)
+    _round.set_countdown(60)
+    return HttpResponse(_round.time_left)
