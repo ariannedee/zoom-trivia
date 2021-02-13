@@ -15,9 +15,11 @@
       {% include "games/partials/mark_answer_table.html" %}
     </div>
   {% endfor %}
-  <a class="button"
-     href="{% url 'games:end_marking' round.game.id round.number %}"
-  >Done marking</a>
+  <div class="bottom-buttons">
+    <a class="button primary"
+       href="{% url 'games:end_marking' round.game.id round.number %}"
+    >Done marking</a>
+  </div>
 {% endblock content %}
 
 {% block page_js %}

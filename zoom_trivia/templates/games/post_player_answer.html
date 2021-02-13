@@ -1,0 +1,40 @@
+{% extends 'games/round_base.html' %}
+
+{% block class %}post-submit{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1>Round {{ round.number }} - {{ round.name }}</h1>
+    <h2>Your answers for round {{ round.number }} have been submitted</h2>
+    <div class="buttons">
+      <a class="button" href="{% url 'games:player_answers' round.game.id round.number %}">Update your answers</a>
+      OR
+      <a class="button primary"
+         href="{% url 'games:answer' round.game.id round.number 1 %}"
+              {% if not round.game.can_see_answers %}
+                disabled
+              {% endif %}
+      >View answers</a>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block page_js %}
+  <script>
+    function refresh_answer_button() {
+      $.get({
+        url: "{% url 'games:round_state' round.game.id round.number %}",
+        success: (response) => {
+          console.log(response);
+          if (response === 'True') {
+            $('a.button[disabled]').removeAttr('disabled');
+          }
+        }
+      });
+    }
+
+    if ($('a.button[disabled]')) {
+      window.setInterval(refresh_answer_button, 3000);
+    }
+  </script>
+{% endblock %}

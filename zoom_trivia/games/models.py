@@ -106,6 +106,10 @@ class Round(OrderableModel, TimeStampedModel):
     def current(self):
         return self.game.current_round == self
 
+    @property
+    def can_see_answers(self):
+        return self.complete or (self.current and self.game.round_state == 3)
+
     def get_team_answers(self, team_id):
         return TeamAnswer.objects.filter(question__round=self, team_id=team_id).order_by('question__number')
 

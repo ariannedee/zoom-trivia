@@ -11,6 +11,7 @@ from .views import (
     player_answers,
     question_view,
     round_start_view,
+    round_state,
     rules,
     score,
     start_marking,
@@ -38,4 +39,5 @@ urlpatterns = [
     path('score', view=score, name='score'),
     path("<int:game_id>/round/<int:round_num>/question/<int:question_num>/mark_table", view=mark_table, name="mark_table"),
     path("<int:game_id>/game_table/", view=game_table, name="game_table"),
+    path("<int:game_id>/round/<int:round_num>/state/", view=round_state, name="round_state"),
 ]

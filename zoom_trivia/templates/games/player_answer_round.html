@@ -7,17 +7,25 @@
 {% block content %}
   {% load questions %}
   <h1>Round {{ round.number }} - {{ round.name }}</h1>
-  <form method="post" action="{% url 'games:submit_answers' round.game.id round.number %}">
-    {% csrf_token %}
+  {% if team %}
+    <form method="post" action="{% url 'games:submit_answers' round.game.id round.number %}">
+      {% csrf_token %}
+      {% for question in round.questions.all %}
+        <div class="card">
+          {% include "games/partials/question.html" %}
+          <div class="flex">
+            <label for="{{ question.pk }}">Answer:</label>
+            <textarea type="text" id="id-{{ question.pk }}" name="{{ question.pk }}">{% if answers %}{{ answers|get_answer:question.pk }}{% endif %}</textarea>
+          </div>
+        </div>
+      {% endfor %}
+      <input type="submit" value="Submit answers"/>
+    </form>
+  {% else %}
     {% for question in round.questions.all %}
       <div class="card">
         {% include "games/partials/question.html" %}
-        <div class="flex">
-          <label for="{{ question.pk }}">Answer:</label>
-          <textarea type="text" id="id-{{ question.pk }}" name="{{ question.pk }}">{% if answers %}{{ answers|get_answer:question.pk }}{% endif %}</textarea>
-        </div>
       </div>
     {% endfor %}
-    <input type="submit" value="Submit answers"/>
-  </form>
+  {% endif %}
 {% endblock content %}

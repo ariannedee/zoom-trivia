@@ -1,6 +1,9 @@
 $(document).ready(function () {
-    $('a.button[disabled]').click(function (e) {
-        e.preventDefault();
+    $('a.button').click(function (e) {
+        if (this.hasAttribute('disabled')) {
+            e.preventDefault();
+            return false;
+        }
     });
 });
 

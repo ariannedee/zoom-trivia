@@ -121,7 +121,6 @@ a.button, button.points, input[type="submit"] {
   font-weight: 500;
   margin-right: 5px;
   padding: 8px 16px;
-  min-height: calc(16px + 1.42857143em);
   text-transform: uppercase;
   border: 0;
   background-image: none;
@@ -273,6 +272,13 @@ a.lobby-link {
   justify-content: space-between;
 }
 
+.bottom-buttons {
+  display: flex;
+  width: 50%;
+  justify-content: space-around;
+  margin: auto;
+}
+
 .mark-round {
   h1 {
     font-size: 1.5rem;
@@ -295,6 +301,22 @@ a.lobby-link {
   }
 }
 
+.post-submit {
+  h1 {
+    font-size: 1.8rem;
+    font-family: $fancy-font;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    margin: 30px auto;
+  }
+
+  .buttons {
+    max-width: 600px;
+    margin: 20px auto;
+  }
+}
 
 ////////////////////////////////
 //Forms//

@@ -16,17 +16,20 @@
          href="{% url 'games:answer' round.game.id round.number question.number|add:"-1" %}"
          {% if question.number <= 1 %}disabled{% endif %}
       >Previous</a>
-      {% if round.questions.count == question.number %}
-        {% if request.user.is_authenticated and round == round.game.current_round %}
-          <a class="button" href="{% url 'games:end_round' round.game.id round.number %}">Lobby</a>
-        {% else %}
-          <a class="button" href="{% url 'games:home' %}">Lobby</a>
-        {% endif %}
-      {% endif %}
       <a class="button"
          href="{% url 'games:answer' round.game.id round.number question.number|add:"1" %}"
          {% if question.number >= round.questions.count %}disabled{% endif %}
       >Next</a>
     </div>
+  </div>
+  <div class="bottom-buttons">
+    {% if round.questions.count == question.number %}
+      {% if request.user.is_authenticated and round == round.game.current_round %}
+        <a class="button" href="{% url 'games:start_marking' round.game.id round.number %}">Go back to marking</a>
+        <a class="button primary" href="{% url 'games:end_round' round.game.id round.number %}">End round</a>
+      {% else %}
+        <a class="button" href="{% url 'games:home' %}">Lobby</a>
+      {% endif %}
+    {% endif %}
   </div>
 {% endblock content %}

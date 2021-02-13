@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.utils.html import format_html
 
 from zoom_trivia.games.models import Game, Question, Round
+from zoom_trivia.teams.models import TeamAnswer
 
 
 class WidgetStyleMixin:
@@ -76,3 +77,15 @@ class RoundAdmin(admin.ModelAdmin):
             num_points=Sum("questions__out_of"),
         )
         return queryset
+
+
+class AnswerInline(admin.TabularInline):
+    model = TeamAnswer
+    extra = 0
+    show_change_link = True
+
+
+@admin_thumbnails.thumbnail('image')
+@admin.register(Question)
+class QuestionAdmin(admin.ModelAdmin):
+    inlines = (AnswerInline,)
