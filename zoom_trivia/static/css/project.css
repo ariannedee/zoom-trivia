@@ -135,6 +135,10 @@ table {
     border-bottom: 1px solid #DDD; }
   table tr:nth-child(odd) {
     background-color: #F2F2F2; }
+  table.marking-table td.team {
+    min-width: 250px; }
+  table.marking-table td.points {
+    width: 250px; }
 
 a.lobby-link {
   float: left;

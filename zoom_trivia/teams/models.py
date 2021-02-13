@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.aggregates import Sum
 from model_utils.models import TimeStampedModel
 
 
@@ -7,11 +8,15 @@ class Team(TimeStampedModel):
     game = models.ForeignKey('games.Game', on_delete=models.CASCADE, related_name='teams')
     score = models.FloatField(default=0)
 
+    @property
+    def points(self):
+        return self.answers.aggregate(Sum('points'))['points__sum']
+
     def __str__(self):
         return self.name
 
     def __repr__(self):
-        return f"{self.name} ({self.score})"
+        return f"{self.name} ({self.points})"
 
 
 class TeamAnswer(TimeStampedModel):

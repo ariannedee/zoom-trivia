@@ -68,6 +68,9 @@ def marking_view(request, game_id, round_num):
 def player_answers(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
     _round = game.rounds.get(number=round_num)
+    if _round != game.current_round or game.round_state == 3:
+        messages.add_message(request, messages.ERROR, 'You can only answer the current round')
+        return redirect("games:game", game_id)
     context = {"round": _round}
     team_id = request.session.get('team_id')
     if team_id:

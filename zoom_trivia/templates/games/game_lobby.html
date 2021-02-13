@@ -14,23 +14,22 @@
         {% include "games/partials/round_table_player.html" %}
       {% endif %}
     </div>
-
-    {% if not request.user.is_authenticated %}
-      <div class="card">
-        <h2>Teams</h2>
-        <table>
+    <div class="card">
+      <h2>Teams</h2>
+      <table>
+        <tr>
+          <th>Team name</th>
+          <th>Score</th>
+        </tr>
+        {% for team_ in game.teams.all %}
           <tr>
-            <th>Team name</th>
-            <th>Score</th>
+            <td {% if team == team_ %}class="player-team"{% endif %}>{{ team_.name }}</td>
+            <td>{{ team_.points }}</td>
           </tr>
-          {% for team_ in game.teams.all %}
-            <tr>
-              <td {% if team %}class="player-team"{% endif %}>{{ team_.name }}</td>
-              <td>{{ team_.score }}</td>
-            </tr>
-          {% endfor %}
-        </table>
-      </div>
+        {% endfor %}
+      </table>
+    </div>
+    {% if request.user.is_anonymous %}
       <div class="card">
         <h2>Your Team</h2>
         {% include "games/partials/show_team.html" %}

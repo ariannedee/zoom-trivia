@@ -201,6 +201,15 @@ table {
   tr:nth-child(odd) {
     background-color: #F2F2F2;
   }
+
+  &.marking-table {
+    td.team {
+      min-width: 250px;
+    }
+    td.points {
+      width: 250px;
+    }
+  }
 }
 ////////////////////////////////
 //Sections//
