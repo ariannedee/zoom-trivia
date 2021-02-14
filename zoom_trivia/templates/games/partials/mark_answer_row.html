@@ -19,5 +19,8 @@
     {% if question.out_of >= 3 %}
       {% include "games/partials/point.html" with num_points=3 %}
     {% endif %}
+    {% if question.out_of >= 4 %}
+      {% include "games/partials/point.html" with num_points=4 %}
+    {% endif %}
   </td>
 </tr>
