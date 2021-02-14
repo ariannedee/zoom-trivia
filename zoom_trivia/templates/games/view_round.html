@@ -5,6 +5,9 @@
 {% block content %}
   <h2>Round {{ round.number }}</h2>
   <h1>{{ round.name }}</h1>
+  {% if round.description %}
+    <h3>{{ round.description }}</h3>
+  {% endif %}
 
   <a class="button align-self-end" href="{% url 'games:question' round.game.id round.number 1 %}">Start</a>
 {% endblock content %}

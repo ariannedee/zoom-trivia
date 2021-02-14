@@ -102,6 +102,7 @@ class Game(TimeStampedModel):
 class Round(OrderableModel, TimeStampedModel):
     game = models.ForeignKey(Game, related_name="rounds", on_delete=models.CASCADE)
     name = models.CharField(max_length=60)
+    description = models.CharField(max_length=255, null=True, blank=True)
     complete = models.BooleanField(default=False)
     end_time = models.DateTimeField(null=True, blank=True)
     lightning = models.BooleanField(default=False)
@@ -151,7 +152,7 @@ class Round(OrderableModel, TimeStampedModel):
 
 class Question(OrderableModel, TimeStampedModel):
     round = models.ForeignKey(Round, related_name="questions", on_delete=models.CASCADE)
-    text = models.CharField(max_length=150)
+    text = models.CharField(max_length=250)
     image = models.ImageField(upload_to=rename, null=True, blank=True)
     link = models.CharField(max_length=500, null=True, blank=True)
     link_display = models.CharField(max_length=150, null=True, blank=True)

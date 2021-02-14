@@ -187,6 +187,8 @@ a.lobby-link {
   .round-start h2 {
     font-size: 32px;
     font-size: 2rem; }
+  .round-start h3 {
+    margin-bottom: 50px; }
 
 .question {
   min-height: 450px;
@@ -196,8 +198,8 @@ a.lobby-link {
     font-size: 1.5rem;
     font-family: "Cedarville Cursive", sans-serif; }
   .question h2 {
-    font-size: 32px;
-    font-size: 2rem; }
+    font-size: 40px;
+    font-size: 2.5rem; }
 
 .buttons {
   display: -webkit-box;
@@ -258,7 +260,7 @@ form div.flex input[type="text"], form div.flex textarea {
   width: 100%; }
 
 .full-size {
-  min-height: 80vh; }
+  min-height: 70vh; }
 
 .flex {
   display: -webkit-box;
