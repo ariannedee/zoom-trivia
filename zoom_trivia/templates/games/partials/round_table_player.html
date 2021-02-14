@@ -13,11 +13,13 @@
       {% if game.current_round == round %}
         {% if round.lightning %}
           Answer in Zoom chat
-        {% elif game.round_state == 0 %}
+        {% elif game.not_started %}
           Waiting to start
-        {% elif game.round_state == 1 or game.round_state == 2 %}
+        {% elif game.view_questions or game.answering %}
           <a class="button primary" href="{% url 'games:player_answers' game.id round.number %}">Start →</a>
-        {% elif game.round_state == 3 %}
+        {% elif game.marking %}
+          The round is being marked
+        {% elif game.marked %}
           <a class="button primary" href="{% url 'games:answer' game.id round.number 1 %}">Show answers</a>
         {% endif %}
       {% elif round.complete %}

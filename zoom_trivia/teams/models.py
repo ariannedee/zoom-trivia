@@ -8,24 +8,28 @@ class Team(TimeStampedModel):
     game = models.ForeignKey('games.Game', on_delete=models.CASCADE, related_name='teams')
     score = models.FloatField(default=0)
 
+    def update_score(self):
+        self.score = self.answers.aggregate(Sum('points'))['points__sum'] or 0
+        self.save()
+
     @property
-    def points(self):
-        points_ = self.answers.aggregate(Sum('points'))['points__sum'] or 0
-        if points_ % 1:
-            return points_
-        return round(points_)
+    def display_score(self):
+        return self.score if self.score % 1 else round(self.score)
 
     def __str__(self):
         return self.name
 
     def __repr__(self):
-        return f"{self.name} ({self.points})"
+        return f"{self.name} ({self.display_score})"
+
+    class Meta:
+        ordering = ('game', '-score', 'name')
 
 
 class TeamAnswer(TimeStampedModel):
     team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='answers')
     question = models.ForeignKey('games.Question', on_delete=models.CASCADE, related_name='answers')
-    answer = models.CharField(max_length=255)
+    answer = models.CharField(max_length=255, blank=True, null=True)
     submitted = models.BooleanField(default=False)
     submitted_at = models.DateTimeField(blank=True, null=True)
     points = models.FloatField(null=True, blank=True)

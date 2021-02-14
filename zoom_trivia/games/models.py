@@ -4,77 +4,124 @@ from admin_ordering.models import OrderableModel
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils.timezone import now
+from django.utils.translation import gettext_lazy as _
 from model_utils.models import TimeStampedModel
 
 from zoom_trivia.games.helpers import rename
 from zoom_trivia.teams.models import TeamAnswer
 
-ROUND_STATE = (
-    (0, "Not started"),
-    (1, "View questions"),
-    (2, "Answer"),
-    (3, "Marked"),
-)
-
 
 class StateError(Exception):
-    def __init__(self, start_state, end_state):
-        errors = []
-        for state in (start_state, end_state):
-            if not 0 <= state <= len(ROUND_STATE)-1:
-                errors.append(f'Invalid state {state}')
-        if errors:
-            super().__init__(errors[0])
-        start = ROUND_STATE[start_state][1]
-        end = ROUND_STATE[end_state][1]
-        super().__init__(f"Cannot go from state {start_state} ({start}) to {end_state} ({end})")
+    pass
+
+
+class RoundState(models.IntegerChoices):
+    NOT_STARTED = 0, _('Not started')
+    QUESTIONS = 1, _('View questions')
+    ANSWER = 2, _('Submitting answers')
+    MARKING = 3, _('Marking')
+    MARKED = 4, _('Marked')
 
 
 class Game(TimeStampedModel):
     name = models.CharField(max_length=50)
     start_time = models.DateTimeField(null=True, blank=True)
     current_round = models.ForeignKey('Round', related_name='current_game', on_delete=models.SET_NULL, null=True, blank=True)
-    round_state = models.IntegerField(choices=ROUND_STATE, default=0)
+    round_state = models.IntegerField(choices=RoundState.choices, default=RoundState.NOT_STARTED)
     link = models.CharField(null=True, blank=True, max_length=255)
+    complete = models.BooleanField(default=False)
 
+    # CHECK STATE
+    @property
+    def not_started(self):
+        return self.round_state == RoundState.NOT_STARTED
+
+    @property
+    def view_questions(self):
+        return self.round_state == RoundState.QUESTIONS
+
+    @property
+    def answering(self):
+        return self.round_state == RoundState.ANSWER
+
+    @property
+    def marking(self):
+        return self.round_state == RoundState.MARKING
+
+    @property
+    def marked(self):
+        return self.round_state == RoundState.MARKED
+
+    # STATE TRANSITIONS
     def start_round(self):
-        if self.round_state == 1:
-            return
-        elif not self.round_state == 0:
-            raise StateError(self.round_state, 1)
         if not self.current_round:
-            self.current_round = self.rounds.get(number=1)
+            self.current_round = self.go_to_next_round()
 
-        self.round_state = 1
+        if not self.round_state == RoundState.NOT_STARTED:
+            raise StateError(f"Invalid state transition from {self.round_state} to {RoundState.QUESTIONS}")
+
+        if self.current_round.lightning:
+            self.current_round.create_team_answers()
+
+        self.round_state = RoundState.QUESTIONS
         self.save()
 
     def start_marking(self):
         if not self.current_round:
-            raise StateError(0, 2)
+            raise StateError('There is no current round set')
         self.current_round.end_time = None
-        if self.current_round.lightning:
-            self.current_round.create_team_answers()
-        self.round_state = 2
+        self.round_state = RoundState.ANSWER
+        self.save()
+
+    def stop_answering(self):
+        if not self.current_round:
+            raise StateError('There is no current round set')
+        elif self.round_state == RoundState.NOT_STARTED:
+            raise StateError('This round has not been started')
+        self.round_state = RoundState.MARKING
         self.save()
 
     def end_marking(self):
         if not self.current_round:
-            raise StateError(0, 3)
-        self.round_state = 3
+            raise StateError('There is no current round set')
+        elif self.round_state == RoundState.NOT_STARTED:
+            raise StateError('This round has not been started')
+        self.round_state = RoundState.MARKED
         self.save()
 
     def end_round(self):
-        if self.current_round:
-            self.current_round.complete = True
-            self.current_round.save()
+        if not self.current_round:
+            raise StateError('There is no current round set')
+        elif self.round_state == RoundState.NOT_STARTED:
+            raise StateError('This round has not been started')
+        elif self.round_state == RoundState.QUESTIONS:
+            raise StateError('This round has not been marked')
 
+        self.current_round.complete = True
+        self.current_round.save()
+        self.update_scores()
+        self.round_state = RoundState.NOT_STARTED
+        self.save()
+        self.go_to_next_round()
+
+    def go_to_next_round(self):
+        if self.complete:
+            raise StateError('This game is already over')
+        elif not self.current_round:
+            round_num = 0
+        else:
+            round_num = self.current_round.number + 1
         try:
-            self.current_round = self.rounds.get(number=self.current_round.number + 1)
+            self.current_round = self.rounds.get(number=round_num)
         except ObjectDoesNotExist:
+            self.complete = True
             self.current_round = None
         finally:
-            self.round_state = 0
             self.save()
+
+    def update_scores(self):
+        for team in self.teams.all():
+            team.update_score()
 
     def save(self, *args, **kwargs):
         if self.current_round:
@@ -86,7 +133,7 @@ class Game(TimeStampedModel):
                     _round.complete = False
                     _round.save()
         else:
-            self.round_state = 0
+            self.round_state = RoundState.NOT_STARTED
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -117,11 +164,11 @@ class Round(OrderableModel, TimeStampedModel):
 
     @property
     def can_see_answers(self):
-        return self.complete or (self.current and self.game.round_state == 3)
+        return self.complete or (self.current and self.game.round_state == RoundState.MARKED)
 
     @property
     def can_submit_answers(self):
-        return self.current and self.game.round_state < 3
+        return self.current and self.game.round_state < RoundState.MARKING
 
     def get_team_answers(self, team_id):
         return TeamAnswer.objects.filter(question__round=self, team_id=team_id).order_by('question__number')
@@ -129,7 +176,7 @@ class Round(OrderableModel, TimeStampedModel):
     def create_team_answers(self):
         for team in self.game.teams.all():
             for question in self.questions.all():
-                answer, created = TeamAnswer.objects.get_or_create(question=question, team=team)
+                TeamAnswer.objects.get_or_create(question=question, team=team)
 
     @property
     def time_left(self):
@@ -159,6 +206,9 @@ class Question(OrderableModel, TimeStampedModel):
     details = models.TextField(null=True, blank=True)
     out_of = models.IntegerField(default=1)
     answer = models.CharField(max_length=300)
+
+    def get_team_answer(self, team_id):
+        return TeamAnswer.objects.filter(question=self, team_id=team_id)
 
     def __str__(self):
         return f"{self.text}"
