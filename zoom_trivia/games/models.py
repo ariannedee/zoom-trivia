@@ -26,6 +26,8 @@ class RoundState(models.IntegerChoices):
 
 class GameQuerySet(models.QuerySet):
     def filter_for_user(self, user):
+        if user.is_superuser:
+            return self
         return self.filter(allowed_users__user=user)
 
 
@@ -34,10 +36,12 @@ class GameManager(models.Manager):
         return GameQuerySet(self.model, using=self._db)
 
     def filter_for_user(self, user):
+        if user.is_superuser:
+            return self.all()
         return self.filter(allowed_users__user=user)
 
     def upcoming_games(self):
-        return self.filter(start_time__gte=now().date())
+        return self.filter(start_time__gte=now().date(), visible=True)
 
 
 class Game(TimeStampedModel):
@@ -47,6 +51,7 @@ class Game(TimeStampedModel):
     round_state = models.IntegerField(choices=RoundState.choices, default=RoundState.NOT_STARTED)
     link = models.CharField(null=True, blank=True, max_length=255)
     complete = models.BooleanField(default=False)
+    visible = models.BooleanField(default=False)
 
     objects = GameManager()
 
@@ -59,7 +64,9 @@ class Game(TimeStampedModel):
 
     @property
     def zoom_link(self):
-        return self.link or "Not set"
+        if self.link:
+            return f'<a href="{self.link}" target="_blank">{self.link}</a>'
+        return "Not set"
 
     # CHECK STATE
     @property

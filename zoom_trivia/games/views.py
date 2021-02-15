@@ -18,12 +18,10 @@ from zoom_trivia.teams.models import Team, TeamAnswer
 # ===================
 def game_index(request):
     context = {}
-    upcoming_games = Game.objects.upcoming_games()
     if request.user.is_staff:
         your_games = Game.objects.filter_for_user(request.user)
         context['your_games'] = your_games
-        upcoming_games = upcoming_games.exclude(id__in=your_games)
-    context['games'] = upcoming_games
+    context['games'] = Game.objects.upcoming_games()
     return render(request, "games/game_list.html", context=context)
 
 
