@@ -43,7 +43,9 @@
       </button>
       {% if game %}
         <a class="navbar-brand" href="{% url 'games:home' %}">{{ game.name }}</a>
-        <div class="navbar-description">{{ game.start_time }}</div>
+        {% if game.start_time %}
+          <div class="navbar-description">{{ game.start_time }}</div>
+        {% endif %}
       {% else %}
         <a class="navbar-brand" href="{% url 'games:home' %}">Zoom Trivia</a>
       {% endif %}

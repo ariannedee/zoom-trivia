@@ -16,7 +16,18 @@ from zoom_trivia.teams.models import Team, TeamAnswer
 # ===================
 # RENDER VIEWS
 # ===================
-def game_index(request, game_id=1):
+def game_index(request):
+    context = {}
+    upcoming_games = Game.objects.upcoming_games()
+    if request.user.is_staff:
+        your_games = Game.objects.filter_for_user(request.user)
+        context['your_games'] = your_games
+        upcoming_games = upcoming_games.exclude(id__in=your_games)
+    context['games'] = upcoming_games
+    return render(request, "games/game_list.html", context=context)
+
+
+def view_game(request, game_id=1):
     game = get_object_or_404(Game, pk=game_id)
     context = {"game": game}
     team_id = request.session.get('team_id')
@@ -90,7 +101,8 @@ def player_answers(request, game_id, round_num):
     else:
         messages.add_message(request, messages.WARNING,
             mark_safe(
-                f"You can't answer questions if you don't have a team set.\nGo to the <a target=\"_blank\" href=\"{reverse('games:home')}\">lobby</a> to select a team."))
+                f"""You can't answer questions if you don't have a team set.
+                Go to the <a target=\"_blank\" href=\"{game.get_absolute_url()}\">lobby</a> to select a team."""))
     return render(request, "games/player_answer_round.html", context=context)
 
 
@@ -155,7 +167,9 @@ def submit_answers(request, game_id, round_num):
     if request.method == 'POST':
         if not team_id or not Team.objects.filter(id=team_id).count():
             messages.add_message(request, messages.WARNING,
-                mark_safe(f"You don't have a team set. Go to the <a target=\"_blank\" href=\"{reverse('games:home')}\">lobby</a> to select a team first."))
+                mark_safe(
+                    f"""You don't have a team set.
+Go to the <a target=\"_blank\" href=\"{game.get_absolute_url()}\">lobby</a> to select a team first."""))
             context = {"round": _round}
             return render(request, "games/player_answer_round.html", context=context)
 

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block class %}
+  index
+{% endblock %}
+
+{% block content %}
+  {% if request.user.is_authenticated and your_games.count %}
+    <div class="card">
+      <h2>Your Games</h2>
+      {% include "games/partials/games_table.html" with games=your_games %}
+    </div>
+  {% endif %}
+  <div class="card">
+    <h2>Upcoming Games</h2>
+    {% if games.count %}
+      {% include "games/partials/games_table.html" with games=games %}
+    {% else %}
+      <p>No upcoming games</p>
+    {% endif %}
+  </div>
+{% endblock %}

@@ -20,11 +20,12 @@ from .views import (
     submit_answers,
     team_table,
     time_left,
+    view_game,
 )
 
 app_name = "games"
 urlpatterns = [
-    path("<int:game_id>/", view=game_index, name="game"),
+    path("<int:game_id>/", view=view_game, name="game"),
     path("", view=game_index, name="home"),
     path("rules/", view=rules, name="rules"),
     path(

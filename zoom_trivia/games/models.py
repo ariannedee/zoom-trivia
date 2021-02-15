@@ -3,6 +3,7 @@ from datetime import timedelta
 from admin_ordering.models import OrderableModel
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 from model_utils.models import TimeStampedModel
@@ -35,6 +36,9 @@ class GameManager(models.Manager):
     def filter_for_user(self, user):
         return self.filter(allowed_users__user=user)
 
+    def upcoming_games(self):
+        return self.filter(start_time__gte=now().date())
+
 
 class Game(TimeStampedModel):
     name = models.CharField(max_length=50)
@@ -45,6 +49,17 @@ class Game(TimeStampedModel):
     complete = models.BooleanField(default=False)
 
     objects = GameManager()
+
+    def update_scores(self):
+        for team in self.teams.all():
+            team.update_score()
+
+    def get_absolute_url(self):
+        return reverse("games:game", kwargs={"game_id": self.id})
+
+    @property
+    def zoom_link(self):
+        return self.link or "Not set"
 
     # CHECK STATE
     @property
@@ -134,10 +149,7 @@ class Game(TimeStampedModel):
         finally:
             self.save()
 
-    def update_scores(self):
-        for team in self.teams.all():
-            team.update_score()
-
+    # BASE MODEL OVERRIDES
     def save(self, *args, **kwargs):
         if self.current_round:
             for _round in self.rounds.all():

@@ -1,0 +1,18 @@
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Rounds</th>
+    <th>Game link</th>
+    <th>Zoom link</th>
+  </tr>
+  {% for game in games %}
+    <tr>
+      <td>{{ game.id }}</td>
+      <td><a href="{{ game.get_absolute_url }}">{{ game.name }}</a></td>
+      <td>{{ game.rounds.count }}</td>
+      <td>https://{{ request.get_host }}{{ game.get_absolute_url }}</td>
+      <td>{{ game.zoom_link }}</td>
+    </tr>
+  {% endfor %}
+</table>
