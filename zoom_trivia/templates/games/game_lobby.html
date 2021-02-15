@@ -24,7 +24,7 @@
       {% for team_ in game.teams.all %}
         <tr>
           <td {% if team == team_ %}class="player-team"{% endif %}>{{ team_.name }}</td>
-          <td>{{ team_.score }}</td>
+          <td>{{ team_.display_score }}</td>
         </tr>
       {% endfor %}
     </table>
