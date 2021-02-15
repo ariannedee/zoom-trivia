@@ -28,6 +28,7 @@ urlpatterns = [
     path("<int:game_id>/", view=view_game, name="game"),
     path("", view=game_index, name="home"),
     path("rules/", view=rules, name="rules"),
+    path("rules/<int:game_id>/", view=rules, name="rules"),
     path(
         "<int:game_id>/round/<int:round_num>/", view=round_start_view, name="round_start"
     ),

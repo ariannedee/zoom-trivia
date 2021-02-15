@@ -29,20 +29,24 @@ def view_game(request, game_id=1):
     game = get_object_or_404(Game, pk=game_id)
     context = {"game": game}
     team_id = request.session.get('team_id')
-    if team_id:
-        context['team'] = Team.objects.get(id=team_id)
-    if request.user.is_anonymous and not team_id:
+    team = game.teams.filter(id=team_id).first()
+    if team:
+        context['team'] = team
+    if request.user.is_anonymous and not team:
         return render(request, "games/game_intro.html", context=context)
     return render(request, "games/game_lobby.html", context=context)
 
 
-def rules(request):
-    game = get_object_or_404(Game, pk=1)
-    context = {"game": game}
+def rules(request, game_id=None):
+    if game_id:
+        game = get_object_or_404(Game, pk=game_id)
+        context = {"game": game}
+    else:
+        context = {}
     return render(request, "games/rules.html", context=context)
 
 
-@staff_member_required(redirect_field_name="games:index")
+@staff_member_required
 def round_start_view(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
     _round = game.rounds.get(number=round_num)
@@ -50,7 +54,7 @@ def round_start_view(request, game_id, round_num):
     return render(request, "games/view_round.html", context=context)
 
 
-@staff_member_required(redirect_field_name="games:index")
+@staff_member_required
 def question_view(request, game_id, round_num, question_num):
     game = get_object_or_404(Game, pk=game_id)
     _round = game.rounds.get(number=round_num)
@@ -112,7 +116,7 @@ def start_round(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
     if (not game.current_round and round_num == 1) or (game.current_round and game.current_round.number != round_num):
         messages.add_message(request, messages.ERROR, 'That is not the current round')
-        return render(request, "games/game_lobby.html", context={"game": game})
+        return redirect("games:game", game_id)
     game.start_round()
     _round = game.current_round
     if _round.lightning:
@@ -163,7 +167,7 @@ def submit_answers(request, game_id, round_num):
         messages.add_message(request, messages.ERROR, "This round has already been marked")
         return redirect("games:answer", game_id, round_num, 1)
     if request.method == 'POST':
-        if not team_id or not Team.objects.filter(id=team_id).count():
+        if not team_id or not game.teams.filter(id=team_id).exists():
             messages.add_message(request, messages.WARNING,
                 mark_safe(
                     f"""You don't have a team set.
