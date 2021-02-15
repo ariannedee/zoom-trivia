@@ -3,7 +3,7 @@ from admin_ordering.admin import OrderableAdmin
 from django.contrib import admin
 from django.db import models
 from django.db.models.aggregates import Sum
-from django.forms import TextInput, Textarea
+from django.forms import Textarea, TextInput
 from django.urls import reverse
 from django.utils.html import format_html
 
@@ -17,8 +17,9 @@ class WidgetStyleMixin:
         models.CharField: {'widget': TextInput(attrs={'size': '130'})},
         models.TextField: {'widget': Textarea(
             attrs={'rows': 3,
-                'cols': 130,
-                'style': 'height: 3em;'})},
+                   'cols': 130,
+                   'style': 'height: 3em;'}
+        )},
     }
 
 

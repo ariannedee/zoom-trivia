@@ -47,7 +47,9 @@ class GameManager(models.Manager):
 class Game(TimeStampedModel):
     name = models.CharField(max_length=50)
     start_time = models.DateTimeField(null=True, blank=True)
-    current_round = models.ForeignKey('Round', related_name='current_game', on_delete=models.SET_NULL, null=True, blank=True)
+    current_round = models.ForeignKey(
+        'Round', related_name='current_game', on_delete=models.SET_NULL, null=True, blank=True
+    )
     round_state = models.IntegerField(choices=RoundState.choices, default=RoundState.NOT_STARTED)
     link = models.CharField(null=True, blank=True, max_length=255)
     complete = models.BooleanField(default=False)

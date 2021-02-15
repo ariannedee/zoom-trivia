@@ -5,12 +5,11 @@ from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.views.decorators.http import require_POST
 
 from zoom_trivia.games.models import Game, Question
-from zoom_trivia.teams.models import Team, TeamAnswer
+from zoom_trivia.teams.models import TeamAnswer
 
 
 # ===================
@@ -101,9 +100,8 @@ def player_answers(request, game_id, round_num):
     if team_id:
         context["answers"] = {answer.question.pk: answer.answer for answer in _round.get_team_answers(team_id)}
     else:
-        messages.add_message(request, messages.WARNING,
-            mark_safe(
-                f"""You can't answer questions if you don't have a team set.
+        messages.add_message(request, messages.WARNING, mark_safe(
+            f"""You can't answer questions if you don't have a team set.
                 Go to the <a target=\"_blank\" href=\"{game.get_absolute_url()}\">lobby</a> to select a team."""))
     return render(request, "games/player_answer_round.html", context=context)
 
@@ -141,7 +139,6 @@ def end_marking(request, game_id, round_num):
         messages.add_message(request, messages.ERROR, 'That is not the current round')
         return render(request, "games/game_lobby.html", context={"game": game})
     game.end_marking()
-    _round = game.current_round
     return redirect("games:answer", game_id, round_num, 1)
 
 
@@ -152,7 +149,6 @@ def end_round(request, game_id, round_num):
         messages.add_message(request, messages.ERROR, 'That is not the current round')
         return render(request, "games/game_lobby.html", context={"game": game})
     game.end_round()
-    _round = game.current_round
     return redirect("games:game", game_id)
 
 
@@ -168,10 +164,9 @@ def submit_answers(request, game_id, round_num):
         return redirect("games:answer", game_id, round_num, 1)
     if request.method == 'POST':
         if not team_id or not game.teams.filter(id=team_id).exists():
-            messages.add_message(request, messages.WARNING,
-                mark_safe(
-                    f"""You don't have a team set.
-Go to the <a target=\"_blank\" href=\"{game.get_absolute_url()}\">lobby</a> to select a team first."""))
+            messages.add_message(request, messages.WARNING, mark_safe(
+                f"""You don't have a team set.
+                Go to the <a target=\"_blank\" href=\"{game.get_absolute_url()}\">lobby</a> to select a team first."""))
             context = {"round": _round}
             return render(request, "games/player_answer_round.html", context=context)
 
