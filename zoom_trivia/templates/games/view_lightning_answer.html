@@ -10,21 +10,23 @@
     {% include "games/partials/question.html" %}
     <h3>Answer</h3>
     {{ question.answer }}
-    <div class="buttons">
 
+    {% if request.user.is_authenticated %}
+      {% include "games/partials/mark_answer_table.html" %}
+    {% endif %}
+
+    <div class="buttons">
       <a class="button"
-         href="{% url 'games:answer' round.game.id round.number question.number|add:"-1" %}"
-         {% if question.number <= 1 %}disabled{% endif %}
-      >Previous</a>
+         href="{% url 'games:question' round.game.id round.number question.number %}"
+      >Back to question</a>
       <a class="button"
-         href="{% url 'games:answer' round.game.id round.number question.number|add:"1" %}"
+         href="{% url 'games:question' round.game.id round.number question.number|add:"1" %}"
          {% if question.number >= round.questions.count %}disabled{% endif %}
       >Next</a>
     </div>
   </div>
   <div class="bottom-buttons">
     {% if request.user.is_authenticated and round == round.game.current_round %}
-      <a class="button" href="{% url 'games:start_marking' round.game.id round.number %}">Go back to marking</a>
       <a class="button {% if question.is_last %}primary{% endif %}" href="{% url 'games:end_round' round.game.id round.number %}">End round</a>
     {% else %}
       <a class="button" href="{% url 'games:home' %}">Lobby</a>

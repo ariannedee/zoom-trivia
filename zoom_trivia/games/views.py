@@ -58,6 +58,8 @@ def answer_view(request, game_id, round_num, question_num):
         return redirect("games:game", game_id)
     question = get_object_or_404(Question, round=_round, number=question_num)
     context = {"round": _round, "question": question}
+    if _round.lightning:
+        return render(request, "games/view_lightning_answer.html", context=context)
     return render(request, "games/view_answer.html", context=context)
 
 

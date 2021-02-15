@@ -9,5 +9,5 @@
     <h3>{{ round.description }}</h3>
   {% endif %}
 
-  <a class="button align-self-end" href="{% url 'games:question' round.game.id round.number 1 %}">Start</a>
+  <a class="button primary align-self-end" href="{% url 'games:question' round.game.id round.number 1 %}">Start</a>
 {% endblock content %}

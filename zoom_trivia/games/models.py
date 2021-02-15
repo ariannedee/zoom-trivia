@@ -207,6 +207,10 @@ class Question(OrderableModel, TimeStampedModel):
     out_of = models.IntegerField(default=1)
     answer = models.CharField(max_length=300)
 
+    @property
+    def is_last(self):
+        return self.number == self.round.questions.count()
+
     def get_team_answer(self, team_id):
         return TeamAnswer.objects.filter(question=self, team_id=team_id)
 

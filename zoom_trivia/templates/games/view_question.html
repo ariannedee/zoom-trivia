@@ -14,15 +14,22 @@
          {% if question.number <= 1 %}disabled{% endif %}
       >Previous</a>
       <a class="button"
-         href="{% url 'games:question' round.game.id round.number question.number|add:"1" %}"
-         {% if question.number >= round.questions.count %}disabled{% endif %}
+         href="
+      {% if round.lightning %}
+        {% url 'games:answer' round.game.id round.number question.number %}
+      {% else %}
+        {% url 'games:question' round.game.id round.number question.number|add:"1" %}
+      {% endif %}
+      " {% if question.number >= round.questions.count %}disabled{% endif %}
       >Next</a>
     </div>
   </div>
   <div class="bottom-buttons">
-    <span>
-    Stop screen-sharing → open breakout rooms →
-    <a class="button primary" href="{% url 'games:start_marking' round.game.id round.number %}">Mark</a>
-    </span>
+    {% if not round.lightning %}
+      <span>
+        Stop screen-sharing → open breakout rooms →
+        <a class="button {% if question.is_last %}primary{% endif %}" href="{% url 'games:start_marking' round.game.id round.number %}">Mark</a>
+      </span>
+    {% endif %}
   </div>
 {% endblock content %}
