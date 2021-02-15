@@ -12,3 +12,9 @@ class AnswerInline(admin.TabularInline):
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
     inlines = [AnswerInline]
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        if not request.user.is_superuser and request.user.can_view_games:
+            queryset = queryset.filter_for_user(request.user)
+        return queryset

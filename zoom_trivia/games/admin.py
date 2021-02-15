@@ -9,6 +9,7 @@ from django.utils.html import format_html
 
 from zoom_trivia.games.models import Game, Question, Round
 from zoom_trivia.teams.models import TeamAnswer
+from zoom_trivia.users.models import GamePermissions
 
 
 class WidgetStyleMixin:
@@ -35,6 +36,12 @@ class GameAdmin(admin.ModelAdmin):
     search_fields = ["id", "name", "complete", "start_time"]
     inlines = (RoundInline,)
 
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        if not request.user.is_superuser and request.user.can_view_games:
+            queryset = queryset.filter_for_user(request.user)
+        return queryset
+
     def num_rounds(self, obj):
         return obj.rounds.count()
 
@@ -44,6 +51,11 @@ class GameAdmin(admin.ModelAdmin):
 
     rounds.short_description = "Rounds"
     rounds.allow_tags = True
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        if not change:
+            GamePermissions.objects.create(game=obj, user=request.user, role=GamePermissions.UserRole.CREATOR)
 
 
 @admin_thumbnails.thumbnail('image')
@@ -77,6 +89,8 @@ class RoundAdmin(admin.ModelAdmin):
         queryset = queryset.annotate(
             num_points=Sum("questions__out_of"),
         )
+        if not request.user.is_superuser and request.user.can_view_games:
+            queryset = queryset.filter_for_user(request.user)
         return queryset
 
 
@@ -91,3 +105,9 @@ class AnswerInline(admin.TabularInline):
 class QuestionAdmin(admin.ModelAdmin):
     inlines = (AnswerInline,)
     list_display = ["text", "round", "number"]
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        if not request.user.is_superuser and request.user.can_view_games:
+            queryset = queryset.filter_for_user(request.user)
+        return queryset

@@ -23,6 +23,19 @@ class RoundState(models.IntegerChoices):
     MARKED = 4, _('Marked')
 
 
+class GameQuerySet(models.QuerySet):
+    def filter_for_user(self, user):
+        return self.filter(allowed_users__user=user)
+
+
+class GameManager(models.Manager):
+    def get_queryset(self):
+        return GameQuerySet(self.model, using=self._db)
+
+    def filter_for_user(self, user):
+        return self.filter(allowed_users__user=user)
+
+
 class Game(TimeStampedModel):
     name = models.CharField(max_length=50)
     start_time = models.DateTimeField(null=True, blank=True)
@@ -30,6 +43,8 @@ class Game(TimeStampedModel):
     round_state = models.IntegerField(choices=RoundState.choices, default=RoundState.NOT_STARTED)
     link = models.CharField(null=True, blank=True, max_length=255)
     complete = models.BooleanField(default=False)
+
+    objects = GameManager()
 
     # CHECK STATE
     @property
@@ -146,6 +161,19 @@ class Game(TimeStampedModel):
         ordering = ("start_time",)
 
 
+class RoundQuerySet(models.QuerySet):
+    def filter_for_user(self, user):
+        return self.filter(game__allowed_users__user=user)
+
+
+class RoundManager(models.Manager):
+    def get_queryset(self):
+        return RoundQuerySet(self.model, using=self._db)
+
+    def filter_for_user(self, user):
+        return self.filter(game__allowed_users__user=user)
+
+
 class Round(OrderableModel, TimeStampedModel):
     game = models.ForeignKey(Game, related_name="rounds", on_delete=models.CASCADE)
     name = models.CharField(max_length=60)
@@ -153,6 +181,8 @@ class Round(OrderableModel, TimeStampedModel):
     complete = models.BooleanField(default=False)
     end_time = models.DateTimeField(null=True, blank=True)
     lightning = models.BooleanField(default=False)
+
+    objects = RoundManager()
 
     @property
     def num_questions(self):
@@ -197,6 +227,19 @@ class Round(OrderableModel, TimeStampedModel):
         return f"Round {self.pk}: {self.name}"
 
 
+class QuestionQuerySet(models.QuerySet):
+    def filter_for_user(self, user):
+        return self.filter(round__game__allowed_users__user=user)
+
+
+class QuestionManager(models.Manager):
+    def get_queryset(self):
+        return QuestionQuerySet(self.model, using=self._db)
+
+    def filter_for_user(self, user):
+        return self.filter(round__game__allowed_users__user=user)
+
+
 class Question(OrderableModel, TimeStampedModel):
     round = models.ForeignKey(Round, related_name="questions", on_delete=models.CASCADE)
     text = models.CharField(max_length=250)
@@ -206,6 +249,8 @@ class Question(OrderableModel, TimeStampedModel):
     details = models.TextField(null=True, blank=True)
     out_of = models.IntegerField(default=1)
     answer = models.CharField(max_length=300)
+
+    objects = QuestionManager()
 
     @property
     def is_last(self):

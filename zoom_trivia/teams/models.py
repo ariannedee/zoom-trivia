@@ -3,10 +3,25 @@ from django.db.models.aggregates import Sum
 from model_utils.models import TimeStampedModel
 
 
+class TeamQuerySet(models.QuerySet):
+    def filter_for_user(self, user):
+        return self.filter(game__allowed_users__user=user)
+
+
+class TeamManager(models.Manager):
+    def get_queryset(self):
+        return TeamQuerySet(self.model, using=self._db)
+
+    def filter_for_user(self, user):
+        return self.filter(game__allowed_users__user=user)
+
+
 class Team(TimeStampedModel):
     name = models.CharField(max_length=50)
     game = models.ForeignKey('games.Game', on_delete=models.CASCADE, related_name='teams')
     score = models.FloatField(default=0)
+
+    objects = TeamManager()
 
     def update_score(self):
         self.score = self.answers.aggregate(Sum('points'))['points__sum'] or 0
