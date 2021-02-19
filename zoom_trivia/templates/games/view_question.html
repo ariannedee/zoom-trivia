@@ -13,7 +13,7 @@
          href="{% url 'games:question' round.game.id round.number question.number|add:"-1" %}"
          {% if question.number <= 1 %}disabled{% endif %}
       >Previous</a>
-      <a class="button"
+      <a class="button{% if round.lightning %} primary{% endif %}"
          href="
       {% if round.lightning %}
         {% url 'games:answer' round.game.id round.number question.number %}

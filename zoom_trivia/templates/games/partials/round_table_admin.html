@@ -1,29 +1,35 @@
 <table>
+  <tr>
+    <th>Round</th>
+    <th>Name</th>
+    <th># Q<span class="small-hide">uestion</span>s</th>
+    <th></th>
+  </tr>
   {% for round in game.rounds.all %}
     <tr>
     <td>
-      <strong>Round {{ round.number }}</strong>
+      <strong><span class="small-hide">Round </span>{{ round.number }}</strong>
       {% if round.lightning %}
         <span class="secondary">⚡︎</span>
       {% endif %}
     </td>
     <td>{{ round.name }}</td>
-    <td>{{ round.questions.count }} questions</td>
-    <td style="width: 200px" class="text-center">
+    <td>{{ round.questions.count }}<span class="small-hide"> questions</span></td>
+    <td style="width: 12rem" class="text-center">
       {% if game.current_round == round %}
         {% if game.not_started %}
-          <a class="button primary" href="{% url 'games:start_round' game.id round.number %}">Start round</a>
+          <a class="button primary" href="{% url 'games:start_round' game.id round.number %}">Start<span class="small-hide"> round</span></a>
         {% elif game.view_questions %}
-          <a class="button primary" href="{% url 'games:question' game.id round.number 1 %}">View questions</a>
+          <a class="button primary" href="{% url 'games:question' game.id round.number 1 %}"><span class="small-hide">View </span>questions</a>
         {% elif game.answering or game.marking %}
-          <a class="button primary" href="{% url 'games:mark' game.id round.number %}">Go to marking</a>
+          <a class="button primary" href="{% url 'games:mark' game.id round.number %}"><span class="small-hide">Go to </span>marking</a>
         {% elif game.marked %}
-          <a class="button primary" href="{% url 'games:answer' game.id round.number 1 %}">Show answers</a>
+          <a class="button primary" href="{% url 'games:answer' game.id round.number 1 %}"><span class="small-hide">View </span>answers</a>
         {% endif %}
       {% elif round.complete %}
-        <a class="button" href="{% url 'games:answer' game.id round.number 1 %}">View answers</a>
+        <a class="button" href="{% url 'games:answer' game.id round.number 1 %}"><span class="small-hide">View </span>answers</a>
       {% elif not games.current_round and round.number == 1 and not round.complete %}
-        <a class="button" href="{% url 'games:start_round' game.id round.number %}">Start round</a>
+        <a class="button" href="{% url 'games:start_round' game.id round.number %}">Start<span class="small-hide"> round</span></a>
       {% endif %}
     </td>
   {% endfor %}

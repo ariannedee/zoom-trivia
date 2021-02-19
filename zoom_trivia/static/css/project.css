@@ -135,9 +135,14 @@ table {
   table tr:nth-child(odd) {
     background-color: #F2F2F2; }
   table.marking-table td.team {
-    min-width: 250px; }
+    min-width: 128px;
+    min-width: 8rem; }
   table.marking-table td.points {
-    width: 250px; }
+    width: 20%;
+    min-width: 192px;
+    min-width: 12rem; }
+    table.marking-table td.points button {
+      margin-bottom: 5px; }
 
 .timer {
   position: fixed;
@@ -289,7 +294,18 @@ form div.flex input[type="text"], form div.flex textarea {
 .secondary {
   color: #2580ef; }
 
-@media (max-width: 767px) {
+.scroll {
+  overflow: scroll; }
+
+@media (min-width: 1280px) {
+  html {
+    font-size: 20px; } }
+
+@media (min-width: 1500px) {
+  html {
+    font-size: 24px; } }
+
+@media (max-width: 850px) {
   html {
     font-size: 12px; }
   div.container {
@@ -300,5 +316,11 @@ form div.flex input[type="text"], form div.flex textarea {
     padding: 10px; }
   a.button, button, input[type="submit"] {
     padding: 4px 8px; }
-  .index table td {
-    padding: 3px; } }
+  .index table td, .index table th {
+    padding: 4px 8px; }
+  .small-hide {
+    display: none; } }
+
+@media (max-width: 500px) {
+  html {
+    font-size: 10px; } }

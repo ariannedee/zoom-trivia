@@ -203,10 +203,14 @@ table {
 
   &.marking-table {
     td.team {
-      min-width: 250px;
+      min-width: 8rem;
     }
     td.points {
-      width: 250px;
+      width: 20%;
+      min-width: 12rem;
+      button {
+        margin-bottom: 5px;
+      }
     }
   }
 }
@@ -397,7 +401,23 @@ form {
   color: $secondary;
 }
 
-@media (max-width: 767px) {
+.scroll {
+  overflow: scroll;
+}
+
+@media (min-width: 1280px) {
+  html {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 1500px) {
+  html {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 850px) {
   html {
     font-size: 12px;
   }
@@ -415,9 +435,19 @@ form {
   }
   .index {
     table {
-      td {
-        padding: 3px;
+      td, th {
+        padding: 4px 8px;
       }
     }
+  }
+
+  .small-hide {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  html {
+    font-size: 10px;
   }
 }

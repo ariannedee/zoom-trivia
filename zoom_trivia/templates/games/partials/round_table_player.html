@@ -1,31 +1,37 @@
 <table class="player">
+  <tr>
+    <th>Round</th>
+    <th>Name</th>
+    <th># Q<span class="small-hide">uestion</span>s</th>
+    <th></th>
+  </tr>
   {% for round in game.rounds.all %}
     <tr>
     <td>
-      <strong>Round {{ round.number }}</strong>
+      <strong><span class="small-hide">Round </span>{{ round.number }}</strong>
       {% if round.lightning %}
         <span class="secondary">⚡︎</span>
       {% endif %}
     </td>
     <td>{{ round.name }}</td>
-    <td>{{ round.questions.count }} questions</td>
-    <td style="width: 200px" class="text-center">
+    <td>{{ round.questions.count }}</td>
+    <td style="width: 12rem" class="text-center">
       {% if game.current_round == round %}
         {% if round.lightning %}
-          Answer in Zoom chat
+          <span class="small-hide">Answer in </span>Zoom chat
         {% elif game.not_started %}
-          Waiting to start
+          Waiting<span class="small-hide"> to start</span>
         {% elif game.view_questions or game.answering %}
           <a class="button primary" href="{% url 'games:player_answers' game.id round.number %}">Start →</a>
         {% elif game.marking %}
-          The round is being marked
+          <span class="small-hide">The round is </span>being marked
         {% elif game.marked %}
-          <a class="button primary" href="{% url 'games:answer' game.id round.number 1 %}">Show answers</a>
+          <a class="button primary" href="{% url 'games:answer' game.id round.number 1 %}"><span class="small-hide">View </span>answers</a>
         {% endif %}
       {% elif round.complete %}
-        <a class="button" href="{% url 'games:answer' game.id round.number 1 %}">View answers</a>
+        <a class="button" href="{% url 'games:answer' game.id round.number 1 %}"><span class="small-hide">View </span>answers</a>
       {% elif not games.current_round and round.number == 1 and not round.complete %}
-        Waiting to start
+        Waiting<span class="small-hide"> to start</span>
       {% endif %}
     </td>
   {% endfor %}

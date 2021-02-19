@@ -15,7 +15,9 @@
       {% include "games/partials/question.html" %}
       <strong>Answer</strong>
       {{ question.answer|linebreaksbr }}
-      {% include "games/partials/mark_answer_table.html" %}
+      <div class="scroll">
+        {% include "games/partials/mark_answer_table.html" %}
+      </div>
     </div>
   {% endfor %}
 
