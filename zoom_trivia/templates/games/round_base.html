@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <a class="lobby-link" href="{% url 'games:home' %}">< Lobby</a>
+  <a class="lobby-link" href="{% url 'games:game' game.id %}">< Lobby</a>
 {% endblock %}

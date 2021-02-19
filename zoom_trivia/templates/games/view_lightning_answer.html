@@ -11,25 +11,36 @@
     <h3>Answer</h3>
     {{ question.answer }}
 
-    {% if request.user.is_authenticated %}
+    {% if request.user.is_staff %}
       {% include "games/partials/mark_answer_table.html" %}
     {% endif %}
 
     <div class="buttons">
+    {% if request.user.is_staff %}
       <a class="button"
          href="{% url 'games:question' round.game.id round.number question.number %}"
       >Back to question</a>
-      <a class="button"
+      <a class="button primary"
          href="{% url 'games:question' round.game.id round.number question.number|add:"1" %}"
          {% if question.number >= round.questions.count %}disabled{% endif %}
       >Next</a>
+    {% else %}
+      <a class="button"
+         {% if question.number <= 1 %}disabled{% endif %}
+         href="{% url 'games:answer' round.game.id round.number question.number|add:"-1" %}"
+      >Previous</a>
+      <a class="button"
+         href="{% url 'games:answer' round.game.id round.number question.number|add:"1" %}"
+         {% if question.number >= round.questions.count %}disabled{% endif %}
+      >Next</a>
+    {% endif %}
     </div>
   </div>
   <div class="bottom-buttons">
     {% if request.user.is_authenticated and round == round.game.current_round %}
       <a class="button {% if question.is_last %}primary{% endif %}" href="{% url 'games:end_round' round.game.id round.number %}">End round</a>
     {% else %}
-      <a class="button" href="{% url 'games:home' %}">Lobby</a>
+      <a class="button" href="{% url 'games:game' game.id %}">Lobby</a>
     {% endif %}
   </div>
 {% endblock content %}

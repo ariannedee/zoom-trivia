@@ -8,8 +8,8 @@
   <div class="card full-size">
     <h1>Round {{ round.number }} - {{ round.name }}</h1>
     {% include "games/partials/question.html" %}
-    <h3>Answer</h3>
-    {{ question.answer }}
+    <h4>Answer</h4>
+    <h3>{{ question.answer }}</h3>
     <div class="buttons">
 
       <a class="button"
@@ -27,7 +27,7 @@
       <a class="button" href="{% url 'games:start_marking' round.game.id round.number %}">Go back to marking</a>
       <a class="button {% if question.is_last %}primary{% endif %}" href="{% url 'games:end_round' round.game.id round.number %}">End round</a>
     {% else %}
-      <a class="button" href="{% url 'games:home' %}">Lobby</a>
+      <a class="button" href="{% url 'games:game' game.id %}">Lobby</a>
     {% endif %}
   </div>
 {% endblock content %}
