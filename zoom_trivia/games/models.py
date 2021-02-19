@@ -280,6 +280,15 @@ class Question(OrderableModel, TimeStampedModel):
     def get_team_answer(self, team_id):
         return TeamAnswer.objects.filter(question=self, team_id=team_id)
 
+    def delete(self, *args, **kwargs):
+        super(OrderableModel, self).delete(*args, **kwargs)
+        cur_num = 1
+        for obj in Question.objects.filter(round=self.round).order_by('number'):
+            if obj.number != cur_num:
+                obj.number = cur_num
+                obj.save()
+            cur_num += 1
+
     def __str__(self):
         return f"{self.text}"
 
