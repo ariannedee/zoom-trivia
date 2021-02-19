@@ -3,7 +3,7 @@ from admin_ordering.admin import OrderableAdmin
 from django.contrib import admin
 from django.db import models
 from django.db.models.aggregates import Sum
-from django.forms import Textarea, TextInput
+from django.forms import Textarea
 from django.urls import reverse
 from django.utils.html import format_html
 
@@ -14,10 +14,9 @@ from zoom_trivia.users.models import GamePermissions
 
 class WidgetStyleMixin:
     formfield_overrides = {
-        models.CharField: {'widget': TextInput(attrs={'size': '130'})},
         models.TextField: {'widget': Textarea(
             attrs={'rows': 3,
-                   'cols': 130,
+                   'cols': 40,
                    'style': 'height: 3em;'}
         )},
     }
@@ -60,10 +59,11 @@ class GameAdmin(admin.ModelAdmin):
 
 
 @admin_thumbnails.thumbnail('image')
-class QuestionInline(WidgetStyleMixin, OrderableAdmin, admin.StackedInline):
+class QuestionInline(WidgetStyleMixin, OrderableAdmin, admin.TabularInline):
     model = Question
     extra = 0
     show_change_link = True
+    exclude = ('link', 'link_display')
 
 
 @admin.register(Round)
