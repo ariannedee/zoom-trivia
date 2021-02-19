@@ -49,7 +49,7 @@ def rules(request, game_id=None):
 def round_start_view(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
     _round = game.rounds.get(number=round_num)
-    context = {"round": _round}
+    context = {"game": game, "round": _round}
     return render(request, "games/view_round.html", context=context)
 
 
@@ -58,7 +58,7 @@ def question_view(request, game_id, round_num, question_num):
     game = get_object_or_404(Game, pk=game_id)
     _round = game.rounds.get(number=round_num)
     question = get_object_or_404(Question, round=_round, number=question_num)
-    context = {"round": _round, "question": question}
+    context = {"game": game, "round": _round, "question": question}
     return render(request, "games/view_question.html", context=context)
 
 
@@ -69,7 +69,7 @@ def answer_view(request, game_id, round_num, question_num):
         messages.add_message(request, messages.ERROR, 'You cannot see the answers for this round')
         return redirect("games:game", game_id)
     question = get_object_or_404(Question, round=_round, number=question_num)
-    context = {"round": _round, "question": question}
+    context = {"game": game, "round": _round, "question": question}
     if _round.lightning:
         return render(request, "games/view_lightning_answer.html", context=context)
     return render(request, "games/view_answer.html", context=context)
@@ -79,7 +79,7 @@ def answer_view(request, game_id, round_num, question_num):
 def marking_view(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
     _round = game.rounds.get(number=round_num)
-    context = {"round": _round}
+    context = {"game": game, "round": _round}
     return render(request, "games/admin_mark_round.html", context=context)
 
 
@@ -96,7 +96,7 @@ def player_answers(request, game_id, round_num):
         messages.add_message(request, messages.ERROR, 'You cannot submit answers for lightning rounds')
         return redirect("games:game", game_id)
     team_id = request.session.get('team_id')
-    context = {"round": _round, "team": team_id}
+    context = {"game": game, "round": _round, "team": team_id}
     if team_id:
         context["answers"] = {answer.question.pk: answer.answer for answer in _round.get_team_answers(team_id)}
     else:
@@ -182,7 +182,7 @@ def submit_answers(request, game_id, round_num):
                 if not created:
                     team_answer.points = None
                 team_answer.save()
-    context = {"round": _round}
+    context = {"game": game, "round": _round}
     return render(request, "games/post_player_answer.html", context=context)
 
 
