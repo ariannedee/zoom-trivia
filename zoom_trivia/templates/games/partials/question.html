@@ -2,7 +2,9 @@
   <h2>{{ question.number }}. {{ question.text }}</h2>
 </div>
 {% if question.image %}
-  {% include "games/partials/question_image.html" %}
+  {% if answer or question.image_in_question %}
+    {% include "games/partials/question_image.html" %}
+  {% endif %}
 {% endif %}
 {% if question.link %}
   <a class="center" href="{{ question.link }}" target="_blank">

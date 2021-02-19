@@ -7,7 +7,7 @@
 {% block content %}
   <div class="card full-size">
     <h1>Round {{ round.number }} - {{ round.name }}</h1>
-    {% include "games/partials/question.html" %}
+    {% include "games/partials/question.html" with answer=True %}
     <h4>Answer</h4>
     <h3>{{ question.answer }}</h3>
     <div class="buttons">
