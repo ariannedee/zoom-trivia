@@ -22,7 +22,8 @@ class User(AbstractUser):
         super().save(*args, **kwargs)
         if created:
             from django.contrib.auth.models import Group
-            game_creator_group = Group.objects.get(name='game_creator')
+
+            game_creator_group = Group.objects.get(name="game_creator")
             game_creator_group.user_set.add(self)
 
     def get_absolute_url(self):
@@ -36,20 +37,20 @@ class User(AbstractUser):
 
     @property
     def can_view_games(self):
-        return self.has_perm('games.view_game')
+        return self.has_perm("games.view_game")
 
 
 class GamePermissions(models.Model):
     class UserRole(models.TextChoices):
-        CREATOR = "CR", _('Creator')
-        COLLABORATOR = "CO", _('Collaborator')
+        CREATOR = "CR", _("Creator")
+        COLLABORATOR = "CO", _("Collaborator")
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='allowed_games')
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='allowed_users')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="allowed_games")
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="allowed_users")
     role = models.CharField(max_length=2, choices=UserRole.choices, default=UserRole.CREATOR)
 
     def __str__(self):
-        return f'{self.game.name} - {self.user.username}'
+        return f"{self.game.name} - {self.user.username}"
 
     def __repr__(self):
-        return f'{self.game.name} - {self.user.username} ({self.get_role_display()})'
+        return f"{self.game.name} - {self.user.username} ({self.get_role_display()})"

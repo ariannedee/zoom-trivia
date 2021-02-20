@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('games', '0011_round_end_time'),
+        ("games", "0011_round_end_time"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='round',
-            name='lightning',
+            model_name="round",
+            name="lightning",
             field=models.BooleanField(default=False),
         ),
     ]

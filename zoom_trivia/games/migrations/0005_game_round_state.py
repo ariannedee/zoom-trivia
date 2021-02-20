@@ -6,13 +6,21 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('games', '0004_game_current_round'),
+        ("games", "0004_game_current_round"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='game',
-            name='round_state',
-            field=models.IntegerField(choices=[(0, 'Not started'), (1, 'View questions'), (2, 'Answer'), (3, 'Marked')], default=0),
+            model_name="game",
+            name="round_state",
+            field=models.IntegerField(
+                choices=[
+                    (0, "Not started"),
+                    (1, "View questions"),
+                    (2, "Answer"),
+                    (3, "Marked"),
+                ],
+                default=0,
+            ),
         ),
     ]

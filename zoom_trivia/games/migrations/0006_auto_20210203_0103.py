@@ -6,16 +6,16 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('games', '0005_game_round_state'),
+        ("games", "0005_game_round_state"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='round',
-            name='current',
+            model_name="round",
+            name="current",
         ),
         migrations.RemoveField(
-            model_name='round',
-            name='state',
+            model_name="round",
+            name="state",
         ),
     ]

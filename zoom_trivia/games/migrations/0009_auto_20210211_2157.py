@@ -7,13 +7,15 @@ import zoom_trivia.games.helpers
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('games', '0008_question_image'),
+        ("games", "0008_question_image"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='question',
-            name='image',
-            field=models.ImageField(blank=True, null=True, upload_to=zoom_trivia.games.helpers.rename),
+            model_name="question",
+            name="image",
+            field=models.ImageField(
+                blank=True, null=True, upload_to=zoom_trivia.games.helpers.rename
+            ),
         ),
     ]

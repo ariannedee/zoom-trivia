@@ -10,22 +10,51 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('games', '0003_question_details'),
+        ("games", "0003_question_details"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Team',
+            name="Team",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, editable=False, verbose_name='created')),
-                ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, editable=False, verbose_name='modified')),
-                ('name', models.CharField(max_length=50)),
-                ('score', models.FloatField(default=0)),
-                ('game', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='teams', to='games.Game')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created",
+                    model_utils.fields.AutoCreatedField(
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="created",
+                    ),
+                ),
+                (
+                    "modified",
+                    model_utils.fields.AutoLastModifiedField(
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="modified",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50)),
+                ("score", models.FloatField(default=0)),
+                (
+                    "game",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="teams",
+                        to="games.Game",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
     ]

@@ -6,18 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('games', '0013_auto_20210214_0301'),
+        ("games", "0013_auto_20210214_0301"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='game',
-            name='complete',
+            model_name="game",
+            name="complete",
             field=models.BooleanField(default=False),
         ),
         migrations.AlterField(
-            model_name='game',
-            name='round_state',
-            field=models.IntegerField(choices=[(0, 'Not started'), (1, 'View questions'), (2, 'Submitting answers'), (3, 'Marking'), (4, 'Marked')], default=0),
+            model_name="game",
+            name="round_state",
+            field=models.IntegerField(
+                choices=[
+                    (0, "Not started"),
+                    (1, "View questions"),
+                    (2, "Submitting answers"),
+                    (3, "Marking"),
+                    (4, "Marked"),
+                ],
+                default=0,
+            ),
         ),
     ]

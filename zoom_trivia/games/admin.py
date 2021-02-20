@@ -14,11 +14,9 @@ from zoom_trivia.users.models import GamePermissions
 
 class WidgetStyleMixin:
     formfield_overrides = {
-        models.TextField: {'widget': Textarea(
-            attrs={'rows': 3,
-                   'cols': 40,
-                   'style': 'height: 3em;'}
-        )},
+        models.TextField: {
+            "widget": Textarea(attrs={"rows": 3, "cols": 40, "style": "height: 3em;"})
+        },
     }
 
 
@@ -55,15 +53,17 @@ class GameAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
         if not change:
-            GamePermissions.objects.create(game=obj, user=request.user, role=GamePermissions.UserRole.CREATOR)
+            GamePermissions.objects.create(
+                game=obj, user=request.user, role=GamePermissions.UserRole.CREATOR
+            )
 
 
-@admin_thumbnails.thumbnail('image')
+@admin_thumbnails.thumbnail("image")
 class QuestionInline(WidgetStyleMixin, OrderableAdmin, admin.TabularInline):
     model = Question
     extra = 0
     show_change_link = True
-    exclude = ('link', 'link_display')
+    exclude = ("link", "link_display")
 
 
 @admin.register(Round)
@@ -101,7 +101,7 @@ class AnswerInline(admin.TabularInline):
     show_change_link = True
 
 
-@admin_thumbnails.thumbnail('image')
+@admin_thumbnails.thumbnail("image")
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     inlines = (AnswerInline,)

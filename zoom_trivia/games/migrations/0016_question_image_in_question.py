@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('games', '0015_game_visible'),
+        ("games", "0015_game_visible"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='question',
-            name='image_in_question',
-            field=models.BooleanField(default=True, verbose_name='View in question'),
+            model_name="question",
+            name="image_in_question",
+            field=models.BooleanField(default=True, verbose_name="View in question"),
         ),
     ]

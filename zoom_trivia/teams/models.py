@@ -18,13 +18,13 @@ class TeamManager(models.Manager):
 
 class Team(TimeStampedModel):
     name = models.CharField(max_length=50)
-    game = models.ForeignKey('games.Game', on_delete=models.CASCADE, related_name='teams')
+    game = models.ForeignKey("games.Game", on_delete=models.CASCADE, related_name="teams")
     score = models.FloatField(default=0)
 
     objects = TeamManager()
 
     def update_score(self):
-        self.score = self.answers.aggregate(Sum('points'))['points__sum'] or 0
+        self.score = self.answers.aggregate(Sum("points"))["points__sum"] or 0
         self.save()
 
     @property
@@ -38,12 +38,12 @@ class Team(TimeStampedModel):
         return f"{self.name} ({self.display_score})"
 
     class Meta:
-        ordering = ('game', '-score', 'name')
+        ordering = ("game", "-score", "name")
 
 
 class TeamAnswer(TimeStampedModel):
-    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='answers')
-    question = models.ForeignKey('games.Question', on_delete=models.CASCADE, related_name='answers')
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="answers")
+    question = models.ForeignKey("games.Question", on_delete=models.CASCADE, related_name="answers")
     answer = models.CharField(max_length=255, blank=True, null=True)
     submitted = models.BooleanField(default=False)
     submitted_at = models.DateTimeField(blank=True, null=True)
@@ -56,5 +56,8 @@ class TeamAnswer(TimeStampedModel):
         return f"{self.question.round.number}.{self.question.number}: {self.answer} ({self.team})"
 
     class Meta:
-        unique_together = ('team', 'question')
-        ordering = ('question_id', 'submitted_at',)
+        unique_together = ("team", "question")
+        ordering = (
+            "question_id",
+            "submitted_at",
+        )

@@ -6,22 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('games', '0012_round_lightning'),
+        ("games", "0012_round_lightning"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='question',
-            options={'ordering': ('round__number', 'number')},
+            name="question",
+            options={"ordering": ("round__number", "number")},
         ),
         migrations.AddField(
-            model_name='round',
-            name='description',
+            model_name="round",
+            name="description",
             field=models.CharField(blank=True, max_length=255, null=True),
         ),
         migrations.AlterField(
-            model_name='question',
-            name='text',
+            model_name="question",
+            name="text",
             field=models.CharField(max_length=250),
         ),
     ]

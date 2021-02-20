@@ -6,17 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('teams', '0002_teamanswer'),
+        ("teams", "0002_teamanswer"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='teamanswer',
-            options={'ordering': ('question_id', 'submitted_at')},
+            name="teamanswer",
+            options={"ordering": ("question_id", "submitted_at")},
         ),
         migrations.AddField(
-            model_name='teamanswer',
-            name='submitted_at',
+            model_name="teamanswer",
+            name="submitted_at",
             field=models.DateTimeField(blank=True, null=True),
         ),
     ]

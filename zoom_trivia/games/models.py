@@ -17,11 +17,11 @@ class StateError(Exception):
 
 
 class RoundState(models.IntegerChoices):
-    NOT_STARTED = 0, _('Not started')
-    QUESTIONS = 1, _('View questions')
-    ANSWER = 2, _('Submitting answers')
-    MARKING = 3, _('Marking')
-    MARKED = 4, _('Marked')
+    NOT_STARTED = 0, _("Not started")
+    QUESTIONS = 1, _("View questions")
+    ANSWER = 2, _("Submitting answers")
+    MARKING = 3, _("Marking")
+    MARKED = 4, _("Marked")
 
 
 class GameQuerySet(models.QuerySet):
@@ -48,7 +48,11 @@ class Game(TimeStampedModel):
     name = models.CharField(max_length=50)
     start_time = models.DateTimeField(null=True, blank=True)
     current_round = models.ForeignKey(
-        'Round', related_name='current_game', on_delete=models.SET_NULL, null=True, blank=True
+        "Round",
+        related_name="current_game",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
     )
     round_state = models.IntegerField(choices=RoundState.choices, default=RoundState.NOT_STARTED)
     link = models.CharField(null=True, blank=True, max_length=255)
@@ -97,7 +101,9 @@ class Game(TimeStampedModel):
             self.current_round = self.go_to_next_round()
 
         if not self.round_state == RoundState.NOT_STARTED:
-            raise StateError(f"Invalid state transition from {self.round_state} to {RoundState.QUESTIONS}")
+            raise StateError(
+                f"Invalid state transition from {self.round_state} to {RoundState.QUESTIONS}"
+            )
 
         if self.current_round.lightning:
             self.current_round.create_team_answers()
@@ -107,34 +113,34 @@ class Game(TimeStampedModel):
 
     def start_marking(self):
         if not self.current_round:
-            raise StateError('There is no current round set')
+            raise StateError("There is no current round set")
         self.current_round.end_time = None
         self.round_state = RoundState.ANSWER
         self.save()
 
     def stop_answering(self):
         if not self.current_round:
-            raise StateError('There is no current round set')
+            raise StateError("There is no current round set")
         elif self.round_state == RoundState.NOT_STARTED:
-            raise StateError('This round has not been started')
+            raise StateError("This round has not been started")
         self.round_state = RoundState.MARKING
         self.save()
 
     def end_marking(self):
         if not self.current_round:
-            raise StateError('There is no current round set')
+            raise StateError("There is no current round set")
         elif self.round_state == RoundState.NOT_STARTED:
-            raise StateError('This round has not been started')
+            raise StateError("This round has not been started")
         self.round_state = RoundState.MARKED
         self.save()
 
     def end_round(self):
         if not self.current_round:
-            raise StateError('There is no current round set')
+            raise StateError("There is no current round set")
         elif self.round_state == RoundState.NOT_STARTED:
-            raise StateError('This round has not been started')
+            raise StateError("This round has not been started")
         elif self.round_state == RoundState.QUESTIONS:
-            raise StateError('This round has not been marked')
+            raise StateError("This round has not been marked")
 
         self.current_round.complete = True
         self.current_round.save()
@@ -145,7 +151,7 @@ class Game(TimeStampedModel):
 
     def go_to_next_round(self):
         if self.complete:
-            raise StateError('This game is already over')
+            raise StateError("This game is already over")
         elif not self.current_round:
             round_num = 0
         else:
@@ -222,7 +228,9 @@ class Round(OrderableModel, TimeStampedModel):
         return self.current and self.game.round_state < RoundState.MARKING
 
     def get_team_answers(self, team_id):
-        return TeamAnswer.objects.filter(question__round=self, team_id=team_id).order_by('question__number')
+        return TeamAnswer.objects.filter(question__round=self, team_id=team_id).order_by(
+            "question__number"
+        )
 
     def create_team_answers(self):
         for team in self.game.teams.all():
@@ -284,7 +292,7 @@ class Question(OrderableModel, TimeStampedModel):
     def delete(self, *args, **kwargs):
         super(OrderableModel, self).delete(*args, **kwargs)
         cur_num = 1
-        for obj in Question.objects.filter(round=self.round).order_by('number'):
+        for obj in Question.objects.filter(round=self.round).order_by("number"):
             if obj.number != cur_num:
                 obj.number = cur_num
                 obj.save()
