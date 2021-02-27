@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.safestring import mark_safe
 from django.views.decorators.http import require_POST
 
-from zoom_trivia.games.models import Game, Question
+from zoom_trivia.games.models import Game, Question, StateError
 from zoom_trivia.teams.models import TeamAnswer
 
 
@@ -160,7 +160,10 @@ def end_round(request, game_id, round_num):
     if not game.current_round or game.current_round.number != round_num:
         messages.add_message(request, messages.ERROR, "That is not the current round")
         return render(request, "games/game_lobby.html", context={"game": game})
-    game.end_round()
+    try:
+        game.end_round()
+    except StateError as e:
+        messages.add_message(request, messages.ERROR, str(e))
     return redirect("games:game", game_id)
 
 

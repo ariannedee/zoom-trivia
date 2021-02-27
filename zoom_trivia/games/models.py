@@ -139,7 +139,7 @@ class Game(TimeStampedModel):
             raise StateError("There is no current round set")
         elif self.round_state == RoundState.NOT_STARTED:
             raise StateError("This round has not been started")
-        elif self.round_state == RoundState.QUESTIONS:
+        elif self.round_state == RoundState.QUESTIONS and not self.current_round.lightning:
             raise StateError("This round has not been marked")
 
         self.current_round.complete = True
@@ -251,7 +251,7 @@ class Round(OrderableModel, TimeStampedModel):
         self.save()
 
     def __str__(self):
-        return f"Round: {self.name}"
+        return f"Game {self.game.id} - round {self.number}: {self.name}"
 
     def __repr__(self):
         return f"Round {self.pk}: {self.name}"

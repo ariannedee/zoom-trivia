@@ -20,7 +20,7 @@
       {% else %}
         {% url 'games:question' round.game.id round.number question.number|add:"1" %}
       {% endif %}
-      " {% if question.number >= round.questions.count %}disabled{% endif %}
+      " {% if not round.lightning and question.number >= round.questions.count %}disabled{% endif %}
       >Next</a>
     </div>
   </div>
