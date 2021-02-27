@@ -121,7 +121,7 @@ def player_answers(request, game_id, round_num):
 @staff_member_required
 def start_round(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
-    if (not game.current_round and round_num == 1) or (
+    if (not game.current_round and round_num != 1) or (
         game.current_round and game.current_round.number != round_num
     ):
         messages.add_message(request, messages.ERROR, "That is not the current round")
