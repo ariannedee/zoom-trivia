@@ -16,7 +16,7 @@
   font-size: 20px;
   font-weight: 500;
   color: white;
-  background-color: #e94573;
+  background-color: #77e00d;
   z-index: 1;
   -webkit-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
           box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2); }
@@ -28,9 +28,9 @@
   padding-top: 5px; }
 
 .navbar-brand {
-  font-size: 32px;
-  font-size: 2rem;
-  font-family: "Cedarville Cursive", sans-serif; }
+  font-size: 16px;
+  font-size: 1rem;
+  font-family: "Press Start 2P", sans-serif; }
 
 .navbar-description {
   margin-left: 20px;
@@ -87,7 +87,7 @@ a.button, button, input[type="submit"] {
   background-color: white;
   text-shadow: none;
   position: relative;
-  color: #e94573; }
+  color: #77e00d; }
   a.button[disabled], button[disabled], input[type="submit"][disabled] {
     background-color: rgba(0, 0, 0, 0.12) !important;
     color: rgba(0, 0, 0, 0.25) !important;
@@ -95,12 +95,12 @@ a.button, button, input[type="submit"] {
             box-shadow: none !important;
     cursor: default; }
   a.button.primary, button.primary, input[type="submit"].primary {
-    background-color: #e94573;
+    background-color: #77e00d;
     color: white; }
   a.button.secondary, button.secondary, input[type="submit"].secondary {
     color: #2580ef; }
   a.button.active, button.active, input[type="submit"].active {
-    background-color: #e94573;
+    background-color: #77e00d;
     color: white; }
     a.button.active.secondary, button.active.secondary, input[type="submit"].active.secondary {
       background-color: #2580ef; }
@@ -128,7 +128,7 @@ table {
       vertical-align: baseline;
       font-size: 24px;
       font-size: 1.5rem;
-      color: #e94573; }
+      color: #77e00d; }
   table tr:first-child {
     background-color: #EEE !important;
     border-bottom: 1px solid #DDD; }
@@ -165,7 +165,7 @@ a.lobby-link {
   position: absolute;
   top: 10px;
   left: 20px;
-  color: #e94573; }
+  color: #77e00d; }
 
 .index h2 {
   font-size: 24px;
@@ -186,9 +186,9 @@ a.lobby-link {
   .round-start h1 {
     margin-top: 50px;
     margin-bottom: 50px;
-    font-size: 112px;
-    font-size: 7rem;
-    font-family: "Cedarville Cursive", sans-serif; }
+    font-size: 80px;
+    font-size: 5rem;
+    font-family: "Press Start 2P", sans-serif; }
   .round-start h2 {
     font-size: 32px;
     font-size: 2rem; }
@@ -201,7 +201,7 @@ a.lobby-link {
   .question h1 {
     font-size: 24px;
     font-size: 1.5rem;
-    font-family: "Cedarville Cursive", sans-serif; }
+    font-family: "Press Start 2P", sans-serif; }
   .question h2 {
     font-size: 40px;
     font-size: 2.5rem; }
@@ -227,7 +227,7 @@ a.lobby-link {
 .mark-round h1 {
   font-size: 24px;
   font-size: 1.5rem;
-  font-family: "Cedarville Cursive", sans-serif; }
+  font-family: "Press Start 2P", sans-serif; }
 
 .mark-round h2 {
   font-size: 24px;
@@ -236,7 +236,7 @@ a.lobby-link {
 .player-answer h1 {
   font-size: 24px;
   font-size: 1.5rem;
-  font-family: "Cedarville Cursive", sans-serif; }
+  font-family: "Press Start 2P", sans-serif; }
 
 .player-answer h2 {
   font-size: 24px;
@@ -245,7 +245,7 @@ a.lobby-link {
 .post-submit h1 {
   font-size: 28.8px;
   font-size: 1.8rem;
-  font-family: "Cedarville Cursive", sans-serif; }
+  font-family: "Press Start 2P", sans-serif; }
 
 .post-submit h2 {
   font-size: 19.2px;
@@ -289,7 +289,7 @@ form div.flex input[type="text"], form div.flex textarea {
   margin: 10px auto; }
 
 .primary {
-  color: #e94573; }
+  color: #77e00d; }
 
 .secondary {
   color: #2580ef; }
