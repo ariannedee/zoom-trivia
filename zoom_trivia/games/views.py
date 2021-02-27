@@ -257,5 +257,5 @@ def time_left(request, game_id, round_num):
 def set_timer(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
     _round = game.rounds.get(number=round_num)
-    _round.set_countdown(60)
+    _round.set_countdown(120)
     return HttpResponse(_round.time_left)
