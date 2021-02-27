@@ -16,7 +16,7 @@
   font-size: 20px;
   font-weight: 500;
   color: white;
-  background-color: #77e00d;
+  background-color: #00d9b1;
   z-index: 1;
   -webkit-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
           box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2); }
@@ -42,9 +42,9 @@
   font-size: 1rem; }
 
 a {
-  color: #2580ef; }
+  color: #35a7ff; }
   a:hover {
-    color: #0e5bba; }
+    color: #0083e8; }
 
 .bg-base {
   background-color: #fafafa; }
@@ -87,7 +87,7 @@ a.button, button, input[type="submit"] {
   background-color: white;
   text-shadow: none;
   position: relative;
-  color: #77e00d; }
+  color: #00d9b1; }
   a.button[disabled], button[disabled], input[type="submit"][disabled] {
     background-color: rgba(0, 0, 0, 0.12) !important;
     color: rgba(0, 0, 0, 0.25) !important;
@@ -95,15 +95,15 @@ a.button, button, input[type="submit"] {
             box-shadow: none !important;
     cursor: default; }
   a.button.primary, button.primary, input[type="submit"].primary {
-    background-color: #77e00d;
+    background-color: #00d9b1;
     color: white; }
   a.button.secondary, button.secondary, input[type="submit"].secondary {
-    color: #2580ef; }
+    color: #35a7ff; }
   a.button.active, button.active, input[type="submit"].active {
-    background-color: #77e00d;
+    background-color: #00d9b1;
     color: white; }
     a.button.active.secondary, button.active.secondary, input[type="submit"].active.secondary {
-      background-color: #2580ef; }
+      background-color: #35a7ff; }
 
 a.button:hover {
   text-decoration: none; }
@@ -128,7 +128,7 @@ table {
       vertical-align: baseline;
       font-size: 24px;
       font-size: 1.5rem;
-      color: #77e00d; }
+      color: #00d9b1; }
   table tr:first-child {
     background-color: #EEE !important;
     border-bottom: 1px solid #DDD; }
@@ -152,7 +152,7 @@ table {
   vertical-align: center;
   text-align: center;
   background-color: white;
-  color: #2580ef;
+  color: #35a7ff;
   font-size: 32px;
   font-size: 2rem;
   font-weight: bold;
@@ -165,7 +165,7 @@ a.lobby-link {
   position: absolute;
   top: 10px;
   left: 20px;
-  color: #77e00d; }
+  color: #00d9b1; }
 
 .index h2 {
   font-size: 24px;
@@ -289,10 +289,10 @@ form div.flex input[type="text"], form div.flex textarea {
   margin: 10px auto; }
 
 .primary {
-  color: #77e00d; }
+  color: #00d9b1; }
 
 .secondary {
-  color: #2580ef; }
+  color: #35a7ff; }
 
 .scroll {
   overflow: scroll; }
