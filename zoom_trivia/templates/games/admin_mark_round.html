@@ -6,7 +6,10 @@
 {% endblock %}
 
 {% block content %}
+
   <div class="timer" hidden></div>
+  <div id="seconds-left" hidden></div>
+
   {% csrf_token %}
   <h1>Round {{ round.number }} - {{ round.name }}</h1>
 
@@ -24,7 +27,7 @@
   <div class="bottom-buttons">
     <button
             onclick="getRequest('{% url 'games:set_timer' round.game.id round.number %}')"
-    >Set 120s timer
+    >Set 2min timer
     </button>
     <a class="button primary"
        href="{% url 'games:end_marking' round.game.id round.number %}"

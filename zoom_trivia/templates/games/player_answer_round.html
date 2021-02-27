@@ -9,6 +9,7 @@
   {% load static %}
 
   <div class="timer" hidden></div>
+  <div id="seconds-left" hidden></div>
 
   <h1>Round {{ round.number }} - {{ round.name }}</h1>
   {% if team %}
@@ -19,11 +20,14 @@
           {% include "games/partials/question.html" %}
           <div class="flex">
             <label for="{{ question.pk }}">Answer:</label>
-            <textarea type="text" id="id-{{ question.pk }}" name="{{ question.pk }}">{% if answers %}{{ answers|get_answer:question.pk }}{% endif %}</textarea>
+            <textarea type="text" id="id-{{ question.pk }}" name="{{ question.pk }}">{% if answers %}
+              {{ answers|get_answer:question.pk }}{% endif %}</textarea>
           </div>
         </div>
       {% endfor %}
-      <input type="submit" value="Submit answers"/>
+      <div class="bottom-buttons">
+        <input type="submit" value="Submit answers"/>
+      </div>
     </form>
   {% else %}
     {% for question in round.questions.all %}

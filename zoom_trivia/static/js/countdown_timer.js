@@ -3,6 +3,7 @@ $(document).ready(function () {
     let countdownTimer;
 
     const timer = $('div.timer');
+    const secondsLeftDiv = $('div#seconds-left');
     function update_time_left() {
         $.get({
             url: url,
@@ -13,8 +14,10 @@ $(document).ready(function () {
                     if (response === '0') {
                         timer.text("Time's up!");
                         clearInterval(countdownTimer);
+                        secondsLeftDiv.text(0);
                     } else {
-                        timer.text(response);
+                        secondsLeftDiv.text(response);
+                        countDown();
                         clearInterval(countdownTimer);
                         countdownTimer = window.setInterval(countDown, 1000);
                     }
@@ -24,14 +27,21 @@ $(document).ready(function () {
     }
 
     function countDown() {
-        const secondsLeft = Number(timer.text());
+        const secondsLeft = Number(secondsLeftDiv.text());
         console.log(secondsLeft);
         const nextValue = Math.max(secondsLeft - 1, 0);
         if (nextValue === 0) {
             clearInterval(countdownTimer);
             timer.text("Time's up!");
+            secondsLeftDiv.text(0);
         } else {
-            timer.text(nextValue);
+            let text = '';
+            if (nextValue > 60) {
+                text += `${Math.floor(nextValue/60)}m `
+            }
+            text += `${Math.floor(nextValue % 60)}s `
+            timer.text(text);
+            secondsLeftDiv.text(nextValue);
         }
     }
 
