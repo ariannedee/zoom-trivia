@@ -153,7 +153,7 @@ class Game(TimeStampedModel):
         if self.complete:
             raise StateError("This game is already over")
         elif not self.current_round:
-            round_num = 0
+            round_num = 1
         else:
             round_num = self.current_round.number + 1
         try:
