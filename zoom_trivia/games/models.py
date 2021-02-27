@@ -163,6 +163,7 @@ class Game(TimeStampedModel):
             self.current_round = None
         finally:
             self.save()
+        return self.current_round
 
     # BASE MODEL OVERRIDES
     def save(self, *args, **kwargs):
