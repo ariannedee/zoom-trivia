@@ -23,8 +23,11 @@ class User(AbstractUser):
         if created:
             from django.contrib.auth.models import Group
 
-            game_creator_group = Group.objects.get(name="game_creator")
-            game_creator_group.user_set.add(self)
+            try:
+                game_creator_group = Group.objects.get(name="game_creator")
+                game_creator_group.user_set.add(self)
+            except Group.DoesNotExist:
+                pass
 
     def get_absolute_url(self):
         """Get url for user's detail view.
