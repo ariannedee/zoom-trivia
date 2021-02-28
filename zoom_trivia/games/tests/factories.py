@@ -25,6 +25,6 @@ class QuestionFactory(DjangoModelFactory):
     class Meta:
         model = Question
 
-    game = SubFactory(RoundFactory)
+    round = SubFactory(RoundFactory)
     text = Faker("sentence")
     answer = Faker("sentence")

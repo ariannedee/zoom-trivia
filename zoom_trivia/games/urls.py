@@ -10,8 +10,8 @@ from .views import (
     marking_view,
     player_answers,
     question_view,
-    round_start_view,
     round_state,
+    round_view,
     rules,
     score,
     set_timer,
@@ -24,24 +24,41 @@ from .views import (
 )
 
 app_name = "games"
+
+# View URLs
 urlpatterns = [
     path("<int:game_id>/", view=view_game, name="game"),
     path("", view=game_index, name="home"),
     path("rules/", view=rules, name="rules"),
-    path("rules/<int:game_id>/", view=rules, name="rules"),
+    path("<int:game_id>/rules/", view=rules, name="rules"),
+    path("<int:game_id>/round/<int:round_num>/", view=round_view, name="round"),
+    path("<int:game_id>/round/<int:round_num>/mark/", view=marking_view, name="mark"),
     path(
-        "<int:game_id>/round/<int:round_num>/",
-        view=round_start_view,
-        name="round_start",
+        "<int:game_id>/round/<int:round_num>/answer/",
+        view=player_answers,
+        name="player_answers",
     ),
-    path("<int:game_id>/round/<int:round_num>/marking/", view=marking_view, name="mark"),
     path(
-        "<int:game_id>/round/<int:round_num>/mark/",
+        "<int:game_id>/round/<int:round_num>/question/<int:question_num>/",
+        view=question_view,
+        name="question",
+    ),
+    path(
+        "<int:game_id>/round/<int:round_num>/answer/<int:question_num>/",
+        view=answer_view,
+        name="answer",
+    ),
+]
+
+# State change URLs
+urlpatterns = urlpatterns + [
+    path(
+        "<int:game_id>/round/<int:round_num>/start_marking/",
         view=start_marking,
         name="start_marking",
     ),
     path(
-        "<int:game_id>/round/<int:round_num>/stop_marking/",
+        "<int:game_id>/round/<int:round_num>/end_marking/",
         view=end_marking,
         name="end_marking",
     ),
@@ -55,29 +72,20 @@ urlpatterns = [
         view=start_round,
         name="start_round",
     ),
-    path(
-        "<int:game_id>/round/<int:round_num>/question/<int:question_num>/",
-        view=question_view,
-        name="question",
-    ),
-    path(
-        "<int:game_id>/round/<int:round_num>/answer/<int:question_num>/",
-        view=answer_view,
-        name="answer",
-    ),
-    path(
-        "<int:game_id>/round/<int:round_num>/answer/",
-        view=player_answers,
-        name="player_answers",
-    ),
-    # API
+]
+
+# API URLs
+urlpatterns = urlpatterns + [
     path(
         "<int:game_id>/round/<int:round_num>/submit/",
         view=submit_answers,
         name="submit_answers",
     ),
     path("score", view=score, name="score"),
-    # Dynamic views
+]
+
+# Dynamic views URLs
+urlpatterns = urlpatterns + [
     path(
         "<int:game_id>/round/<int:round_num>/question/<int:question_num>/mark_table",
         view=mark_table,
@@ -91,12 +99,12 @@ urlpatterns = [
     ),
     path("<int:game_id>/team_table/", view=team_table, name="team_table"),
     path(
-        "<int:game_id>/round/<int:round_num>/time_left",
+        "<int:game_id>/round/<int:round_num>/time_left/",
         view=time_left,
         name="time_left",
     ),
     path(
-        "<int:game_id>/round/<int:round_num>/set_timer",
+        "<int:game_id>/round/<int:round_num>/set_timer/",
         view=set_timer,
         name="set_timer",
     ),

@@ -46,7 +46,7 @@ def rules(request, game_id=None):
 
 
 @staff_member_required
-def round_start_view(request, game_id, round_num):
+def round_view(request, game_id, round_num):
     game = get_object_or_404(Game, pk=game_id)
     _round = game.rounds.get(number=round_num)
     context = {"game": game, "round": _round}
@@ -130,7 +130,7 @@ def start_round(request, game_id, round_num):
     _round = game.current_round
     if _round.lightning:
         return redirect("games:start_marking", game_id, round_num)
-    return redirect("games:round_start", game_id, round_num)
+    return redirect("games:round", game_id, round_num)
 
 
 @staff_member_required
