@@ -127,7 +127,6 @@ def start_round(request, game_id, round_num):
         messages.add_message(request, messages.ERROR, "That is not the current round")
         return redirect("games:game", game_id)
     game.start_round()
-    game.refresh_from_db()
     _round = game.current_round
     if _round.lightning:
         return redirect("games:start_marking", game_id, round_num)
