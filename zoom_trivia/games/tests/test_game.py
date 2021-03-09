@@ -1,4 +1,7 @@
+from datetime import timedelta
+
 import pytest
+from django.utils.timezone import now
 
 from ..models import RoundState
 from .factories import GameFactory, RoundFactory
@@ -47,3 +50,23 @@ class TestGame:
         game.end_round()
         assert game.current_round == round2
         assert game.round_state == RoundState.NOT_STARTED
+
+    def test_game_not_visible_to_players_time(self):
+        more_than_15_mins_future = now() + timedelta(minutes=16)
+        game = GameFactory(start_time=more_than_15_mins_future, visible=True)
+        assert not game.players_can_see_details
+
+    def test_game_not_visible_to_players_visibility(self):
+        past = now() - timedelta(minutes=1)
+        game = GameFactory(start_time=past, visible=False)
+        assert not game.players_can_see_details
+
+    def test_game_visible_to_players(self):
+        less_than_15_mins_future = now() + timedelta(minutes=14)
+        game = GameFactory(start_time=less_than_15_mins_future, visible=True)
+        assert game.players_can_see_details
+
+    def test_past_game_visible_to_players(self):
+        past = now() - timedelta(minutes=1)
+        game = GameFactory(start_time=past, visible=True)
+        assert game.players_can_see_details

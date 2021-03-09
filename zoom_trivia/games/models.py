@@ -74,6 +74,10 @@ class Game(TimeStampedModel):
             return f'<a href="{self.link}" target="_blank">{self.link}</a>'
         return "Not set"
 
+    @property
+    def players_can_see_details(self):
+        return self.visible and self.start_time and self.start_time - now() < timedelta(minutes=15)
+
     # CHECK STATE
     @property
     def not_started(self):

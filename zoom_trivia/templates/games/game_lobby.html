@@ -10,8 +10,10 @@
     <h2>Rounds</h2>
     {% if request.user.is_authenticated %}
       {% include "games/partials/round_table_admin.html" %}
-    {% else %}
+    {% elif game.players_can_see_details %}
       {% include "games/partials/round_table_player.html" %}
+    {% else %}
+      You will be able to see the rounds when the game is about to start
     {% endif %}
   </div>
   <div class="card">
