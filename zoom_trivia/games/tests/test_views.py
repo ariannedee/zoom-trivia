@@ -48,3 +48,26 @@ class TestRenderViews:
         assert template_used(response, "games/game_list.html")
         assert len(response.context["games"]) == 0
         assert len(response.context["your_games"]) == num_games
+
+
+class TestDynamicViews:
+    def setup_method(self):
+        self.client = Client()
+        self.admin_user = UserFactory(is_superuser=True)
+
+    def test_player_round_table(self):
+        game = GameFactory()
+        url = reverse("games:game_table", kwargs={"game_id": game.id})
+        response = self.client.get(url)
+        assert response.status_code == 200
+        assert template_used(response, "games/partials/round_table_player.html")
+        assert response.context["game"] == game
+
+    def test_player_round_admin(self):
+        game = GameFactory()
+        self.client.force_login(self.admin_user)
+        url = reverse("games:game_table", kwargs={"game_id": game.id})
+        response = self.client.get(url)
+        assert response.status_code == 200
+        assert template_used(response, "games/partials/round_table_admin.html")
+        assert response.context["game"] == game

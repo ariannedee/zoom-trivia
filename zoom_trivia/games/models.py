@@ -78,6 +78,11 @@ class Game(TimeStampedModel):
     def players_can_see_details(self):
         return self.visible and self.start_time and self.start_time - now() < timedelta(minutes=15)
 
+    def user_is_admin(self, user):
+        return user.is_superuser or (
+            user.is_staff and user.can_view_games and user.allowed_games.filter(id=self.id).exists()
+        )
+
     # CHECK STATE
     @property
     def not_started(self):

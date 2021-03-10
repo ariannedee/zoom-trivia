@@ -26,7 +26,7 @@ def game_index(request):
 
 def view_game(request, game_id=1):
     game = get_object_or_404(Game, pk=game_id)
-    context = {"game": game}
+    context = {"game": game, "user_is_admin": game.user_is_admin(request.user)}
     team_id = request.session.get("team_id")
     team = game.teams.filter(id=team_id).first()
     if team:
@@ -236,7 +236,12 @@ def mark_table(request, game_id, round_num, question_num):
 def game_table(request, game_id):
     game = get_object_or_404(Game, pk=game_id)
     context = {"game": game}
-    return render(request, "games/partials/round_table_player.html", context=context)
+    if request.user.is_staff and game.user_is_admin(request.user):
+        return render(request, "games/partials/round_table_admin.html", context=context)
+    elif game.players_can_see_details:
+        return render(request, "games/partials/round_table_player.html", context=context)
+    else:
+        return HttpResponse("You will be able to see the rounds when the game is about to start")
 
 
 def team_table(request, game_id):

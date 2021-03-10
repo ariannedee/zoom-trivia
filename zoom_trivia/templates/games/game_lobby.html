@@ -8,13 +8,15 @@
 {% block content %}
   <div class="card">
     <h2>Rounds</h2>
-    {% if request.user.is_authenticated %}
-      {% include "games/partials/round_table_admin.html" %}
-    {% elif game.players_can_see_details %}
-      {% include "games/partials/round_table_player.html" %}
-    {% else %}
-      You will be able to see the rounds when the game is about to start
-    {% endif %}
+    <div class="round-table">
+      {% if user_is_admin %}
+        {% include "games/partials/round_table_admin.html" %}
+      {% elif game.players_can_see_details %}
+        {% include "games/partials/round_table_player.html" %}
+      {% else %}
+        You will be able to see the rounds when the game is about to start
+      {% endif %}
+    </div>
   </div>
   <div class="card">
     <h2>Teams</h2>
@@ -47,12 +49,12 @@
         $.get({
           url: '{% url "games:game_table" game.id %}',
           success: (response) => {
-            $('table.player').html(response);
+            $('div.round-table').html(response);
           }
         });
       }
 
-      if ($('table.player')) {
+      if ($('div.round-table')) {
         window.setInterval(reload_round_table, 3000);
       }
     });
