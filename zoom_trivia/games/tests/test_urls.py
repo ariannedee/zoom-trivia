@@ -116,6 +116,13 @@ class TestRoundUrls:
         assert url == as_string
         assert resolve(as_string).view_name == "games:set_timer"
 
+    def test_set_current_round(self, round_: Round):
+        url = reverse("games:make_current", kwargs=self.get_kwargs(round_))
+        as_string = f"/{round_.game.id}/round/{round_.number}/make_current/"
+
+        assert url == as_string
+        assert resolve(as_string).view_name == "games:make_current"
+
 
 class TestQuestionUrls:
     @staticmethod

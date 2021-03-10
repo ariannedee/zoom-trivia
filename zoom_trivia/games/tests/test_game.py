@@ -57,16 +57,29 @@ class TestGame:
         assert not game.players_can_see_details
 
     def test_game_not_visible_to_players_visibility(self):
-        past = now() - timedelta(minutes=1)
+        past = now() - timedelta(hours=8) - timedelta(minutes=1)
         game = GameFactory(start_time=past, visible=False)
         assert not game.players_can_see_details
 
     def test_game_visible_to_players(self):
-        less_than_15_mins_future = now() + timedelta(minutes=14)
+        less_than_15_mins_future = now() - timedelta(hours=8) + timedelta(minutes=14)
         game = GameFactory(start_time=less_than_15_mins_future, visible=True)
         assert game.players_can_see_details
 
     def test_past_game_visible_to_players(self):
-        past = now() - timedelta(minutes=1)
+        past = now() - timedelta(hours=8) - timedelta(minutes=1)
         game = GameFactory(start_time=past, visible=True)
         assert game.players_can_see_details
+
+    def test_set_current_round(self):
+        game = GameFactory()
+        round1 = RoundFactory(game=game)
+        round2 = RoundFactory(game=game)
+
+        game.current_round = round2
+        game.round_state = RoundState.MARKING
+        game.save()
+
+        game.set_current_round(1)
+        assert game.current_round == round1
+        assert game.round_state == RoundState.NOT_STARTED

@@ -1,5 +1,6 @@
 <table class="round">
   <tr>
+    <th>Current</th>
     <th>Round</th>
     <th>Name</th>
     <th># Q<span class="small-hide">uestion</span>s</th>
@@ -7,6 +8,17 @@
   </tr>
   {% for round in game.rounds.all %}
     <tr>
+    <td>
+      {% if game.current_round == round %}
+        <button disabled>★</button>
+      {% elif not games.current_round and round.number == 1 and not round.complete %}
+        <button disabled>★</button>
+      {% else %}
+        <button onclick="getRequest('{% url 'games:make_current' round.game.id round.number %}')">
+          ☆
+        </button>
+      {% endif %}
+    </td>
     <td>
       <strong><span class="small-hide">Round </span>{{ round.number }}</strong>
       {% if round.lightning %}

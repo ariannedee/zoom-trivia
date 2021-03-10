@@ -1,4 +1,5 @@
 from random import randint
+from unittest.mock import Mock, patch
 
 import pytest
 from django.test import Client
@@ -7,6 +8,7 @@ from django.utils.timezone import now
 
 from zoom_trivia.users.tests.factories import UserFactory
 
+from ..models import Round
 from .factories import GameFactory
 
 pytestmark = pytest.mark.django_db
@@ -48,6 +50,25 @@ class TestRenderViews:
         assert template_used(response, "games/game_list.html")
         assert len(response.context["games"]) == 0
         assert len(response.context["your_games"]) == num_games
+
+
+class TestAPIViews:
+    def setup_method(self):
+        self.client = Client()
+        self.admin_user = UserFactory(is_superuser=True)
+
+    @staticmethod
+    def get_kwargs(round_):
+        return {"game_id": round_.game.id, "round_num": round_.number}
+
+    @patch("zoom_trivia.games.models.Game.set_current_round")
+    def test_set_current_round(self, mock: Mock, round_: Round):
+        url = reverse("games:make_current", kwargs=self.get_kwargs(round_))
+        response = self.client.get(url)
+
+        assert response.status_code == 200
+        assert mock.call_args.args == (round_.number,)
+        assert mock.call_count == 1
 
 
 class TestDynamicViews:

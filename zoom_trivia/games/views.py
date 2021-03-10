@@ -3,6 +3,7 @@ from datetime import datetime
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.safestring import mark_safe
@@ -127,9 +128,6 @@ def start_round(request, game_id, round_num):
         messages.add_message(request, messages.ERROR, "That is not the current round")
         return redirect("games:game", game_id)
     game.start_round()
-    _round = game.current_round
-    if _round.lightning:
-        return redirect("games:start_marking", game_id, round_num)
     return redirect("games:round", game_id, round_num)
 
 
@@ -220,6 +218,16 @@ def score(request):
     answer.points = points
     answer.save()
     return HttpResponse("ok")
+
+
+def set_current_round(request, game_id, round_num):
+    game = get_object_or_404(Game, pk=game_id)
+    try:
+        game.set_current_round(round_num)
+        result = "OK"
+    except ObjectDoesNotExist:
+        result = f"No round with number {round_num}"
+    return HttpResponse(result)
 
 
 # ===================

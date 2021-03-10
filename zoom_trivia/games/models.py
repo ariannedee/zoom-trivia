@@ -68,6 +68,13 @@ class Game(TimeStampedModel):
     def get_absolute_url(self):
         return reverse("games:game", kwargs={"game_id": self.id})
 
+    def set_current_round(self, round_num):
+        round_ = self.rounds.get(number=round_num)
+        self.current_round = round_
+        self.round_state = RoundState.NOT_STARTED
+        self.save()
+        self.rounds.update(end_time=None)
+
     @property
     def zoom_link(self):
         if self.link:
@@ -76,7 +83,11 @@ class Game(TimeStampedModel):
 
     @property
     def players_can_see_details(self):
-        return self.visible and self.start_time and self.start_time - now() < timedelta(minutes=15)
+        return (
+            self.visible
+            and self.start_time
+            and self.start_time + timedelta(hours=8) - now() < timedelta(minutes=15)
+        )
 
     def user_is_admin(self, user):
         return user.is_superuser or (
@@ -140,6 +151,8 @@ class Game(TimeStampedModel):
             raise StateError("There is no current round set")
         elif self.round_state == RoundState.NOT_STARTED:
             raise StateError("This round has not been started")
+        self.current_round.end_time = None
+        self.current_round.save()
         self.round_state = RoundState.MARKED
         self.save()
 

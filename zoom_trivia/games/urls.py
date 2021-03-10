@@ -14,6 +14,7 @@ from .views import (
     round_view,
     rules,
     score,
+    set_current_round,
     set_timer,
     start_marking,
     start_round,
@@ -82,6 +83,11 @@ urlpatterns = urlpatterns + [
         name="submit_answers",
     ),
     path("score", view=score, name="score"),
+    path(
+        "<int:game_id>/round/<int:round_num>/make_current/",
+        view=set_current_round,
+        name="make_current",
+    ),
 ]
 
 # Dynamic views URLs
