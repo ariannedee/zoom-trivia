@@ -15,6 +15,9 @@
     {% endif %}
   </a>
 {% endif %}
+{% if question.audio %}
+  {% include "games/partials/audio.html" %}
+{% endif %}
 {% if question.details %}
   <p class="center">{{ question.details|linebreaksbr }}</p>
 {% endif %}

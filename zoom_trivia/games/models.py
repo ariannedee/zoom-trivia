@@ -306,6 +306,7 @@ class Question(OrderableModel, TimeStampedModel):
     details = models.TextField(null=True, blank=True)
     out_of = models.IntegerField(default=1)
     answer = models.CharField(max_length=300)
+    audio = models.FileField(upload_to=rename, null=True, blank=True)
 
     objects = QuestionManager()
 
