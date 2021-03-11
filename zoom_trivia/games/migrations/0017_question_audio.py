@@ -7,13 +7,15 @@ import zoom_trivia.games.helpers
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('games', '0016_question_image_in_question'),
+        ("games", "0016_question_image_in_question"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='question',
-            name='audio',
-            field=models.FileField(blank=True, null=True, upload_to=zoom_trivia.games.helpers.rename),
+            model_name="question",
+            name="audio",
+            field=models.FileField(
+                blank=True, null=True, upload_to=zoom_trivia.games.helpers.rename
+            ),
         ),
     ]

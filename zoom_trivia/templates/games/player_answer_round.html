@@ -20,13 +20,13 @@
           {% include "games/partials/question.html" %}
           <div class="flex">
             <label for="{{ question.pk }}">Answer:</label>
-            <textarea type="text" id="id-{{ question.pk }}" name="{{ question.pk }}">{% if answers %}
-              {{ answers|get_answer:question.pk }}{% endif %}</textarea>
+            <textarea type="text" id="id-{{ question.pk }}" name="{{ question.pk }}">{% if answers %}{{ answers|get_answer:question.pk }}{% endif %}</textarea>
           </div>
         </div>
       {% endfor %}
       <div class="bottom-buttons">
-        <input type="submit" value="Submit answers"/>
+        <input type="submit" value="Submit answers" class="hidden"/>
+        <a id="see-answers" class="button primary hidden" href="{% url 'games:answer' round.game.id round.number 1 %}">See answers</a>
       </div>
     </form>
   {% else %}
@@ -43,4 +43,27 @@
     const url = '{% url "games:time_left" round.game.id round.number %}';
   </script>
   <script src="{% static 'js/countdown_timer.js' %}"></script>
+  <script>
+    $(document).ready(function () {
+      function checkIfMarked() {
+        $.get({
+          url: '{% url "games:round_state" game.id round.number %}',
+          success: (response) => {
+            if (response === 'True') {
+              $('input[type="submit"]').addClass('hidden');
+              $('a#see-answers').removeClass('hidden');
+            } else {
+              $('input[type="submit"]').removeClass('hidden');
+              $('a#see-answers').addClass('hidden');
+            }
+          }
+        });
+      }
+
+      checkIfMarked();
+      if ($('input[type="submit"]')) {
+        window.setInterval(checkIfMarked, 3000);
+      }
+    });
+  </script>
 {% endblock %}

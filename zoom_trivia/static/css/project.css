@@ -268,7 +268,8 @@ form div.flex label {
   min-width: max-content; }
 
 form div.flex input[type="text"], form div.flex textarea {
-  width: 100%; }
+  width: 100%;
+  padding-left: 5px; }
 
 .full-size {
   min-height: 70vh; }
@@ -302,6 +303,9 @@ form div.flex input[type="text"], form div.flex textarea {
 
 .scroll {
   overflow: scroll; }
+
+.hidden {
+  display: none !important; }
 
 @media (min-width: 1280px) {
   html {
