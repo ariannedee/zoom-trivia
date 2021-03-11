@@ -43,13 +43,16 @@
       {% if game %}
         <a class="navbar-brand" href="{% url 'games:home' %}">{{ game.name }}</a>
         {% if game.start_time %}
-          <div class="navbar-description">{{ game.start_time }}</div>
+          <div class="navbar-description">{{ game.start_time_display }}</div>
         {% endif %}
       {% else %}
         <a class="navbar-brand" href="{% url 'games:home' %}">Zoom Trivia</a>
       {% endif %}
       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="navbar-nav">
+          <li class="nav-item">
+            <a id="log-in-link" class="nav-link" href="">Mailing list</a>
+          </li>
           <li class="nav-item">
             {% if game %}
               <a class="nav-link" href="{% url 'games:rules' game.id %}">Rules</a>
@@ -69,7 +72,7 @@
           {% else %}
             <li class="nav-item">
               {# URL provided by django-allauth/account/urls.py #}
-              <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
+              <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">Create account</a>
             </li>
             <li class="nav-item">
               {# URL provided by django-allauth/account/urls.py #}

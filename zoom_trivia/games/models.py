@@ -82,6 +82,10 @@ class Game(TimeStampedModel):
         return "Not set"
 
     @property
+    def start_time_display(self):
+        return self.start_time.strftime("%A, %b %-d @ %-I:%M %p")
+
+    @property
     def players_can_see_details(self):
         return (
             self.visible

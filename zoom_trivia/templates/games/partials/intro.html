@@ -1,6 +1,6 @@
-<h2>Welcome to the new, faster, Zoom Trivia!</h2>
+<h2>Welcome to Zoom Trivia!</h2>
 {% if game %}
-  <p><strong>{{ game.name }}</strong> will start on {{ game.start_time.date }} at <strong>{{ game.start_time.time }}</strong></p>
+  <p><strong>{{ game.name }}</strong> will start on {{ game.start_time.date|date:"l, F j" }} at <strong>{{ game.start_time.time }}</strong></p>
   {% if game.link %}
     <p><a href="{{ game.link }}">Zoom link</a></p>
   {% endif %}
