@@ -1,38 +1,46 @@
 <table class="round">
-  <tr>
-    <th>Round</th>
-    <th>Name</th>
-    <th># Q<span class="small-hide">uestion</span>s</th>
-    <th></th>
-  </tr>
-  {% for round in game.rounds.all %}
+  {% if not game.players_can_see_details %}
     <tr>
-    <td>
-      <strong><span class="small-hide">Round </span>{{ round.number }}</strong>
-      {% if round.lightning %}
-        <span class="secondary">⚡︎</span>
-      {% endif %}
-    </td>
-    <td>{{ round.name }}</td>
-    <td>{{ round.questions.count }}</td>
-    <td style="width: 12rem" class="text-center">
-      {% if game.current_round == round %}
+      <td>
+        You will be able to see the rounds when the game is about to start
+      </td>
+    </tr>
+  {% else %}
+    <tr>
+      <th>Round</th>
+      <th>Name</th>
+      <th># Q<span class="small-hide">uestion</span>s</th>
+      <th></th>
+    </tr>
+    {% for round in game.rounds.all %}
+      <tr>
+      <td>
+        <strong><span class="small-hide">Round </span>{{ round.number }}</strong>
         {% if round.lightning %}
-          <span class="small-hide">Answer in </span>Zoom chat
-        {% elif game.not_started %}
-          Waiting<span class="small-hide"> to start</span>
-        {% elif game.view_questions or game.answering %}
-          <a class="button primary" href="{% url 'games:player_answers' game.id round.number %}">Start →</a>
-        {% elif game.marking %}
-          <span class="small-hide">The round is </span>being marked
-        {% elif game.marked %}
-          <a class="button primary" href="{% url 'games:answer' game.id round.number 1 %}"><span class="small-hide">View </span>answers</a>
+          <span class="secondary">⚡︎</span>
         {% endif %}
-      {% elif round.complete %}
-        <a class="button" href="{% url 'games:answer' game.id round.number 1 %}"><span class="small-hide">View </span>answers</a>
-      {% elif not games.current_round and round.number == 1 and not round.complete %}
-        Waiting<span class="small-hide"> to start</span>
-      {% endif %}
-    </td>
-  {% endfor %}
+      </td>
+      <td>{{ round.name }}</td>
+      <td>{{ round.questions.count }}</td>
+      <td style="width: 12rem" class="text-center">
+        {% if game.current_round == round %}
+          {% if round.lightning %}
+            <span class="small-hide">Answer in </span>Zoom chat
+          {% elif game.not_started %}
+            Waiting<span class="small-hide"> to start</span>
+          {% elif game.view_questions or game.answering %}
+            <a class="button primary" href="{% url 'games:player_answers' game.id round.number %}">Start →</a>
+          {% elif game.marking %}
+            <span class="small-hide">The round is </span>being marked
+          {% elif game.marked %}
+            <a class="button primary" href="{% url 'games:answer' game.id round.number 1 %}"><span class="small-hide">View </span>answers</a>
+          {% endif %}
+        {% elif round.complete %}
+          <a class="button" href="{% url 'games:answer' game.id round.number 1 %}"><span class="small-hide">View </span>answers</a>
+        {% elif not games.current_round and round.number == 1 and not round.complete %}
+          Waiting<span class="small-hide"> to start</span>
+        {% endif %}
+      </td>
+    {% endfor %}
+  {% endif %}
 </table>

@@ -246,10 +246,8 @@ def game_table(request, game_id):
     context = {"game": game}
     if request.user.is_staff and game.user_is_admin(request.user):
         return render(request, "games/partials/round_table_admin.html", context=context)
-    elif game.players_can_see_details:
-        return render(request, "games/partials/round_table_player.html", context=context)
     else:
-        return HttpResponse("You will be able to see the rounds when the game is about to start")
+        return render(request, "games/partials/round_table_player.html", context=context)
 
 
 def team_table(request, game_id):
