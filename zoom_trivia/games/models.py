@@ -72,7 +72,7 @@ class Game(TimeStampedModel):
         round_ = self.rounds.get(number=round_num)
         self.current_round = round_
         self.round_state = RoundState.NOT_STARTED
-        self.save()
+        self.save(update_complete=True)
         self.rounds.update(end_time=None)
 
     @property
@@ -192,17 +192,18 @@ class Game(TimeStampedModel):
         return self.current_round
 
     # BASE MODEL OVERRIDES
-    def save(self, *args, **kwargs):
-        if self.current_round:
-            for _round in self.rounds.all():
-                if _round.number < self.current_round.number and not _round.complete:
-                    _round.complete = True
-                    _round.save()
-                elif _round.number >= self.current_round.number and _round.complete:
-                    _round.complete = False
-                    _round.save()
-        else:
-            self.round_state = RoundState.NOT_STARTED
+    def save(self, update_complete=False, *args, **kwargs):
+        if update_complete:
+            if self.current_round:
+                for _round in self.rounds.all():
+                    if _round.number < self.current_round.number and not _round.complete:
+                        _round.complete = True
+                        _round.save()
+                    elif _round.number >= self.current_round.number and _round.complete:
+                        _round.complete = False
+                        _round.save()
+            else:
+                self.round_state = RoundState.NOT_STARTED
         super().save(*args, **kwargs)
 
     def __str__(self):

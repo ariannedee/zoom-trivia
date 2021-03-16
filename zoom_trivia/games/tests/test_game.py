@@ -35,6 +35,22 @@ class TestGame:
         assert game.current_round == round2
         assert game.round_state == RoundState.NOT_STARTED
 
+        round1.refresh_from_db()
+        assert round1.complete is True
+
+        game.start_round()
+        game.start_marking()
+        game.stop_answering()
+        game.end_marking()
+        game.end_round()
+
+        assert game.current_round is None
+        assert game.round_state == RoundState.NOT_STARTED
+        assert game.complete is True
+
+        round2.refresh_from_db()
+        assert round2.complete is True
+
     def test_game_states_lightning_round(self):
         game = GameFactory()
         round1 = RoundFactory(game=game, lightning=True)
@@ -73,13 +89,21 @@ class TestGame:
 
     def test_set_current_round(self):
         game = GameFactory()
-        round1 = RoundFactory(game=game)
-        round2 = RoundFactory(game=game)
+        round1 = RoundFactory(game=game, complete=True)
+        round2 = RoundFactory(game=game, complete=True)
+        round3 = RoundFactory(game=game, complete=True)
 
-        game.current_round = round2
+        game.current_round = round3
         game.round_state = RoundState.MARKING
         game.save()
 
-        game.set_current_round(1)
-        assert game.current_round == round1
+        game.set_current_round(2)
+        assert game.current_round == round2
         assert game.round_state == RoundState.NOT_STARTED
+
+        round1.refresh_from_db()
+        round2.refresh_from_db()
+        round3.refresh_from_db()
+        assert round1.complete is True
+        assert round2.complete is False
+        assert round3.complete is False
