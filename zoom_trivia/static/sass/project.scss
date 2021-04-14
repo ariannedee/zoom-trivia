@@ -14,8 +14,8 @@ $pink: #f2dede;
 $dark-pink: #eed3d7;
 $red: #b94a48;
 
-$primary: #0033ca;
-$secondary: #ffc309;
+$primary: #87be36;
+$secondary: #2aa5e5;
 
 @font-face {
   font-family: 'Jeopardy';
@@ -23,7 +23,8 @@ $secondary: #ffc309;
   url('../fonts/gyparody.ttf') format("truetype");
 }
 
-$fancy-font: "Jeopardy", "Impact", sans-serif;
+$fancy-font: 'Amatic SC', sans-serif;
+//$fancy-font: 'Fredericka the Great', sans-serif;
 
 ////////////////////////////////
 //Alerts//
@@ -66,7 +67,7 @@ $fancy-font: "Jeopardy", "Impact", sans-serif;
 }
 
 .navbar-brand {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-family: $fancy-font;
 }
 
