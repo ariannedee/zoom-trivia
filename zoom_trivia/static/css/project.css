@@ -20,7 +20,7 @@
   font-size: 20px;
   font-weight: 500;
   color: white;
-  background-color: #87be36;
+  background-color: #36be9e;
   z-index: 1;
   -webkit-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
           box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2); }
@@ -34,7 +34,7 @@
 .navbar-brand {
   font-size: 32px;
   font-size: 2rem;
-  font-family: "Amatic SC", sans-serif; }
+  font-family: "Chewy", sans-serif; }
 
 .navbar-description {
   margin-left: 20px;
@@ -91,7 +91,7 @@ a.button, button, input[type="submit"] {
   background-color: white;
   text-shadow: none;
   position: relative;
-  color: #87be36; }
+  color: #36be9e; }
   a.button[disabled], button[disabled], input[type="submit"][disabled] {
     background-color: rgba(0, 0, 0, 0.12) !important;
     color: rgba(0, 0, 0, 0.25) !important;
@@ -99,12 +99,12 @@ a.button, button, input[type="submit"] {
             box-shadow: none !important;
     cursor: default; }
   a.button.primary, button.primary, input[type="submit"].primary {
-    background-color: #87be36;
+    background-color: #36be9e;
     color: white; }
   a.button.secondary, button.secondary, input[type="submit"].secondary {
     color: #2aa5e5; }
   a.button.active, button.active, input[type="submit"].active {
-    background-color: #87be36;
+    background-color: #36be9e;
     color: white; }
     a.button.active.secondary, button.active.secondary, input[type="submit"].active.secondary {
       background-color: #2aa5e5; }
@@ -132,7 +132,7 @@ table {
       vertical-align: baseline;
       font-size: 24px;
       font-size: 1.5rem;
-      color: #87be36; }
+      color: #36be9e; }
   table tr:first-child {
     background-color: #EEE !important;
     border-bottom: 1px solid #DDD; }
@@ -169,7 +169,7 @@ a.lobby-link {
   position: absolute;
   top: 10px;
   left: 20px;
-  color: #87be36; }
+  color: #36be9e; }
 
 .index h2 {
   font-size: 24px;
@@ -192,7 +192,7 @@ a.lobby-link {
     margin-bottom: 50px;
     font-size: 80px;
     font-size: 5rem;
-    font-family: "Amatic SC", sans-serif; }
+    font-family: "Chewy", sans-serif; }
   .round-start h2 {
     font-size: 32px;
     font-size: 2rem; }
@@ -205,7 +205,7 @@ a.lobby-link {
   .question h1 {
     font-size: 24px;
     font-size: 1.5rem;
-    font-family: "Amatic SC", sans-serif; }
+    font-family: "Chewy", sans-serif; }
   .question h2 {
     font-size: 40px;
     font-size: 2.5rem; }
@@ -233,7 +233,7 @@ a.lobby-link {
 .mark-round h1 {
   font-size: 24px;
   font-size: 1.5rem;
-  font-family: "Amatic SC", sans-serif; }
+  font-family: "Chewy", sans-serif; }
 
 .mark-round h2 {
   font-size: 24px;
@@ -242,7 +242,7 @@ a.lobby-link {
 .player-answer h1 {
   font-size: 24px;
   font-size: 1.5rem;
-  font-family: "Amatic SC", sans-serif; }
+  font-family: "Chewy", sans-serif; }
 
 .player-answer h2 {
   font-size: 24px;
@@ -251,7 +251,7 @@ a.lobby-link {
 .post-submit h1 {
   font-size: 28.8px;
   font-size: 1.8rem;
-  font-family: "Amatic SC", sans-serif; }
+  font-family: "Chewy", sans-serif; }
 
 .post-submit h2 {
   font-size: 19.2px;
@@ -296,7 +296,7 @@ form div.flex input[type="text"], form div.flex textarea {
   margin: 10px auto; }
 
 .primary {
-  color: #87be36; }
+  color: #36be9e; }
 
 .secondary {
   color: #2aa5e5; }
