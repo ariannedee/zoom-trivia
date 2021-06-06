@@ -30,7 +30,7 @@ class RoundInline(OrderableAdmin, admin.TabularInline):
 
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):
-    list_display = ["id", "name", "num_rounds", "rounds", "start_time"]
+    list_display = ["name", "num_rounds", "rounds", "start_time"]
     search_fields = ["id", "name", "complete", "start_time"]
     inlines = (RoundInline,)
 
@@ -69,9 +69,9 @@ class QuestionInline(WidgetStyleMixin, OrderableAdmin, admin.TabularInline):
 @admin.register(Round)
 class RoundAdmin(admin.ModelAdmin):
     list_display = [
-        "game",
-        "number",
         "name",
+        "see_game",
+        "number",
         "lightning",
         "num_questions",
         "num_points",
@@ -84,6 +84,12 @@ class RoundAdmin(admin.ModelAdmin):
 
     def num_points(self, obj):
         return obj.num_points
+
+    def see_game(self, obj):
+        url = reverse("admin:games_game_change", args=[obj.game.id])
+        return format_html(f'<a href="{url}">View game</a>&nbsp;')
+
+    see_game.short_description = "Game"
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
