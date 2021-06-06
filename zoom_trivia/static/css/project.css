@@ -307,6 +307,10 @@ form div.flex input[type="text"], form div.flex textarea {
 .hidden {
   display: none !important; }
 
+.red {
+  color: #b94a48;
+  font-weight: bold; }
+
 @media (min-width: 1280px) {
   html {
     font-size: 20px; } }
