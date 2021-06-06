@@ -4,7 +4,7 @@ from admin_ordering.models import OrderableModel
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.urls import reverse
-from django.utils.timezone import now
+from django.utils.timezone import localdate, localtime, now
 from django.utils.translation import gettext_lazy as _
 from model_utils.models import TimeStampedModel
 
@@ -41,7 +41,7 @@ class GameManager(models.Manager):
         return self.filter(allowed_users__user=user)
 
     def upcoming_games(self):
-        return self.filter(start_time__gte=now().date(), visible=True)
+        return self.filter(start_time__gte=localdate(), visible=True)
 
 
 class Game(TimeStampedModel):
@@ -83,14 +83,22 @@ class Game(TimeStampedModel):
 
     @property
     def start_time_display(self):
-        return self.start_time.strftime("%A, %b %-d @ %-I:%M %p")
+        return localtime(self.start_time).strftime("%A, %b %-d @ %-I:%M %p")
+
+    @property
+    def time(self):
+        return localtime(self.start_time).time()
+
+    @property
+    def date(self):
+        return localtime(self.start_time).date()
 
     @property
     def players_can_see_details(self):
         return (
             self.visible
             and self.start_time
-            and self.start_time + timedelta(hours=8) - now() < timedelta(minutes=15)
+            and self.start_time - localtime() < timedelta(minutes=15)
         )
 
     def user_is_admin(self, user):
