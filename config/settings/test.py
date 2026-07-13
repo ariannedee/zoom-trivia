@@ -5,6 +5,8 @@ With these settings, tests run faster.
 from .base import *  # noqa
 from .base import env
 
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
@@ -14,6 +16,13 @@ SECRET_KEY = env(
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#test-runner
 TEST_RUNNER = "django.test.runner.DiscoverRunner"
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 # CACHES
 # ------------------------------------------------------------------------------
