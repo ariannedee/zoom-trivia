@@ -1,0 +1,142 @@
+[
+  {
+    "model": "games.game",
+    "pk": 1,
+    "fields": {
+      "created": "2026-07-13T21:24:15.678Z",
+      "modified": "2026-07-13T22:18:53.638Z",
+      "name": "Python Trivia",
+      "start_time": "2026-07-18T10:00:00Z",
+      "current_round": null,
+      "round_state": 0,
+      "link": null,
+      "complete": false,
+      "visible": true
+    }
+  },
+  {
+    "model": "games.round",
+    "pk": 1,
+    "fields": {
+      "number": 1,
+      "created": "2026-07-13T21:24:15.685Z",
+      "modified": "2026-07-13T22:22:28.574Z",
+      "game": 1,
+      "name": "History of Python",
+      "description": null,
+      "complete": false,
+      "end_time": null,
+      "lightning": false
+    }
+  },
+  {
+    "model": "games.round",
+    "pk": 2,
+    "fields": {
+      "number": 2,
+      "created": "2026-07-13T21:24:15.685Z",
+      "modified": "2026-07-13T22:25:53.787Z",
+      "game": 1,
+      "name": "Python features",
+      "description": null,
+      "complete": false,
+      "end_time": null,
+      "lightning": false
+    }
+  },
+  {
+    "model": "games.question",
+    "pk": 1,
+    "fields": {
+      "number": 1,
+      "created": "2026-07-13T21:27:47.465Z",
+      "modified": "2026-07-13T22:22:28.579Z",
+      "round": 1,
+      "text": "What was Python named after?",
+      "image": "",
+      "image_in_question": false,
+      "link": null,
+      "link_display": null,
+      "details": "",
+      "out_of": 1,
+      "answer": "Monty Python",
+      "audio": ""
+    }
+  },
+  {
+    "model": "games.question",
+    "pk": 2,
+    "fields": {
+      "number": 2,
+      "created": "2026-07-13T21:27:47.467Z",
+      "modified": "2026-07-13T22:22:28.581Z",
+      "round": 1,
+      "text": "Who created Python?",
+      "image": "",
+      "image_in_question": false,
+      "link": null,
+      "link_display": null,
+      "details": "",
+      "out_of": 1,
+      "answer": "Guido Van Rossum",
+      "audio": ""
+    }
+  },
+  {
+    "model": "games.question",
+    "pk": 3,
+    "fields": {
+      "number": 1,
+      "created": "2026-07-13T21:28:27.174Z",
+      "modified": "2026-07-13T22:25:45.379Z",
+      "round": 2,
+      "text": "When were f-strings added?",
+      "image": "",
+      "image_in_question": false,
+      "link": null,
+      "link_display": null,
+      "details": "",
+      "out_of": 1,
+      "answer": "3.6",
+      "audio": ""
+    }
+  },
+  {
+    "model": "games.question",
+    "pk": 4,
+    "fields": {
+      "number": 3,
+      "created": "2026-07-13T22:22:28.568Z",
+      "modified": "2026-07-13T22:22:28.568Z",
+      "round": 1,
+      "text": "What was one change between Python 2 and 3?",
+      "image": "",
+      "image_in_question": false,
+      "link": null,
+      "link_display": null,
+      "details": "A) Type hints were added\r\nB) Strings were unicode by default\r\nC) Dictionaries were sorted by insertion order",
+      "out_of": 1,
+      "answer": "2.7",
+      "audio": ""
+    }
+  },
+  {
+    "model": "games.question",
+    "pk": 5,
+    "fields": {
+      "number": 2,
+      "created": "2026-07-13T22:25:45.375Z",
+      "modified": "2026-07-13T22:25:53.789Z",
+      "round": 2,
+      "text": "What is a valid list comprehension?",
+      "image": "",
+      "image_in_question": false,
+      "link": null,
+      "link_display": null,
+      "details": "A) [x**2 for x in range(5) if x % 2 = 0]\r\nB) (x**2 for x in range(5))\r\nC) [x if x%2 == 0 else x**2 for x in range(5)]\r\nD) [x**2 for X in range(5)]",
+      "out_of": 1,
+      "answer": "C - It uses Python's ternary feature",
+      "audio": ""
+    }
+  }
+]
