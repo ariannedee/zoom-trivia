@@ -48,6 +48,7 @@ The **players** can:
 
 1. Create a virtual environment with Python 3.14 and activate it
 1. Install the requirements: `pip install -r requirements/local.txt`
+1. Set the environment variable `DJANGO_SETTINGS_MODULE` to `config.settings.local`
 1. Initialize and migrate a new Sqlite db: `python manage.py migrate`
 1. Create a new superuser: `python manage.py creatsuperuser`
 1. Load some test data (optional): `python loaddata`
@@ -74,11 +75,12 @@ $ open htmlcov/index.html
 ### Using PythonAnywhere
 
 1. Go to Web view and launch a console using the virtual env
-2. $ git pull
-3. $ source venv/bin/postactivate
-4. $ pip install -r requirements/production.txt
-5. $ ./manage.py migrate
-6. $ ./manage.py collectstatic
-7. $ ./manage.py compress
-8. Reload server
-9. $ ./manage.py createsuperuser
+2. `$ git pull`
+3. `$ source venv/bin/postactivate`
+4. `$ pip install -r requirements/production.txt`
+5. Set the environment variable `DJANGO_SETTINGS_MODULE` to `config.settings.production`
+6. `$ ./manage.py migrate`
+7. `$ ./manage.py collectstatic`
+8. `$ ./manage.py compress`
+9. `Reload server`
+10. `$ ./manage.py createsuperuser`
