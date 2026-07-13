@@ -325,3 +325,4 @@ zoom_trivia/media/
 .pytest_cache/
 
 .env
+*.sqlite3
